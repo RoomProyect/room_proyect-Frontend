@@ -1,11 +1,19 @@
 import './App.css'
+import Home from './componentes/home/Home'
+
+
+
 
 function App() {
 
 
   return (
   <div>
-    <h1>pf</h1>
+
+<Home></Home>
+
+
+    <h1>git flow la tenes adentro</h1>
   </div>
   )
 }
