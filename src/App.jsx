@@ -1,20 +1,23 @@
 import './App.css'
-import Home from './componentes/home/Home'
-
-
+import Home from './views/home/Home'
+import { Route, Routes } from "react-router-dom";
+import Landing from './views/landing/Landing.jsx'
 
 
 function App() {
-
+  
+  // const location = useLocation();
+  // const isLandingPage = location.pathname === "/"; 
 
   return (
-  <div>
+      <div className="App">
 
-<Home></Home>
+      <Routes>
+        <Route exact path={"/"} element={<Landing />} /> 
+        <Route path={"/home"} element={<Home />} />
+      </Routes>
+    </div>
 
-
-    <h1>git flow la tenes adentro</h1>
-  </div>
   )
 }
 
