@@ -1,0 +1,160 @@
+.navBarContainer {
+    width: auto;
+    height: 4rem;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFF;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    padding: 0 20px; /* Ajusta según necesidades */
+}
+
+.logoContainer{
+
+    margin-left: 8rem;
+}
+
+
+/* Estilos de la barra de búsqueda */
+.searchBar {
+    position: absolute;
+    width: 350px;
+    height: 45px;
+    top: 10px;
+    left: 60%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.205);
+    padding: 0 15px;
+    border-radius: 0.72731rem;
+    background: rgba(0, 0, 0, 0.041);
+    box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.281);
+}
+
+.searchHeader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.searchInput {
+    margin-top: 5px;
+    width: 250px;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    background: transparent;
+    color: rgba(0, 0, 0, 0.867);
+    border:none ;
+}
+
+.searchInput::placeholder {
+    color: rgba(0, 0, 0, 0.575);
+}
+
+.circle {
+    margin-top: 8px;
+    width: 30px;
+    height: 30px;
+    background-color: #375345;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:none ;
+}
+
+.searchIcon{
+    width: 17px;
+}
+
+
+
+
+/* Estilos del botón al lado de la barra de búsqueda */
+.searchButton {
+    width: 190px;
+    height: 40px;
+    border: none;
+    margin-top: 0.6rem;
+    background-color: rgba(255, 255, 255, 0.205);
+    padding: 0 15px;
+    border-radius: 0.72731rem;
+    background: rgba(0, 0, 0, 0.027);
+    box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.322);
+    
+    position: absolute;
+    top: 5px;
+    left: calc(66% + 175px); /* Ajusta según sea necesario para colocar el botón a la derecha de la barra de búsqueda */
+}
+
+
+
+
+
+
+/* Ajustes para el menú hamburguesa */
+.hamburgerMenuContainer {
+    margin-right: 6.8rem;
+    position: absolute;
+    top: 90px; /* Ajusta la posición según sea necesario */
+    right: 0; /* Posición en el lado derecho */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 11px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 0.6875rem;
+    background: rgba(255, 255, 255, 0.774);
+    backdrop-filter: blur(1px);
+    border: 2px #f8fffb ;
+    
+}
+
+.hamburgerMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    padding: 10px;
+}
+
+.menuItem {
+    width: 150px;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    font-family: 'Arial', sans-serif; 
+    font-weight: normal; 
+    color: #1d1d1d;
+}
+
+.menuItem:hover {
+    background-color: rgba(36, 59, 36, 0.151); 
+    color: #243a27;
+    transition: background-color 0.3s;
+    backdrop-filter: blur(5px); 
+}
+
+.customUserIcon {   
+    color: #375345;
+    margin-right: 8rem;
+}
+.userContainer{
+    margin-top: 10px;
+}
+
+.customUserIcon:hover {
+    color: rgb(31, 54, 38)
+}
+
+.navBarRigth {
+    display: flex;
+    align-items: center;
+}
