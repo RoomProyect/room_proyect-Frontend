@@ -1,5 +1,5 @@
 
-import Card from "../card/Card"
+// import Card from "../card/Card"
 
 
 
