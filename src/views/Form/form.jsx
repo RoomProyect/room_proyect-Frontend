@@ -1,18 +1,26 @@
+import {uploadFile} from '../../componentes/Firebase/config'
 import { useForm } from "react-hook-form";
+import { useDispatch } from 'react-redux';
+import { postDepto } from '../../redux/actions';
 
-const form = () => {
+const Form = ( ) =>{
+    
+        const dispatch = useDispatch()
+        const { register, handleSubmit} = useForm();
+    
+        const onSubmit = (data) => {
+            // a donde vamos a enviar la data
+            console.log(data)
+            dispatch(postDepto(data))
+        }
+return (
 
-    const { register, handleSubmit} = useForm();
 
-    const onSubmit = (data) => {
-        // a donde vamos a enviar la data
-        console.log(data)
-    }
 
-    return <div>
+<div>
         <h2>Formulario</h2>
         <form onSubmit = {handleSubmit(onSubmit)}>
-            <label htmlFor="">Precio</label>
+        <label htmlFor="">Precio</label>
             <input type="text" name="precio" id="precio" {...register("precio")} />
 
             <label htmlFor="">Descripcion</label>
@@ -33,10 +41,17 @@ const form = () => {
             <label htmlFor="">Cocheras</label>
             <input type="text" name="cocheras" id="cocheras" {...register("cochera")}/>
 
-            <label htmlFor=""></label>
-            <input type="text" name="" id="" />
+    <div>
+    <input type="file" onChange={e => uploadFile(e.target.files[0])} />
+
+    </div>
+            <input type="submit" value="Enviar" />
         </form>
     </div>
-}
 
-export default form;
+
+
+)
+
+}
+export default Form
