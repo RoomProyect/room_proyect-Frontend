@@ -1,57 +1,47 @@
-import {uploadFile} from '../../componentes/Firebase/config'
-import { useForm } from "react-hook-form";
+import { uploadFile } from '../../componentes/Firebase/config';
+import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { postDepto } from '../../redux/actions';
+import styles from './form.module.css';
 
-const Form = ( ) =>{
-    
-        const dispatch = useDispatch()
-        const { register, handleSubmit} = useForm();
-    
-        const onSubmit = (data) => {
-            // a donde vamos a enviar la data
-            console.log(data)
-            dispatch(postDepto(data))
-        }
+const Form = () => {
+    const dispatch = useDispatch();
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+        dispatch(postDepto(data));
+    };
+
 return (
+        <div className={styles.formContainer}>
+        <h2 className={styles.formTitle}>Formulario</h2>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.formGroup}>
+            <label htmlFor="precio" className={styles.formLabel}>Precio</label>
+            <input type="text" name="precio" id="precio" {...register('precio')} className={styles.formInput} />
+            </div>
 
+            <div className={styles.formGroup}>
+            <label htmlFor="descripcion" className={styles.formLabel}>Descripcion</label>
+            <input type="text" name="descripcion" id="descripcion" {...register('descripcion')} className={styles.formInput} />
+            </div>
 
+            {/* Repite este patrón para los demás campos del formulario */}
 
-<div>
-        <h2>Formulario</h2>
-        <form onSubmit = {handleSubmit(onSubmit)}>
-        <label htmlFor="">Precio</label>
-            <input type="text" name="precio" id="precio" {...register("precio")} />
+            <div className={styles.formGroup}>
+            <label htmlFor="cocheras" className={styles.formLabel}>Cocheras</label>
+            <input type="text" name="cocheras" id="cocheras" {...register('cochera')} className={styles.formInput} />
+            </div>
 
-            <label htmlFor="">Descripcion</label>
-            <input type="text" name="descripcion" id="descripcion" {...register("descripcion")}/>
+            <div className={styles.formGroup}>
+            <label htmlFor="fileInput" className={styles.formLabel}>Selecciona un archivo</label>
+            <input type="file" id="fileInput" onChange={(e) => uploadFile(e.target.files[0])} className={styles.fileInput} />
+            </div>
 
-            <label htmlFor="">Metros cuadrados de la Vivienda</label>
-            <input type="text" name="mcCasa" id="mcCasa" />
-            
-            <label htmlFor="">Metros cuadrados del terreno</label>
-            <input type="text" name="mcTerreno" id="mcTerreno" {...register("mcTerreno")}/>
-            
-            <label htmlFor="">Ambientes</label>
-            <input type="text" name="ambientes" id="ambientes" {...register("ambientes")}/>
-
-            <label htmlFor="">Baños</label>
-            <input type="text" name="baños" id="baños" {...register("baños")}/>
-
-            <label htmlFor="">Cocheras</label>
-            <input type="text" name="cocheras" id="cocheras" {...register("cochera")}/>
-
-    <div>
-    <input type="file" onChange={e => uploadFile(e.target.files[0])} />
-
-    </div>
-            <input type="submit" value="Enviar" />
+            <input type="submit" value="Enviar" className={styles.submitButton} />
         </form>
-    </div>
+        </div>
+    );
+};
 
-
-
-)
-
-}
-export default Form
+export default Form;
