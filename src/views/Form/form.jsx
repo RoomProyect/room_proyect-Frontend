@@ -26,7 +26,20 @@ return (
             <input type="text" name="descripcion" id="descripcion" {...register('descripcion')} className={styles.formInput} />
             </div>
 
-            {/* Repite este patrón para los demás campos del formulario */}
+            <div className={styles.formGroup}>
+            <label htmlFor="">Metros cuadrados del terreno</label>
+            <input type="text" name="mcTerreno" id="mcTerreno" {...register("mcTerreno")} className={styles.formInput}/>
+            </div>
+            
+            <div className={styles.formGroup}>
+            <label htmlFor="">Ambientes</label>
+            <input type="text" name="ambientes" id="ambientes" {...register("ambientes")} className={styles.formInput}/>
+            </div>
+
+            <div className={styles.formGroup}>
+            <label htmlFor="">Baños</label>
+            <input type="text" name="baños" id="baños" {...register("baños")} className={styles.formInput}/>
+            </div>
 
             <div className={styles.formGroup}>
             <label htmlFor="cocheras" className={styles.formLabel}>Cocheras</label>
