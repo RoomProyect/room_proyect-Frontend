@@ -47,7 +47,7 @@ const Landing = () => {
                                 <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
                                 <Link to="/register" className={styles.menuItem}>Registrarse</Link>
                                 <Link to="/perfil" className={styles.menuItem}>Perfil</Link>
-                                <Link to="/agregar-hospedaje" className={styles.menuItem}>Agregar alojamiento</Link>
+                                <Link to="/form" className={styles.menuItem}>Agregar alojamiento</Link>
                             </div>
                         </div>
                     )}
@@ -71,7 +71,7 @@ const Landing = () => {
                         </div>
                     </div>
                     <button className={`bi bi-plus custom-plus-icon ${styles.bottonDownSearchBar}`}>
-                        Agregar alojamiento
+                        <Link to="/form" className={styles.menuItem}>Agregar alojamiento</Link>
                     </button>
                     <Link to="/home" >
                         <button className={styles.bottonDownSearchBar}>
