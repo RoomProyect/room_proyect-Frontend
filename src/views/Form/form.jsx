@@ -1,0 +1,47 @@
+import { uploadFile } from '../../componentes/Firebase/config';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { postDepto } from '../../redux/actions';
+import styles from './form.module.css';
+
+const Form = () => {
+    const dispatch = useDispatch();
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+        dispatch(postDepto(data));
+    };
+
+return (
+        <div className={styles.formContainer}>
+        <h2 className={styles.formTitle}>Formulario</h2>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.formGroup}>
+            <label htmlFor="precio" className={styles.formLabel}>Precio</label>
+            <input type="text" name="precio" id="precio" {...register('precio')} className={styles.formInput} />
+            </div>
+
+            <div className={styles.formGroup}>
+            <label htmlFor="descripcion" className={styles.formLabel}>Descripcion</label>
+            <input type="text" name="descripcion" id="descripcion" {...register('descripcion')} className={styles.formInput} />
+            </div>
+
+            {/* Repite este patrón para los demás campos del formulario */}
+
+            <div className={styles.formGroup}>
+            <label htmlFor="cocheras" className={styles.formLabel}>Cocheras</label>
+            <input type="text" name="cocheras" id="cocheras" {...register('cochera')} className={styles.formInput} />
+            </div>
+
+            <div className={styles.formGroup}>
+            <label htmlFor="fileInput" className={styles.formLabel}>Selecciona un archivo</label>
+            <input type="file" id="fileInput" onChange={(e) => uploadFile(e.target.files[0])} className={styles.fileInput} />
+            </div>
+
+            <input type="submit" value="Enviar" className={styles.submitButton} />
+        </form>
+        </div>
+    );
+};
+
+export default Form;

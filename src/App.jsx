@@ -1,7 +1,8 @@
 import './App.css'
 import Home from './views/home/Home'
 import { Route, Routes } from "react-router-dom";
-import Landing from './views/landing/Landing.jsx'
+import Landing from './views/landing/Landing.jsx';
+import Form from './views/Form/form.jsx';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route exact path={"/"} element={<Landing />} /> 
         <Route path={"/home"} element={<Home />} />
+        <Route path={"/form"} element={<Form />} />
       </Routes>
     </div>
 

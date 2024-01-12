@@ -23,6 +23,7 @@ const Home = () => {
             <div className={styles.cardCotainer}>
                 <Cards />
             </div>
+
         </div>
     );
 };
