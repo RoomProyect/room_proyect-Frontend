@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {getStorage, ref, uploadBytes} from 'firebase/storage'
+import {v4} from 'uuid'
 
 const firebaseConfig = {
   apiKey: "AIzaSyD3wH8NXcBMJ1xw31srOMDG6qqpTo2f1mg",
@@ -15,7 +16,7 @@ const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app)
 
 export const  uploadFile = (file) =>{
-const storageRef= ref(storage, 'some-child')
+const storageRef= ref(storage, v4())
 uploadBytes(storageRef, file).then(
     snapshot => {console.log(snapshot)}
 )
