@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { postDepto } from '../../redux/actions';
 import styles from './form.module.css';
+import NavBar from '../../componentes/navBar/NavBar'
 
 const Form = () => {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Form = () => {
 
 return (
         <div className={styles.formContainer}>
+            <div className={styles.navBar}><NavBar/></div>
         <h2 className={styles.formTitle}>Formulario</h2>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.formGroup}>

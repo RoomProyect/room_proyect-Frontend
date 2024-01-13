@@ -32,10 +32,11 @@ const NavBar = () => {
     return (
         <div className={styles.navBarContainer}>
             
-            <div className={styles.logoContainer}>
-                <img src={CasaIcono} alt="CasaIcono" />
-            </div>
-
+            <Link to="/home" >
+                <div className={styles.logoContainer}>
+                    <img src={CasaIcono} alt="CasaIcono" />
+                </div>
+            </Link>
 
             {/* Barra de búsqueda */}
             <div className={styles.searchBar}>
@@ -55,9 +56,11 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
+            <Link to="/form" >
             <button className={styles.searchButton}>
                 + Crear publicación
             </button>
+            </Link>                            
 
             <div className={styles.navBarRigth}>
                     <div className={styles.userContainer}>
