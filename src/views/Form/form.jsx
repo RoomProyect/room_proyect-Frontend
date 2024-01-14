@@ -1,7 +1,7 @@
-import { uploadFile } from '../../componentes/Firebase/config';
+import { uploadFile } from '../../firebase/config';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { postDepto } from '../../redux/actions';
+import { postDeptoAsync, getDeptoAsync } from '../../redux/actions';
 import styles from './form.module.css';
 import NavBar from '../../componentes/navBar/NavBar'
 import { useState } from 'react';
@@ -17,7 +17,7 @@ const Form = () => {
         const result = await uploadFile(img)
          data.img = result
    console.log(result);
-         dispatch(postDepto(data));
+         dispatch(postDeptoAsync(data));
     };
 
     return (
