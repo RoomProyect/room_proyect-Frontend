@@ -1,5 +1,3 @@
-// FiltersComponent.jsx
-
 import { useState } from 'react';
 import styles from './filters.module.css';
 

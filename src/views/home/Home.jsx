@@ -15,8 +15,6 @@ dispatch(getDeptoAsync())
 }, [])
 
 
-
-
 const deptos = useSelector((state) => state.counter.deptos);
 console.log(deptos);
     return (

@@ -23,9 +23,15 @@ const Form = () => {
 
 return (
     <div className={styles.formContainer}>
-        <div className={styles.navBar}><NavBar /></div>
-        <h2 className={styles.formTitle}>Formulario</h2>
+        <div className={styles.navBar}>< NavBar /></div>
+        <h2 className={styles.formTitle}> Formulario </h2>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+
+            
+        <div className={styles.formGroup}>
+            <label htmlFor="titulo" className={styles.formLabel}>Titulo</label>
+            <input type="text" name="titulo" id="titulo" {...register('titulo')} className={styles.formInput} />
+        </div>
 
         <div className={styles.formGroup}>
             <label htmlFor="ambientes">Ambientes</label>
@@ -43,17 +49,17 @@ return (
         </div>
 
         <div className={styles.formGroup}>
+            <label htmlFor="ciudad" className={styles.formLabel}>Ciudad</label>
+            <input type="text" name="ciudad" id="ciudad" {...register('ciudad')} className={styles.formInput} />
+        </div>
+
+        <div className={styles.formGroup}>
             <label htmlFor="descripcion" className={styles.formLabel}>Descripcion</label>
             <input type="text" name="descripcion" id="descripcion" {...register('descripcion')} className={styles.formInput} />
         </div>
 
         <div className={styles.formGroup}>
-            <label htmlFor="fileInput" className={styles.formLabel}>Selecciona un archivo</label>
-            <input type="file" id="fileInput" onChange={(e) => setImg(e.target.files[0])} className={styles.fileInput} />
-        </div>
-
-        <div className={styles.formGroup}>
-            <label htmlFor="habitaciones" className={styles.formLabel}>habitaciones</label>
+            <label htmlFor="habitaciones" className={styles.formLabel}>Habitaciones</label>
             <input type="text" name="habitaciones" id="habitaciones" {...register('habitaciones')} className={styles.formInput} />
         </div>
 
@@ -68,8 +74,8 @@ return (
         </div>
 
         <div className={styles.formGroup}>
-            <label htmlFor="titulo" className={styles.formLabel}>Titulo</label>
-            <input type="text" name="titulo" id="titulo" {...register('titulo')} className={styles.formInput} />
+            <label htmlFor="fileInput" className={styles.formLabel}>Selecciona un archivo</label>
+            <input type="file" id="fileInput" onChange={(e) => setImg(e.target.files[0])} className={styles.fileInput} />
         </div>
 
         <input type="submit" value="Enviar" className={styles.submitButton} />
@@ -88,7 +94,7 @@ Form.propTypes = {
     mcTerreno: PropTypes.string.isRequired,
     precio: PropTypes.string.isRequired,
     titulo: PropTypes.string.isRequired,
-    ubicacion: PropTypes.string.isRequired,
+    ciudad: PropTypes.string.isRequired,
     habitaciones: PropTypes.string.isRequired,
 };
 

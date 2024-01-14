@@ -3,12 +3,13 @@ import styles from "./cards.module.css";
 import PropTypes from 'prop-types';
 
 const Cards = ({ deptos }) => {
+  
   return (
     <div className={styles.cardsRow}>
       {deptos.map((casa) => (
         <Card
-          key={casa?.id}
-          id={casa?.id}
+          key={casa?._id}
+          id={casa?._id}
           titulo={casa?.titulo}
           ciudad={casa?.ciudad}
           habitaciones={casa?.habitaciones}
@@ -27,7 +28,7 @@ const Cards = ({ deptos }) => {
 };
 
 Cards.propTypes = {
-  deptos: PropTypes.array.isRequired, // Se asume que `deptos` es un array
+  deptos: PropTypes.array.isRequired
 };
 
 export default Cards;
