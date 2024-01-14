@@ -1,10 +1,12 @@
 import styles from './Home.module.css';
 import Navbar from '../../componentes/navBar/NavBar';
 import Cards from "../../componentes/cards/Cards"
+import SearchBar from '../../componentes/SearchBar/SearchBar';
 
 const Home = () => {
     return (
         <div className={styles.homeContainer}>
+            
             <div className={styles.navBar}>
                 <Navbar />
             </div>
@@ -23,7 +25,7 @@ const Home = () => {
             <div className={styles.cardCotainer}>
                 <Cards />
             </div>
-
+<SearchBar />
         </div>
     );
 };

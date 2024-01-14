@@ -1,9 +1,9 @@
-import vivienda from '../../../../Pruebas/apartmentObj.js'
+// import vivienda from '../../../../Pruebas/apartmentObj.js'
 
 const Detail = () =>{
     return (
         <>
-        <div className="w-full bg-[#F9F9F9] mb-10">
+        {/* <div className="w-full bg-[#F9F9F9] mb-10">
             <div className="container max-w-full flex flex-row pt-6 pb-6 gap-10 lg:pl-24 md:pl-16 xl:gap-80 xl:pl-48 lg:gap-52 md:gap-40">
                 <h1 className="text-2xl" > TRAVEL </h1>
 
@@ -29,7 +29,7 @@ const Detail = () =>{
 
                 <p>{vivienda.descripcion}</p>
             </div>
-        </div>
+        </div> */}
         </>
     )
 }
