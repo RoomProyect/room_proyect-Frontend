@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 export const postDepto = (data) =>{
-const endpoint = '/'
+const endpoint = 'http://localhost:3001/'
 
 return async (dispatch) => {
 

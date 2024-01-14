@@ -20,7 +20,7 @@ const Home = () => {
                         </p>
                 </div>
             </div>
-<Form></Form>
+
             <div className={styles.cardCotainer}>
                 <Cards />
             </div>
