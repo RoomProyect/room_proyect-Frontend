@@ -1,6 +1,6 @@
 import styles from './Home.module.css';
 import Navbar from '../../componentes/navBar/NavBar';
-import Card from '../../componentes/card/Card';
+// import Card from '../../componentes/card/Card';
 
 const Home = () => {
 
@@ -22,12 +22,12 @@ const Home = () => {
             </div>
         </div>
         <div className={styles.cardContainer}>
-            {cardsToShow.map((depto) => (
-            <Card
-                key={depto.id}
-                {...depto}
-            />
-            ))}
+            {/* {cardsToShow.map((depto) => ( */}
+            {/* <Card
+                // key={depto.id}
+                // {...depto}
+            /> */}
+            
         </div>
         </div>
     );
