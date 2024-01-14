@@ -1,8 +1,8 @@
 import './App.css'
 import Home from './views/home/Home'
 import { Route, Routes } from "react-router-dom";
-import Landing from './views/landing/Landing.jsx'
-import Form from './componentes/form/form.jsx';
+import Landing from './views/landing/Landing.jsx';
+import form from './views/Form/form.jsx';
 
 
 function App() {
