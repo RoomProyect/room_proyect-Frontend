@@ -55,7 +55,7 @@ const Filters = () => {
             </label>
 
             <button className={styles.button} onClick={handleSearch}>
-            Buscar
+                Buscar
             </button>
         </div>
         </div>
