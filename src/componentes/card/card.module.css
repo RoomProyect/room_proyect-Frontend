@@ -1,10 +1,12 @@
+/* card.module.css */
+
 .card {
     width: 20.45825rem;
     height: 29.40106rem;
     flex-shrink: 0;
     border-radius: 1.22506rem;
-    background: rgba(0, 0, 0, 0.07);
-    backdrop-filter: blur(1.3067150115966797px);
+    background-color: #e2e2e241;
+    box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.281);
     margin: 2rem;
     transition: transform 0.2s ease-in-out;
 }
@@ -12,12 +14,17 @@
 .card:hover {
     transform: scale(1.0002); /* Incrementa el tamaño al 105% cuando hay hover */
 }
-    
+
+.icono {
+    height: 20px;
+    color: #375345;
+}
+
 .cardContainer {
     display: flex;
     flex-direction: column;
 }
-    
+
 .imageContainer {
     width: 17.47731rem;
     height: 16.41563rem;
@@ -30,21 +37,47 @@
     height: 100%;
     border-radius: 40px;
     padding: 1rem;
-    padding-left: 1.5rem ;
+    padding-left: 1.5rem;
+    margin-bottom: 15px;
+    object-fit: cover; 
 }
 
 .textContainer {
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
-.nombre {
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
+
+}
+
+.otroInfoContainer {
+    display: flex;
+    gap: 10px; 
+
+}
+
+.icono {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+}
+
+.titulo {
+    margin-top: 2rem;
     font-size: 1.2rem;
     font-weight: bold;
+    margin-left: 2rem;
 }
 
 .precio {
-    font-size: 1rem;
+    font-size: 1.4rem;
     margin-top: 0.5rem;
+    margin-left: 2rem;
+    color: #375345;
 }
 
 .mc2Container {
@@ -54,7 +87,7 @@
 .mc2 {
     font-size: 1rem;
 }
-    
+
 .descripcion {
     margin-top: 0.5rem;
     font-size: 0.9rem;
@@ -70,5 +103,3 @@
     text-decoration: none !important;
     color: inherit !important;
 }
-
-
