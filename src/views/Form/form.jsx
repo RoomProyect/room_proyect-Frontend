@@ -1,8 +1,5 @@
 import { uploadFile } from '../../componentes/Firebase/config';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from "react";
-import { postDepto, getProvincias } from '../../redux/actions';
 import styles from './form.module.css';
 import NavBar from '../../componentes/navBar/NavBar'
 import { may_cero } from './validator';
