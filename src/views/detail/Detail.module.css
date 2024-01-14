@@ -1,0 +1,21 @@
+.detailContainer {
+    background-image: url("../../assets/cloudinary/bosqueFondoPf.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start; 
+}
+
+.card {
+    width: 20.45825rem;
+    height: 29.40106rem;
+    flex-shrink: 0;
+    border-radius: 1.22506rem;
+    background: rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(1.3067150115966797px);
+}
+
+
