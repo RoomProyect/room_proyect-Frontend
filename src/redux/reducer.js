@@ -1,6 +1,7 @@
 
 const inicialState = {
     depto:[],
+    provincias:[],
     }
     
     
@@ -9,6 +10,8 @@ const inicialState = {
         switch (actions.type) {
             case 'post':
                 return {...state, depto : actions.payload}
+            case 'get_provincias':
+                return {...state, provincias: actions.payload}
         }
     }
     
