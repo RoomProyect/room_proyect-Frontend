@@ -1,7 +1,6 @@
 import styles from './Home.module.css';
 import Navbar from '../../componentes/navBar/NavBar';
 import Cards from "../../componentes/cards/Cards"
-import Form from '../Form/form';
 
 const Home = () => {
     return (
@@ -25,9 +24,7 @@ const Home = () => {
             <div className={styles.cardCotainer}>
                 <Cards />
             </div>
-            <div>
-                <Form />
-            </div>
+
         </div>
     );
 };

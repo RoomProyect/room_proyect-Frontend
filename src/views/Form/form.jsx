@@ -1,57 +1,62 @@
-import {uploadFile} from '../../componentes/Firebase/config'
-import { useForm } from "react-hook-form";
+import { uploadFile } from '../../componentes/Firebase/config';
+import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { postDepto } from '../../redux/actions';
+import styles from './form.module.css';
+import NavBar from '../../componentes/navBar/NavBar'
 
-const Form = ( ) =>{
-    
-        const dispatch = useDispatch()
-        const { register, handleSubmit} = useForm();
-    
-        const onSubmit = (data) => {
-            // a donde vamos a enviar la data
-            console.log(data)
-            dispatch(postDepto(data))
-        }
+const Form = () => {
+    const dispatch = useDispatch();
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+        dispatch(postDepto(data));
+    };
+
 return (
+        <div className={styles.formContainer}>
+            <div className={styles.navBar}><NavBar/></div>
+        <h2 className={styles.formTitle}>Formulario</h2>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.formGroup}>
+            <label htmlFor="precio" className={styles.formLabel}>Precio</label>
+            <input type="text" name="precio" id="precio" {...register('precio')} className={styles.formInput} />
+            </div>
 
+            <div className={styles.formGroup}>
+            <label htmlFor="descripcion" className={styles.formLabel}>Descripcion</label>
+            <input type="text" name="descripcion" id="descripcion" {...register('descripcion')} className={styles.formInput} />
+            </div>
 
-
-<div>
-        <h2>Formulario</h2>
-        <form onSubmit = {handleSubmit(onSubmit)}>
-        <label htmlFor="">Precio</label>
-            <input type="text" name="precio" id="precio" {...register("precio")} />
-
-            <label htmlFor="">Descripcion</label>
-            <input type="text" name="descripcion" id="descripcion" {...register("descripcion")}/>
-
-            <label htmlFor="">Metros cuadrados de la Vivienda</label>
-            <input type="text" name="mcCasa" id="mcCasa" />
-            
+            <div className={styles.formGroup}>
             <label htmlFor="">Metros cuadrados del terreno</label>
-            <input type="text" name="mcTerreno" id="mcTerreno" {...register("mcTerreno")}/>
+            <input type="text" name="mcTerreno" id="mcTerreno" {...register("mcTerreno")} className={styles.formInput}/>
+            </div>
             
+            <div className={styles.formGroup}>
             <label htmlFor="">Ambientes</label>
-            <input type="text" name="ambientes" id="ambientes" {...register("ambientes")}/>
+            <input type="text" name="ambientes" id="ambientes" {...register("ambientes")} className={styles.formInput}/>
+            </div>
 
+            <div className={styles.formGroup}>
             <label htmlFor="">Baños</label>
-            <input type="text" name="baños" id="baños" {...register("baños")}/>
+            <input type="text" name="baños" id="baños" {...register("baños")} className={styles.formInput}/>
+            </div>
 
-            <label htmlFor="">Cocheras</label>
-            <input type="text" name="cocheras" id="cocheras" {...register("cochera")}/>
+            <div className={styles.formGroup}>
+            <label htmlFor="cocheras" className={styles.formLabel}>Cocheras</label>
+            <input type="text" name="cocheras" id="cocheras" {...register('cochera')} className={styles.formInput} />
+            </div>
 
-    <div>
-    <input type="file" onChange={e => uploadFile(e.target.files[0])} />
+            <div className={styles.formGroup}>
+            <label htmlFor="fileInput" className={styles.formLabel}>Selecciona un archivo</label>
+            <input type="file" id="fileInput" onChange={(e) => uploadFile(e.target.files[0])} className={styles.fileInput} />
+            </div>
 
-    </div>
-            <input type="submit" value="Enviar" />
+            <input type="submit" value="Enviar" className={styles.submitButton} />
         </form>
-    </div>
+        </div>
+    );
+};
 
-
-
-)
-
-}
-export default Form
+export default Form;
