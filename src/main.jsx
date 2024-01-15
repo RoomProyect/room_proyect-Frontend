@@ -6,7 +6,7 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from './redux/store.js'
 
-axios.defaults.baseURL = 'https://room-project-backend.onrender.com'
+axios.defaults.baseURL = 'https://room-project-backend.onrender.com';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
