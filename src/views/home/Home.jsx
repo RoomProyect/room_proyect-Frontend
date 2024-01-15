@@ -12,11 +12,11 @@ const Home = () => {
 const dispatch = useDispatch();
 useEffect(()=>{
 dispatch(getDeptoAsync())
-}, [])
+}, [dispatch])
 
 
 const deptos = useSelector((state) => state.counter.deptos);
-console.log(deptos);
+
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>

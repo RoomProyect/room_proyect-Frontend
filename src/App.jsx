@@ -5,6 +5,7 @@ import Landing from './views/landing/Landing.jsx';
 import Form from './views/Form/form.jsx';
 
 
+
 function App() {
   
   // const location = useLocation();
@@ -17,6 +18,7 @@ function App() {
         <Route exact path={"/"} element={<Landing />} /> 
         <Route path={"/home"} element={<Home />} />
         <Route path={"/form"} element={<Form />} />
+
       </Routes>
     </div>
 
