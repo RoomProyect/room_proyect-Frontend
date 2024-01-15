@@ -59,6 +59,7 @@
     width: 50%; 
 }
 
-.submitButton {
-
+.error{
+    color: red;
+    font-size: 12px;
 }

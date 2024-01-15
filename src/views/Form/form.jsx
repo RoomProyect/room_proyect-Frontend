@@ -213,4 +213,4 @@ Form.propTypes = {
   habitaciones: PropTypes.string.isRequired,
 };
 
-export default Form;
+export default Form
