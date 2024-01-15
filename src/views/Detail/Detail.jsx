@@ -1,12 +1,16 @@
-import { useSelector } from 'react-redux';
-// import vivienda from '../../../../Pruebas/apartmentObj.js'
+import { useDispatch, useSelector } from 'react-redux';
 import NavBar from '../../componentes/navBar/NavBar.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getDeptoAsync } from '../../redux/actions.js';
 
 const Detail = () =>{
     const { id } = useParams()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const vivienda = useSelector((state) => {
+        if(state.counter.deptos.length <= 0){
+            dispatch(getDeptoAsync())
+        }
         const response = state.counter.deptos.find(depto=>{
             return depto._id === id
         })
@@ -60,7 +64,7 @@ const Detail = () =>{
             </div>
             <div className="ml-14 mr-14 bg-black bg-opacity-5 flex flex-col justify-center items-center p-8 rounded-2x1 overflow-y-hidden">
                 <div className="flex justify-center items-center w-[100%] h-[40vh]">
-                    <button onClick={()=> navigate(-1)}> {"<- Back"}</button>
+                    LOADING...
                 </div>
             </div>
             </>
