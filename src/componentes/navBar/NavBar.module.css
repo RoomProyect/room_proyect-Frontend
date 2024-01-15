@@ -73,8 +73,6 @@
 }
 
 
-
-
 /* Estilos del botón al lado de la barra de búsqueda */
 .searchButton {
     width: 190px;
@@ -98,10 +96,6 @@
         transform: translateY(1px); /* Ajusta según sea necesario para dar un efecto de clic */
     }
 }
-
-
-
-
 
 
 /* Ajustes para el menú hamburguesa */
@@ -152,8 +146,9 @@
     color: #375345;
     margin-right: 8rem;
 }
+
 .userContainer{
-    margin-top: 30px;
+    margin-top: 12px;
 }
 
 .customUserIcon:hover {

@@ -1,77 +1,103 @@
 import { useState } from 'react';
 import styles from './filters.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getActionFiltered } from '../../redux/actions';
 
 const Filters = () => {
-    const [cities, setCities] = useState('');
-    const [bedrooms, setBedrooms] = useState(0);
-    const [squareMeters, setSquareMeters] = useState('');
-    const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
 
-    const handleInputChange = (e, setter) => {
-        const value = e.target.value;
+    const [ciudad, setCiudad] = useState('');
+    const [cochera, setCochera] = useState('');
+    const [precioMin, setPrecioMin] = useState('');
+    const [precioMax, setPrecioMax] = useState('');
+
+    const dispatch = useDispatch();
+
+
+    const deptos = useSelector((state) => state.counter.deptos);
+    
+
+    const handleInputChange = (event, setter) => {
+        const value = event.target.value;
         setter(value);
+        dispatch( getActionFiltered( [value, event.target.name] ) );
     };
 
-    const handlePriceRangeChange = (e) => {
-        const value = e.target.value;
-        const [min, max] = value.split('-').map(val => (val.trim() === '' ? 0 : parseInt(val, 10)));
-
-        setPriceRange({
-            min: isNaN(min) ? 0 : min,
-            max: isNaN(max) ? 0 : max
-        });
-    };
+    const handleSelecOrd = (event) =>{dispatch(getActionFiltered([event.target.value, event.target.name]))}
 
     const handleSearch = () => {
-        console.log('Ciudades:', cities);
-        console.log('Bedrooms:', bedrooms);
-        console.log('Square Meters:', squareMeters);
-        console.log('Price Range:', priceRange);
-    };
+        let deptosFiltrados = [...deptos];
+
+        if (ciudad) {
+            deptosFiltrados = deptosFiltrados.filter(depto => depto.ciudad == ciudad)
+        }
+        if (cochera === "s") {
+            deptosFiltrados = deptosFiltrados.filter((depto) => depto.cochera == true);
+        }
+        if (cochera === "n") {
+            deptosFiltrados = deptosFiltrados.filter((depto) => depto.cochera == false);
+        }
+
+        if (precioMin || precioMax) {
+            if (precioMin) {
+                deptosFiltrados = deptosFiltrados.filter(depto => depto.precio < precioMin)
+            }
+        };
+    }
+
+    const handleClick = () =>{
+
+    }
 
     return (
         <div className={styles.container}>
             <div className={styles.formContainer}>
                 <label className={styles.label}>
-                    Ciudades:
-                    <input
-                        type="text"
-                        value={cities}
-                        onChange={(e) => handleInputChange(e, setCities)}
-                        className={styles.input}
-                    />
+                    Ordenar por Precio
+                    <select name="select" onChange={handleSelecOrd}>
+                        <option value="default">---</option>
+                        <option value="may_min">mayor a menor</option>
+                        <option value="min_may">menor a mayor</option>
+                    </select>
                 </label>
-
                 <label className={styles.label}>
-                    Habitaciones:
-                    <input
+                    Cochera:
+                    <select
                         type="number"
-                        value={bedrooms}
-                        onChange={(e) => handleInputChange(e, setBedrooms)}
+                        onChange={(e) => handleInputChange(e, setCochera)}
                         className={styles.input}
                         min="0"
-                    />
+                    >
+                        <option value="yes"> si</option>
+                        <option value="no"> no</option>
+                    </select>
+
+
                 </label>
 
-                <label className={styles.label}>
-                    Metros Cuadrados:
+                <label>
+                    Precio mínimo:
                     <input
+                        name="min"
                         type="number"
-                        value={squareMeters}
-                        onChange={(e) => handleInputChange(e, setSquareMeters)}
-                        className={styles.input}
+                        value={precioMin}
+                        onChange={(e) => handleInputChange(e, setPrecioMin)}
                     />
                 </label>
 
-                <label className={styles.label}>
-                    Rango de Precio:
+                <label>
+                    Precio máximo:
                     <input
-                        type="text"
-                        value={`${priceRange.min} - ${priceRange.max}`}
-                        onChange={handlePriceRangeChange}
-                        className={styles.input}
+                        name="max"
+                        type="number"
+                        value={precioMax}
+                        onChange={(e) => handleInputChange(e, setPrecioMax)}
                     />
                 </label>
+
+
+                <button name = "reset" className={styles.button} onClick={handleClick}>
+                    Reset
+                </button>
 
                 <button className={styles.button} onClick={handleSearch}>
                     Buscar
