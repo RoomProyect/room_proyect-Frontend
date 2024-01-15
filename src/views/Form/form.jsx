@@ -57,7 +57,6 @@ return (
                     })}
                 />
                 {errors.ambientes && <p>{errors.ambientes.message}</p>}
-                {/* {errors.ambientes?.type === "required" && <p className = { styles.error }>Este campo es requerido</p>} */}
             </div>
 
             <div className={styles.formGroup}>
