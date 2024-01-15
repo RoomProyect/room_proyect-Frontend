@@ -1,45 +1,39 @@
-import axios from 'axios'
+import axios from 'axios';
+import { postDepto, getDepto } from './slice/counterSlice';
 
-const extraer_ciudades = (array) =>{
-  return array.map((el)=>{return el.nombre})
-}
+export const postDeptoAsync = (data) => async (dispatch) => {
+  const endpoint = 'http://localhost:3001/apartment';
 
-export const postDepto = (data) =>{
-const endpoint = '/'
+  try {
+    console.log(data);
+    const response = await axios.post(endpoint, data);
 
-return async (dispatch) => {
-
-    try {
-      console.log(data)
-      const response = await axios.post(endpoint, data)
-      dispatch({
-        type: 'post',
-        payload: response.data,
-      })
-      alert("agregado correctamente! ")
-    } catch (error) {
-      dispatch({
-        type: 'error',
-        payload: error.message,
-      });
-      console.log(error);
-    }
-
+    // Utiliza la acción directamente desde el slice
+    dispatch(postDepto(response.data));
+    alert('Agregado correctamente!');
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    });
+    console.log(error);
   }
-}
+};
 
-export const  getProvincias = () => {
-  return async (dispatch) => {
-      try{
-          const { data } = await axios('https://apis.datos.gob.ar/georef/api/provincias')
+export const getDeptoAsync = () => async (dispatch) => {
+  const endpoint = 'http://localhost:3001/apartment';
 
-          dispatch({
-              type: 'get_provincias',
-              payload: extraer_ciudades(data.provincias),
-          });
+  try {
+    const response = await axios(endpoint);
+    console.log(response.data);
 
-      }catch(error){
-          throw Error(error.message) 
-      }
+    // Utiliza la acción directamente desde el slice
+    dispatch(getDepto(response.data));
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    });
+    console.log(error);
   }
 };

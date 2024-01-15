@@ -1,34 +1,34 @@
+import Card from "../card/Card";
+import styles from "./cards.module.css";
+import PropTypes from 'prop-types';
 
-// import Card from "../card/Card"
-
-
-
-
-const Cards = () => {
-
-
-
-
-
-
-    return(
-        <div>
-{/* 
-        {casas.map((casa) => {
-            return (
-                <Card
-                key={casa.id}
-                id={casa.id}              
-                name={casa.name}
-
-                />
-                )
-                
-                
-            })} */}
+const Cards = ({ deptos }) => {
+  
+  return (
+    <div className={styles.cardsRow}>
+      {deptos.map((casa) => (
+        <Card
+          key={casa?._id}
+          id={casa?._id}
+          titulo={casa?.titulo}
+          ciudad={casa?.ciudad}
+          habitaciones={casa?.habitaciones}
+          ambientes={casa?.ambientes}
+          baños={casa?.baños}
+          cochera={casa?.cochera}
+          descripcion={casa?.descripcion}
+          img={casa?.img}
+          precio={casa?.precio}
+          mcTerreno={casa?.mcTerreno}
+          className={styles.cardContainer}
+        />
+      ))}
     </div>
-)
+  );
+};
 
+Cards.propTypes = {
+  deptos: PropTypes.array.isRequired
+};
 
-}
-export default Cards
+export default Cards;
