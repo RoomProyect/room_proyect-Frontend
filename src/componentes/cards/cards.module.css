@@ -7,7 +7,7 @@
         height: 29.40106rem;
         flex-shrink: 0;
         border-radius: 1.22506rem;
-        background: rgba(0, 0, 0, 0.07);
+        background: rgba(250, 247, 247, 0.07);
         backdrop-filter: blur(1.3067150115966797px);
     }
     
@@ -55,4 +55,15 @@
         margin-top: 0.5rem;
         font-size: 0.9rem;
     }
-  
+
+.cardsRow {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 20px; 
+    padding: 20px; 
+}
+
+.cardContainer {
+    flex: 1 0 20%; 
+}

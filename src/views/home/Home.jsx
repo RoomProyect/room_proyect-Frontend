@@ -1,8 +1,22 @@
 import styles from './Home.module.css';
 import Navbar from '../../componentes/navBar/NavBar';
+import Filters from '../../componentes/filters/filters';
 import Cards from "../../componentes/cards/Cards"
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {  getDeptoAsync } from '../../redux/actions'; 
+
 
 const Home = () => {
+
+const dispatch = useDispatch();
+useEffect(()=>{
+dispatch(getDeptoAsync())
+}, [])
+
+
+const deptos = useSelector((state) => state.counter.deptos);
+console.log(deptos);
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
@@ -20,8 +34,11 @@ const Home = () => {
                         </p>
                 </div>
             </div>
-            <div className={styles.cardCotainer}>
-                <Cards />
+            <div>
+                <Filters/>
+            </div>
+            <div>
+                <Cards deptos={deptos}/>
             </div>
 
         </div>
