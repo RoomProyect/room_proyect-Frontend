@@ -1,12 +1,10 @@
-/* card.module.css */
-
 .card {
     width: 20.45825rem;
     height: 29.40106rem;
     flex-shrink: 0;
     border-radius: 1.22506rem;
-    background-color: #e2e2e241;
-    box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.281);
+    background-color: #e2e2e238;
+    box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.178);
     margin: 2rem;
     transition: transform 0.2s ease-in-out;
 }
@@ -30,6 +28,7 @@
     height: 16.41563rem;
     flex-shrink: 0;
     border-radius: 0.6125rem;
+    margin-left: 1.3rem;
 }
 
 .image {
@@ -57,13 +56,14 @@
 .otroInfoContainer {
     display: flex;
     gap: 10px; 
-
+    margin-top: 1rem;
 }
 
 .icono {
     width: 10px;
     height: 10px;
     margin-right: 5px;
+    color: #375345;
 }
 
 .titulo {
@@ -101,5 +101,5 @@
 .descripcion {
     font-family: 'Open Sans Semibold', sans-serif !important;
     text-decoration: none !important;
-    color: inherit !important;
+
 }

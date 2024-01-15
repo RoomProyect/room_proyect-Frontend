@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     padding: 2rem;
-    width: 60rem;
+    width: 70rem;
     background-color: #d4d4d42c;
     border-radius: 15px;
     margin-top: 2rem;
@@ -20,7 +20,7 @@
 }
 
 .textContainer {
-    width: 28.58438rem;
+    width: 35rem;
 }
 
 .title {

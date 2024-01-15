@@ -1,20 +1,100 @@
-.detailContainer {
-    background-image: url("../../assets/cloudinary/bosqueFondoPf.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+.container {
+    margin: 3rem;
+    height: 42vw;
+    flex-shrink: 0;
+    border-radius: 0.83088rem;
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.propertyImage {
+    width: 30.74275rem;
+    height: 25.46419rem;
+    flex-shrink: 0;
+    border-radius: 0.9775rem;
+    object-fit: cover; 
+    object-position: center; 
+    margin-left: 4rem;
+    margin-top: 2rem;
+}
+
+
+.propertyDetails {
+    display: flex;
+}
+
+.propertyImage {
+    width: 30.74275rem;
+    height: 25.46419rem;
+    flex-shrink: 0;
+    border-radius: 0.9775rem;
+    object-fit: cover;
+    object-position: center;
+}
+
+.propertyTitleContainer {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start; 
+    justify-content: center;
+    
 }
 
-.card {
-    width: 20.45825rem;
-    height: 29.40106rem;
+.propertyTitle {
+    width: 33.03988rem;
+    height: 2.73706rem;
+    color: #000;
+    font-family: Inter;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+    font-family: 'Arial', sans-serif; 
+    font-weight: normal; 
+}
+
+.priceValue{
+    font-size: 1.2rem;
+    color: #375345;
+}
+
+.propertyInfo{
+    margin-left: 4rem;
+}
+
+.additionalDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    margin-left: 4rem;
+    margin-top: 5rem;
+}
+
+.detail {
+    margin-bottom: 10px; /* Puedes ajustar este valor según sea necesario para el espaciado entre las secciones */
+}
+
+.goBack{
+    font-size: 1.2rem;
+    margin: 1.5rem;
+}
+
+.buyButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.buyButton {
+    width: 10.5625rem;
+    height: 3.625rem;
     flex-shrink: 0;
-    border-radius: 1.22506rem;
-    background: rgba(0, 0, 0, 0.07);
-    backdrop-filter: blur(1.3067150115966797px);
+    border-radius: 0.75rem;
+    background: #4F886B;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    margin-bottom: 20px; /* Ajustado para dar espacio superior */
+    margin-right: 30px;
 }
-
