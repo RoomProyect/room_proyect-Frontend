@@ -23,6 +23,9 @@ export const counterSlice = createSlice({
     getDeptoFiltered: ( state, action ) => {
       let array = action.payload[0]
       console.log(action.payload)
+      if(action.payload[1][0] == "reset"){
+        state.deptos = state.deptosBackup
+      }
       if(action.payload[1][0] == "may_min"){
         state.deptos = state.deptos.sort((a, b) =>  b.precio - a.precio)
       }
@@ -30,7 +33,6 @@ export const counterSlice = createSlice({
         state.deptos = state.deptos.sort((a, b) =>  a.precio - b.precio)
       }
       if(action.payload[1][0] == "default"){
-        console.log("oooaaaa")
         state.deptos = state.deptosBackup
       }
       if(action.payload[1][0] == "no"){
