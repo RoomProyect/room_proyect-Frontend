@@ -25,6 +25,8 @@ const Filters = () => {
         dispatch( getActionFiltered( [value, event.target.name] ) );
     };
 
+    const handleSelecOrd = (event) =>{dispatch(getActionFiltered([event.target.value, event.target.name]))}
+
     const handleSearch = () => {
         let deptosFiltrados = [...deptos];
 
@@ -46,23 +48,20 @@ const Filters = () => {
     }
 
     const handleClick = () =>{
-        
+
     }
 
     return (
         <div className={styles.container}>
             <div className={styles.formContainer}>
                 <label className={styles.label}>
-                    Ciudad:
-                    <input
-                        type="text"
-
-                        onChange={(e) => handleInputChange(e, setCiudad)}
-                        className={styles.input}
-                        min="0"
-                    />
+                    Ordenar por Precio
+                    <select name="select" onChange={handleSelecOrd}>
+                        <option value="default">---</option>
+                        <option value="may_min">mayor a menor</option>
+                        <option value="min_may">menor a mayor</option>
+                    </select>
                 </label>
-
                 <label className={styles.label}>
                     Cochera:
                     <select
