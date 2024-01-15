@@ -15,27 +15,17 @@
     object-position: center; 
     margin-left: 4rem;
     margin-top: 2rem;
+    box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.356);
 }
-
 
 .propertyDetails {
     display: flex;
-}
-
-.propertyImage {
-    width: 30.74275rem;
-    height: 25.46419rem;
-    flex-shrink: 0;
-    border-radius: 0.9775rem;
-    object-fit: cover;
-    object-position: center;
 }
 
 .propertyTitleContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
 }
 
 .propertyTitle {
@@ -58,30 +48,64 @@
     color: #375345;
 }
 
+.descripcion{
+    margin-top: 1rem;
+    width: 700px;
+    color: rgba(61, 61, 61, 0.719);
+}
+
+.tresImg {
+    display: flex;
+    flex-direction: row;
+}
+
+.tresImgIndividual{
+    width: 240px;
+    height: 150px;
+    border-radius: 0.5rem;
+    margin-right: 3rem;
+    margin-top: 2rem;
+    box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.356);
+}
+
 .propertyInfo{
     margin-left: 4rem;
+
 }
 
 .additionalDetailsContainer {
-    display: flex;
-    flex-direction: column;
-    margin-left: 4rem;
-    margin-top: 5rem;
+    margin-left: 4.5rem;
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    width: 400px;
 }
 
-.detail {
-    margin-bottom: 10px; /* Puedes ajustar este valor según sea necesario para el espaciado entre las secciones */
-}
-
-.goBack{
-    font-size: 1.2rem;
+/* Estilos para el contenedor del botón de retroceso */
+.goBack {
     margin: 1.5rem;
+    font-size: 1.2rem;
+}
+
+/* Estilos para el botón de retroceso */
+.goBack button {
+    padding: 0.5rem 1rem;
+    background-color: #4F886B;
+    color: #fff;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* Cambiar estilos al pasar el ratón sobre el botón */
+.goBack button:hover {
+    background-color: #366B51;
 }
 
 .buyButtonContainer {
     display: flex;
     justify-content: flex-end;
-
+    margin-top: -3rem; /* Ajusta el valor según tu preferencia */
 }
 
 .buyButton {
@@ -95,6 +119,6 @@
     font-size: 1rem;
     border: none;
     outline: none;
-    margin-bottom: 20px; /* Ajustado para dar espacio superior */
     margin-right: 30px;
 }
+

@@ -78,9 +78,8 @@ return (
                     name="cocheras"
                     id="cocheras"
                     className={styles.formInput}
-                    {...register('cochera',{ required: true } ) }
+                    {...register('cochera') }
                 />
-                {errors.cochera?.type === "required" && <p className = { styles.error }>Este campo es requerido</p>}
             </div>
 
             <div className={styles.formGroup}>
