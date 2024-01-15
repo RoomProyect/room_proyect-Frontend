@@ -11,8 +11,8 @@ const Home = () => {
 
 const dispatch = useDispatch();
 useEffect(()=>{
-dispatch(getDeptoAsync())
-}, [dispatch])
+    dispatch(getDeptoAsync())
+}, [])
 
 
 const deptos = useSelector((state) => state.counter.deptos);
