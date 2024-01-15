@@ -6,8 +6,11 @@ export const counterSlice = createSlice({
     depto: [],
     deptos: [],
     deptosFiltered: [],
+    deptosBackup: [],
     min: false,
     max: false,
+    minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
+    maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
   },
   reducers: {
     postDepto: (state, action) => {
@@ -15,6 +18,7 @@ export const counterSlice = createSlice({
     },
     getDepto: (state, action) => {
       state.deptos = action.payload;
+      state.deptosBackup = action.payload;
     },
     getDeptoFiltered: ( state, action ) => {
       let array = action.payload[0]
@@ -25,10 +29,20 @@ export const counterSlice = createSlice({
         state.deptos = array.filter((casa)=> casa.cochera)
       }
       if(action.payload[1][1] == "min"){
-        state.deptos = array.filter((casa)=> casa.precio >action.payload[1])
+        state.minPrice = action.payload[1][0]
+        if(state.maxPrice != Infinity){
+          state.deptos = state.deptosBackup.filter((casa)=> casa.precio > parseInt(action.payload[1][0]) && casa.precio < parseInt(state.maxPrice))
+        }else{
+          state.deptos = state.deptosBackup.filter((casa)=> casa.precio > parseInt(action.payload[1][0]))
+        }
       }
       if(action.payload[1][1] == "max"){
-        state.deptos = array.filter((casa)=> casa.precio < action.payload[1])
+        state.maxPrice = action.payload[1][0]
+        if(state.minPrice > 0){
+          state.deptos = state.deptosBackup.filter((casa)=> casa.precio < parseInt(action.payload[1][0]) && casa.precio > parseInt(state.minPrice))
+        }else{
+          state.deptos = state.deptosBackup.filter((casa)=> casa.precio < parseInt(action.payload[1][0]))
+        }
       }
     }
   },
