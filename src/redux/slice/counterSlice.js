@@ -13,8 +13,11 @@ export const counterSlice = createSlice({
     getDepto: (state, action) => {
       state.deptos = action.payload;
     },
+    getDeptoById: (state, action) =>{
+      state.deptoById = action.payload
+    }
   },
 });
 
-export const { postDepto, getDepto } = counterSlice.actions;
+export const { postDepto, getDepto, getDeptoById } = counterSlice.actions;
 export default counterSlice.reducer;
