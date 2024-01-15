@@ -3,7 +3,7 @@ import styles from './Landing.module.css';
 import SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
 import MauseBottom  from '../../assets/cloudinary/mauseBottom.svg';
 import { Link } from 'react-router-dom';
-import UserIcon  from '../../assets/cloudinary/UserIcon.svg';
+import UserIcon  from '../../assets/cloudinary/userIcon.svg';
 
 const Landing = () => {
     const [inputValue, setInputValue] = useState('');
