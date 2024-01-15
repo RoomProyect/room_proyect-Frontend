@@ -5,6 +5,7 @@ export const counterSlice = createSlice({
   initialState: {
     depto: [],
     deptos: [],
+    deptosFiltered: [],
   },
   reducers: {
     postDepto: (state, action) => {
@@ -13,6 +14,9 @@ export const counterSlice = createSlice({
     getDepto: (state, action) => {
       state.deptos = action.payload;
     },
+    getDeptoFiltered: ( state,action ) => {
+      state.deptosFiltered = action.payload;
+    }
   },
 });
 

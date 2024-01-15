@@ -1,63 +1,103 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './filters.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDeptoFiltered } from '../../redux/actions';
 
 const Filters = () => {
-    const [bathrooms, setBathrooms] = useState(0);
-    const [bedrooms, setBedrooms] = useState(0);
-    const [squareMeters, setSquareMeters] = useState('');
 
-    const handleInputChange = (e, setter, minValue = 0) => {
-        const value = parseInt(e.target.value, 10) || 0;
-        if (value >= minValue) {
+    const [ciudad, setCiudad] = useState('');
+    const [cochera, setCochera] = useState('');
+    const [precioMin, setPrecioMin] = useState('');
+    const [precioMax, setPrecioMax] = useState('');
+
+    const dispatch = useDispatch();
+
+    // useEffect(() => {
+    //   dispatch( getDeptoFiltered() );
+    // }, [])
+
+    const deptos = useSelector((state) => state.counter.deptos);
+    
+
+    const handleInputChange = (e, setter) => {
+        const value = e.target.value;
         setter(value);
-        }
+        dispatch( getDeptoFiltered( value ) );
     };
 
     const handleSearch = () => {
-        console.log('Bathrooms:', bathrooms);
-        console.log('Bedrooms:', bedrooms);
-        console.log('Square Meters:', squareMeters);
-    };
+        let deptosFiltrados = [...deptos];
+
+        if (ciudad) {
+            deptosFiltrados = deptosFiltrados.filter(depto => depto.ciudad == ciudad)
+        }
+        if (cochera === "s") {
+            deptosFiltrados = deptosFiltrados.filter((depto) => depto.cochera == true);
+        }
+        if (cochera === "n") {
+            deptosFiltrados = deptosFiltrados.filter((depto) => depto.cochera == false);
+        }
+
+        if (precioMin || precioMax) {
+            if (precioMin) {
+                deptosFiltrados = deptosFiltrados.filter(depto => depto.precio < precioMin)
+            }
+        };
+    }
 
     return (
         <div className={styles.container}>
-        <div className={styles.formContainer}>
-            <label className={styles.label}>
-            Baños: 
-            <input
-                type="number"
-                value={bathrooms}
-                onChange={(e) => handleInputChange(e, setBathrooms)}
-                className={styles.input}
-                min="0"
-            />
-            </label>
+            <div className={styles.formContainer}>
+                <label className={styles.label}>
+                    Ciudad:
+                    <input
+                        type="text"
 
-            <label className={styles.label}>
-            Habitaciones:
-            <input
-                type="number"
-                value={bedrooms}
-                onChange={(e) => handleInputChange(e, setBedrooms)}
-                className={styles.input}
-                min="0"
-            />
-            </label>
+                        onChange={(e) => handleInputChange(e, setCiudad)}
+                        className={styles.input}
+                        min="0"
+                    />
+                </label>
 
-            <label className={styles.label}>
-            Metros Cuadrados:
-            <input
-                type="number" 
-                value={squareMeters}
-                onChange={(e) => handleInputChange(e, setSquareMeters)}
-                className={styles.input}
-            />
-            </label>
+                <label className={styles.label}>
+                    Cochera:
+                    <select
+                        type="number"
+                        onChange={(e) => handleInputChange(e, setCochera)}
+                        className={styles.input}
+                        min="0"
+                    >
+                        <option value="yes"> si</option>
+                        <option value="no"> no</option>
+                    </select>
 
-            <button className={styles.button} onClick={handleSearch}>
-                Buscar
-            </button>
-        </div>
+
+                </label>
+
+                <label>
+                    Precio mínimo:
+                    <input
+                        type="number"
+                        value={precioMin}
+                        onChange={(e) => handleInputChange(e, setPrecioMin)}
+                    />
+                </label>
+
+                <label>
+                    Precio máximo:
+                    <input
+                        type="number"
+                        value={precioMax}
+                        onChange={(e) => handleInputChange(e, setPrecioMax)}
+                    />
+                </label>
+
+
+
+                <button className={styles.button} onClick={handleSearch}>
+                    Buscar
+                </button>
+            </div>
         </div>
     );
 };
