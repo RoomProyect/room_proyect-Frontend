@@ -7,12 +7,21 @@ export const counterSlice = createSlice({
     deptos: [],
     deptosFiltered: [],
     deptosBackup: [],
+    provincias: [],
     min: false,
     max: false,
     minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
     maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
   },
   reducers: {
+    getProv: (state, action) =>{
+      let provin = [] 
+      console.log(action.payload.provincias)
+      action.payload.provincias.forEach(element => {
+        provin.push(element.nombre)
+      });
+      state.provincias = provin
+    },
     postDepto: (state, action) => {
       state.depto = action.payload;
     },
@@ -61,5 +70,5 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { postDepto, getDepto, getDeptoFiltered } = counterSlice.actions;
+export const { postDepto, getDepto, getDeptoFiltered, getProv } = counterSlice.actions;
 export default counterSlice.reducer;

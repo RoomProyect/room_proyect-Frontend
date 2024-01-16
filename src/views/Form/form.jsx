@@ -1,16 +1,25 @@
 import { uploadFile } from "../../firebase/config";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { postDeptoAsync } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { postDeptoAsync, getProvincias } from "../../redux/actions";
 import styles from "./form.module.css";
 import NavBar from "../../componentes/navBar/NavBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { may_cero } from "./validator";
+
+
 
 const Form = () => {
   const [img, setImg] = useState();
   const dispatch = useDispatch();
+  const provincias = useSelector((state) => state.counter.provincias);
+
+  useEffect(() => {
+    if(!provincias.length){
+      dispatch(getProvincias())
+    }
+  }, []);
   
   const {
     register,
@@ -29,9 +38,6 @@ const Form = () => {
   };
 
   const handleChange = (event) =>{
-    console.log("handleChange ejecutado");
-    console.log("Nombre del campo:", event.target.name);
-    console.log("Nuevo valor:", event.target.value);
     setValue(event.target.name, event.target.value)
     trigger(event.target.name)
   }
@@ -120,16 +126,13 @@ const Form = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="ciudad" className={styles.formLabel}>
-            Ciudad
+          <label htmlFor="provincia" className={styles.formLabel}>
+            Provincia
           </label>
-          <input
-            type="text"
-            name="ciudad"
-            id="ciudad"
-            {...register("ciudad")}
-            className={styles.formInput}
-          />
+          <select name="provincia" id="provincia" {...register("provincia")}>
+            <option value="---">---</option>
+            {provincias.map((provincias, index) => <option key={provincias} value={provincias}>{provincias}</option>)}
+          </select>
         </div>
 
         <div className={styles.formGroup}>
