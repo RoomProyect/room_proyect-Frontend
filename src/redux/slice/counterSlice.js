@@ -11,7 +11,6 @@ export const counterSlice = createSlice({
     max: false,
     minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
     maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
-    totalPages: 0,
     paginado: {},
   },
   reducers: {
@@ -23,8 +22,6 @@ export const counterSlice = createSlice({
       state.deptosBackup = action.payload;
     },
     paginate: ( state,action ) => {
-      // console.log( action.payload );
-      // console.log( action.payload.page );
       state.totalPages = action.payload.totalPages;
       state.paginado = {
         totalPages: action.payload.totalPages,
@@ -32,7 +29,6 @@ export const counterSlice = createSlice({
         prevPage: action.payload.prevPage,
         nextPage: action.payload.nextPage
       };
-      // console.log( state.paginado );
     },
     nextPage: ( state ) => {
       state.paginado.pageActual += 1;
