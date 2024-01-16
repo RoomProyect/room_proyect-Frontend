@@ -1,28 +1,26 @@
+/* Home.module.css */
 .contentContainer {
     display: flex;
     justify-content: space-between;
     padding: 2rem;
-    width: 60rem;
-    background-color: #D4D4D45E;
+    width: 70rem;
+    background-color: #d4d4d42c;
     border-radius: 15px;
     margin-top: 2rem;
-
-    /* Centrar horizontalmente */
     margin-left: auto;
     margin-right: auto;
 }
 
-
 .imageContainer {
     width: 27.51594rem;
-    height: 21.07075rem;
+    height: 23.07075rem;
     flex-shrink: 0;
     border-radius: 0.98006rem;
     background: url("../../assets/cloudinary/depto.jpg") lightgray 50% / cover no-repeat;
 }
 
 .textContainer {
-    width: 28.58438rem;
+    width: 35rem;
 }
 
 .title {
@@ -43,8 +41,3 @@
     line-height: 1.30669rem;
 }
 
-.cardCotainer {
-    width: 100%;
-    background-color: rgb(0, 0, 0);
-    margin-top: 2rem; 
-}

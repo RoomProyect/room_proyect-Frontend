@@ -1,12 +1,11 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import counterSlice from './slice/counterSlice';
 
-import reducer from './reducer';
-
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(
-    reducer,
-
-);
+const store = configureStore({
+  reducer: {
+    counter: counterSlice,
+    // Puedes agregar otros reducers aquí si los tienes
+  },
+});
 
 export default store;

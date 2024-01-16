@@ -3,7 +3,7 @@ import styles from './NavBar.module.css';
 import  SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
 import { Link } from 'react-router-dom';
 import CasaIcono  from '../../assets/cloudinary/casaicono.svg';
-import UserIcon  from '../../assets/cloudinary/UserIcon.svg';
+import UserIcon  from '../../assets/cloudinary/userIcon.svg';
 
 
 const NavBar = () => {
@@ -32,10 +32,11 @@ const NavBar = () => {
     return (
         <div className={styles.navBarContainer}>
             
-            <div className={styles.logoContainer}>
-                <img src={CasaIcono} alt="CasaIcono" />
-            </div>
-
+            <Link to="/home" >
+                <div className={styles.logoContainer}>
+                    <img src={CasaIcono} alt="CasaIcono" />
+                </div>
+            </Link>
 
             {/* Barra de búsqueda */}
             <div className={styles.searchBar}>
@@ -55,9 +56,11 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
+            <Link to="/form" >
             <button className={styles.searchButton}>
                 + Crear publicación
             </button>
+            </Link>                            
 
             <div className={styles.navBarRigth}>
                     <div className={styles.userContainer}>
@@ -69,7 +72,6 @@ const NavBar = () => {
                                 <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
                                 <Link to="/register" className={styles.menuItem}>Registrarse</Link>
                                 <Link to="/profile" className={styles.menuItem}>Perfil</Link>
-                                <Link to="/form" className={styles.menuItem}>Agregar alojamiento</Link>
                             </div>
                         </div>
                     )}
