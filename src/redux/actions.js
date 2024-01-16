@@ -24,9 +24,10 @@ export const getDeptoAsync = () => async (dispatch) => {
 
   try {
     const response = await axios(endpoint);
+    // console.log( response.data.docs );
 
     // Utiliza la acción directamente desde el slice
-    dispatch(getDepto(response.data));
+    dispatch( getDepto( response.data.docs ) );
   } catch (error) {
     dispatch({
       type: 'error',
