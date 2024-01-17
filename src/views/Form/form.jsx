@@ -26,6 +26,7 @@ const Form = () => {
     handleSubmit,
     setValue,
     trigger,
+    reset,
     formState: { errors },
   } = useForm();
   
@@ -35,6 +36,7 @@ const Form = () => {
     data.img = result;
     console.log(result);
     dispatch(postDeptoAsync(data));
+    reset()
   };
 
   const handleChange = (event) =>{
@@ -126,27 +128,38 @@ const Form = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="provincia" className={styles.formLabel}>
+          <label htmlFor="ciudad" className={styles.formLabel}>
             Provincia
           </label>
-          <select name="provincia" id="provincia" {...register("provincia")}>
+          <select name="ciudad" id="ciudad" {...register("ciudad")}>
             <option value="---">---</option>
             {provincias.map((provincias, index) => <option key={provincias} value={provincias}>{provincias}</option>)}
           </select>
         </div>
 
-        <div className={styles.formGroup}>
-          <label htmlFor="descripcion" className={styles.formLabel}>
-            Descripcion
-          </label>
-          <input
-            type="text"
-            name="descripcion"
-            id="descripcion"
-            {...register("descripcion")}
-            className={styles.formInput}
-          />
-        </div>
+            <div className={styles.formGroup}>
+                <label htmlFor="descripcion" className={styles.formLabel}>
+                    Descripcion
+                </label>
+            <input
+                type="text"
+                name="descripcion"
+                id="descripcion"
+                className={styles.formInput}
+                {...register('descripcion', {
+                required: true,
+                })}
+            />
+            {errors.descripcion?.type === 'required' && (
+                <p className={styles.error}>Este campo es requerido</p>
+            )}
+            {errors.descripcion?.type === 'minLength' && (
+                <p className={styles.error}>La descripción debe tener al menos 30 caracteres</p>
+            )}
+            {errors.descripcion?.type === 'maxLength' && (
+                <p className={styles.error}>La descripción no puede tener más de 80 caracteres</p>
+            )}
+            </div>
 
         <div className={styles.formGroup}>
           <label htmlFor="habitaciones" className={styles.formLabel}>

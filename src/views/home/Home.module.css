@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     padding: 2rem;
-    width: 60rem;
+    width: 70rem;
     background-color: #d4d4d42c;
     border-radius: 15px;
     margin-top: 2rem;
@@ -13,14 +13,14 @@
 
 .imageContainer {
     width: 27.51594rem;
-    height: 21.07075rem;
+    height: 23.07075rem;
     flex-shrink: 0;
     border-radius: 0.98006rem;
     background: url("../../assets/cloudinary/depto.jpg") lightgray 50% / cover no-repeat;
 }
 
 .textContainer {
-    width: 28.58438rem;
+    width: 35rem;
 }
 
 .title {

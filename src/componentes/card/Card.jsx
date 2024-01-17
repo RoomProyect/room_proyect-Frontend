@@ -21,8 +21,7 @@ const Card = ({ id, baños, img, mcTerreno, precio, titulo,  habitaciones, ciuda
                     <p className={styles.titulo}>{titulo}</p>
                     <div className={styles.infoContainer}>
                         <div className={styles.ubicacion}>
-                            <img src={ubi} alt="ciudad" className={styles.icono} />
-                            {ciudad}
+                                <img src={ubi} alt="ciudad" className={styles.icono}/>{ciudad}
                         </div>
                         <div className={styles.otroInfoContainer}>
                             <p className={styles.otroInfoItem}>

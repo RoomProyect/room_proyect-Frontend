@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './filters.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActionFiltered } from '../../redux/actions';
@@ -12,9 +12,6 @@ const Filters = () => {
 
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //   dispatch( getDeptoFiltered() );
-    // }, [])
 
     const deptos = useSelector((state) => state.counter.deptos);
     
