@@ -1,72 +1,72 @@
-    .cardLink {
-        text-decoration: none;
-    }
-    
-    .card {
-        width: 20.45825rem;
-        height: 29.40106rem;
-        flex-shrink: 0;
-        border-radius: 1.22506rem;
-        background: rgba(204, 201, 201, 0.945);
-        backdrop-filter: blur(1.3067150115966797px);
-        
-    }
-    
-    .cardContainer {
-        display: flex;
-        flex-direction: column;
-        margin-top: 3rem;
-    }
-    
-    .imageContainer {
-        width: 17.47731rem;
-        height: 16.41563rem;
-        flex-shrink: 0;
-        border-radius: 0.6125rem;
-        margin-left: 3rem;
-    }
-    
-    .image {
-        width: 100%;
-        height: 100%;
-        border-radius: 0.6125rem;
-    }
-    
-    .textContainer {
-        padding: 1rem;
-    }
-    
-    .nombre {
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
-    
-    .precio {
-        font-size: 1rem;
-        margin-top: 0.5rem;
-    }
-    
-    .mc2Container {
-        margin-top: 0.5rem;
-    }
-    
-    .mc2 {
-        font-size: 1rem;
-    }
-    
-    .descripcion {
-        margin-top: 0.5rem;
-        font-size: 0.9rem;
-    }
+.cardLink {
+    text-decoration: none;
+}
 
-.cardsRow {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 20px;
-    padding: 20px;
+.card {
+    width: 20.45825rem;
+    height: 29.40106rem;
+    flex-shrink: 0;
+    border-radius: 1.22506rem;
+    background: rgba(204, 201, 201, 0.945);
+    backdrop-filter: blur(1.3067150115966797px);
+    
 }
 
 .cardContainer {
-    flex: 1 0 20%; 
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+
+.imageContainer {
+    width: 17.47731rem;
+    height: 16.41563rem;
+    flex-shrink: 0;
+    border-radius: 0.6125rem;
+    margin-left: 3rem;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.6125rem;
+}
+
+.textContainer {
+    padding: 1rem;
+}
+
+.nombre {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.precio {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+.mc2Container {
+    margin-top: 0.5rem;
+}
+
+.mc2 {
+    font-size: 1rem;
+}
+
+.descripcion {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.cardsRow {
+display: flex;
+flex-wrap: wrap; 
+justify-content: center; 
+gap: 20px;
+padding: 20px;
+}
+
+.cardContainer {
+flex: 1 0 20%; 
 }
