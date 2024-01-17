@@ -26,7 +26,7 @@ export const getDeptoAsync = () => async (dispatch) => {
     const response = await axios(endpoint);
 
     // Utiliza la acción directamente desde el slice
-    dispatch(getDepto(response.data));
+    dispatch(getDepto(response.data.docs));
   } catch (error) {
     dispatch({
       type: 'error',
@@ -39,7 +39,7 @@ export const getDeptoAsync = () => async (dispatch) => {
 export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
   try {
     const { data } = await axios( endpoint );
-    dispatch(getDeptoFiltered([data, filtro]))
+    dispatch(getDeptoFiltered([data.docs, filtro]))
     console.log(data, filtro)
   } catch (error) {
     dispatch({
