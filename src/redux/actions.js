@@ -26,7 +26,7 @@ export const getDeptoAsync = () => async (dispatch) => {
     const response = await axios(endpoint);
 
     // Utiliza la acción directamente desde el slice
-    dispatch(getDepto(response.data));
+    dispatch(getDepto(response.data.docs));
   } catch (error) {
     dispatch({
       type: 'error',
