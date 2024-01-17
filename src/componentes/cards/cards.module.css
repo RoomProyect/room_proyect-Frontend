@@ -7,13 +7,15 @@
         height: 29.40106rem;
         flex-shrink: 0;
         border-radius: 1.22506rem;
-        background: rgba(250, 247, 247, 0.07);
+        background: rgba(204, 201, 201, 0.945);
         backdrop-filter: blur(1.3067150115966797px);
+        
     }
     
     .cardContainer {
         display: flex;
         flex-direction: column;
+        margin-top: 3rem;
     }
     
     .imageContainer {
@@ -21,6 +23,7 @@
         height: 16.41563rem;
         flex-shrink: 0;
         border-radius: 0.6125rem;
+        margin-left: 3rem;
     }
     
     .image {
@@ -62,6 +65,7 @@
     justify-content: center; 
     gap: 20px; 
     padding: 20px; 
+    margin-top: 6rem;
 }
 
 .cardContainer {

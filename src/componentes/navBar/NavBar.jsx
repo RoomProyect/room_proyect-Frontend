@@ -72,7 +72,6 @@ const NavBar = () => {
                                 <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
                                 <Link to="/register" className={styles.menuItem}>Registrarse</Link>
                                 <Link to="/profile" className={styles.menuItem}>Perfil</Link>
-                                <Link to="/form" className={styles.menuItem}>Agregar alojamiento</Link>
                             </div>
                         </div>
                     )}

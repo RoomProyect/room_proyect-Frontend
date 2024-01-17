@@ -1,76 +1,90 @@
-import { useDispatch, useSelector } from 'react-redux';
-import NavBar from '../../componentes/navBar/NavBar.jsx';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getDeptoAsync } from '../../redux/actions.js';
+import NavBar from '../../componentes/navBar/NavBar.jsx';
+import styles from './Detail.module.css';
 
-const Detail = () =>{
-    const { id } = useParams()
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg'
+import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg'
+import ImgTres from '../../assets/cloudinary/fotosDetailPrueba/depto3.jpg'
+
+const Detail = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
     const vivienda = useSelector((state) => {
-        if(state.counter.deptos.length <= 0){
-            dispatch(getDeptoAsync())
-        }
-        const response = state.counter.deptos.find(depto=>{
-            return depto._id === id
-        })
-        return response
+    const response = state.counter.deptos.find((depto) => depto._id === id);
+    return response;
     });
 
     return (
         <>
-        {
-            vivienda 
-            ? <>
-            <div className='mb-8'>
-                <NavBar/>
+        {vivienda ? (
+            <>
+            <div className={styles.navBarWrapper}>
+                <NavBar />
             </div>
-            <div className="ml-14 mr-14 bg-black bg-opacity-5 flex flex-col justify-center items-center p-8 rounded-2x1 overflow-y-hidden">
-                <div className="flex justify-start items-start w-[100%]">
-                    <button onClick={()=> navigate(-1)}> {"<- Back"}</button>
+            <div className={styles.container}>
+                <div className={styles.goBack}>
+                <button onClick={() => navigate(-1)}> {"< Back"}</button>
                 </div>
-                <div className="w-[100%] p-10 flex">
-                    <img src={vivienda.img} alt="house-image" className="w-[430px] h-[370px] rounded-3xl"/>
-                    <div className='flex flex-col pl-4' >
-                        <h3 className='mb-3 font-open-sans font-bold' >{vivienda.titulo}</h3>
-                        <div className='mb-3 font-open-sans font-semibold' >
-                            <h6 className='inline text-[#333] font-bold'>from</h6> <span></span>
-                            <span className="text-violet-600 font-extrabold">
-                                {vivienda.precio} $
-                            </span>
-                        </div>
-                        <p className='text-[#333] font-open-sans'> {vivienda.descripcion} </p>
+                <div className={styles.propertyDetails}>
+                    <img src={vivienda.img} alt="house-image" className={styles.propertyImage} />
+                <div className={styles.propertyInfo}>
+                    <h3 className={styles.propertyTitle}>{vivienda.titulo}</h3>
+                    <div className={styles.priceInfo}>
+                        <span className={styles.priceValue}>Por: {vivienda.precio}$</span>
                     </div>
-                </div>
-                <div className='w-[100%] mt-4'>
-                    <h3 className='mb-4 text-[var(--black, #333)] font-open-sans text-1.30669 font-bold'>DETAILS</h3>
-    
-                    <p className='text-[var(--black, #333)] font-open-sans text-0.735 font-normal leading-1.30669'>{vivienda.descripcion}</p>
-                </div>
-                <div className='w-[100%] mt-4'>
-                    <div className='flex flex-col'>
-                        <div> <h6 className='inline text-[#333] font-bold'>Ambientes:</h6> {vivienda.ambiente}</div>
-                        <div> <h6 className='inline text-[#333] font-bold'>Baños:</h6> {vivienda.baños}</div>
-                        <div> <h6 className='inline text-[#333] font-bold'>Cochera:</h6> {vivienda.cochera}</div>
-                        <div> <h6 className='inline text-[#333] font-bold'>Ciudad:</h6> {vivienda.ciudad}</div>
-                        <div> <h6 className='inline text-[#333] font-bold'>mcTerreno:</h6> {vivienda.mcTerreno}</div>
+                    <div className={styles.descripcion}>
+                        <span className={styles.descripcion}>{vivienda.descripcion}</span>
                     </div>
+                    <div className={styles.tresImg}>
+                        <img src={ImgUno} alt="house-image" className={styles.tresImgIndividual} />
+                        <img src={ImgDos} alt="house-image" className={styles.tresImgIndividual} />
+                        <img src={ImgTres} alt="house-image" className={styles.tresImgIndividual} />
+                    </div>
+
+                </div>
+                </div>
+                <div className={styles.additionalDetailsContainer}>
+                <div className={styles.detail}>
+                    <h6 className={styles.detailLabel}>Ambientes: {vivienda.ambientes}</h6>
+                </div>
+                <div className={styles.detail}>
+                    <h6 className={styles.detailLabel}>Baños: {vivienda.baños}</h6>
+                </div>
+                <div className={styles.detail}>
+                    <h6 className={styles.detailLabel}>Cochera: {vivienda.cochera}</h6>
+                </div>
+                <div className={styles.detail}>
+                    <h6 className={styles.detailLabel}>Ciudad: {vivienda.ciudad}</h6>
+                </div>
+                <div className={styles.detail}>
+                    <h6 className={styles.detailLabel}>mcTerreno: {vivienda.mcTerreno}</h6>
+                </div>
+                </div>
+                <div className={styles.buyButtonContainer}>
+                <button className={styles.buyButton}>
+                    Comprar
+                </button>
+                <button className={styles.buyButton}>
+                    Consultar
+                </button>
                 </div>
             </div>
             </>
-            : <>
-            <div className='mb-8'>
-                <NavBar/>
+        ) : (
+            <>
+            <div className={styles.navBarWrapper}>
+                <NavBar />
             </div>
-            <div className="ml-14 mr-14 bg-black bg-opacity-5 flex flex-col justify-center items-center p-8 rounded-2x1 overflow-y-hidden">
-                <div className="flex justify-center items-center w-[100%] h-[40vh]">
-                    LOADING...
+            <div className={styles.container}>
+                <div className={styles.goBack}>
+                <button onClick={() => navigate(-1)}> {"< Back"}</button>
                 </div>
             </div>
             </>
-        }
+        )}
         </>
-    )
-}
+    );
+};
 
 export default Detail;
