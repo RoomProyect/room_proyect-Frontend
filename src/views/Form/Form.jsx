@@ -107,14 +107,14 @@ const Form = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="cocheras" className={styles.formLabel}>
+          <label htmlFor="cochera" className={styles.formLabel}>
             Cocheras
           </label>
           <input
             type="text"
-            name="cocheras"
-            id="cocheras"
-            {...register("cocheras", {
+            name="cochera"
+            id="cochera"
+            {...register("cochera", {
               validate: may_cero,
               pattern: {
                 value: /^-?[0-9]+$/,
