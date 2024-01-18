@@ -1,0 +1,130 @@
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items:first baseline;
+    border-radius: 0.625rem;
+}
+
+.divContainer {
+    display: flex;
+    height: 80vh;
+    background-color: #d8d8d838;
+    margin: 5rem;
+    border-radius: 3rem;
+    margin-left: 25rem;
+    margin-right: 25rem;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.418);
+}
+
+.title{
+    margin-right: 8rem;
+}
+
+.formContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; 
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items:first baseline;
+    border-radius: 0.625rem;
+}
+
+.emailInput {
+    border-radius: 0.925rem;
+    border: 1px solid #D4D7E3;
+    background: #F7FBFF;
+    color: #8897AD;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Roboto;
+    font-size: 0.83331rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 0.83331rem */
+    letter-spacing: 0.00831rem;
+    width: 300px;
+    height: 40px;
+}
+
+.nombreAInput{
+    border-radius: 0.925rem;
+    border: 1px solid #D4D7E3;
+    background: #F7FBFF;
+    color: #8897AD;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Roboto;
+    font-size: 0.83331rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 0.83331rem */
+    letter-spacing: 0.00831rem;
+    width: 150px;
+    height: 40px;
+    margin-right: -1rem;
+    margin-bottom: 1rem;
+}
+
+/* Register.module.css */
+
+.inputGroupNA {
+    display: flex;
+    flex-direction: row; /* Alinea los elementos en fila (por defecto) */
+    gap: 1rem; /* Espacio entre los elementos (ajusta según sea necesario) */
+}
+
+.nombre,
+.apellido {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea los elementos a la izquierda */
+}
+
+
+.submit{
+    background-color: #4F886B;
+    color: #FFFFFF; /* Color del texto */
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: 'Arial', sans-serif; 
+    font-size: 0.83331rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0.00831rem;
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 0.925rem;
+    letter-spacing: 0.00831rem;
+    width: 270px;
+    height: 40px;
+    margin-top: 0.8rem;
+    cursor: pointer;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.418);
+    margin-left: 1rem;
+}
+
+.imgLogin {
+    max-width: 100%;
+    max-height: 100%;
+    width: 550px;
+}
+
+.imgLogin img {
+    height: 700px;
+    width: 550px;
+    margin-top: 5rem;
+    margin-left: 6rem;
+    border-radius: 2rem;
+    object-fit: cover;
+}
