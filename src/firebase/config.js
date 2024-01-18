@@ -1,7 +1,7 @@
 import {v4} from 'uuid'
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import {getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage'
+import {getStorage, ref, uploadBytes} from 'firebase/storage'
+import { GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA-NV4FuVuA4PupRpGSSt25oWa4gznkVH4",
@@ -14,8 +14,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-export const storage = getStorage(app); 
+export const providerGoogle = new GoogleAuthProvider();
+export const storage = getStorage(app);
+
 
 export const  uploadFile = async (file) =>{
   const storageRef= ref(storage, v4())
