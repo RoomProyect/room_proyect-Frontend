@@ -1,13 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { postUserData } from '../../redux/slice/userSlice';
 import GoogleButton from 'react-google-button';
 import { signInWithPopup, getAuth, GoogleAuthProvider } from "firebase/auth"
+import { useEffect } from 'react';
 
 
 
 const Register = () => {
+  const navigate = useDispatch()
   const dispatch = useDispatch();
   const {
     register,
@@ -42,7 +44,8 @@ const Register = () => {
         // The signed-in user info.
         const user = result.user;
         const data = {name: user.displayName, email: user.email}
-        const response = dispatch(postUserData(data))
+         dispatch(postUserData(data))
+  
         console.log(user)
 
         // IdP data available using getAdditionalUserInfo(result)
@@ -59,10 +62,17 @@ const Register = () => {
         // ...
       });
   }
+  const data = useSelector(state => state.user.data)
+  console.log(data);
+  useEffect(()=>{
+    console.log(data);
+    if (data) {
+      navigate('/home')
+    }
+  },[dispatch, data])
+    return (
+    <div >
 
-  return (
-    <div className={style.divContainer}>
-<Link to="/">Volver</Link>
 
 
     <h1>Registro</h1>
