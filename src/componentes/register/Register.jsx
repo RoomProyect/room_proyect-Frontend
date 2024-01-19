@@ -2,6 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { postActionRegister } from '../../redux/actions';
+import { Link } from 'react-router-dom';
+import style from './style.module.css'
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -13,7 +15,9 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className={style.divContainer}>
+<Link to="/">Volver</Link>
+
 
 <h1>Registro</h1>
     <form onSubmit={handleSubmit(onSubmit)}>
