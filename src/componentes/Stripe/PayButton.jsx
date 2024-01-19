@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import styles from '../../views/Detail/Detail.module.css'
 
 const PayButton = ({items}) => {
 
@@ -14,9 +15,9 @@ const PayButton = ({items}) => {
 
     return (
         <>
-            {console.log(items)}
+            {/* {console.log(items)} */}
             {/* {console.log(response)} */}
-            <button onClick={() => handlerCheckout()} > Promprar </button>
+            <button className={styles.buyButton} onClick={() => handlerCheckout()} > Comprar </button>
         </>
     )
 }

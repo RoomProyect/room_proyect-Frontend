@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { postDepto, getDepto, getDeptoFiltered,paginate } from './slice/counterSlice';
 
-const endpoint =  '/apartment';
+const endpoint = '/apartment';
 
 export const postDeptoAsync = (data) => async (dispatch) => {
 
@@ -57,6 +57,5 @@ export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
       payload: error.message,
     });
     console.log(error);
-
   }
 };

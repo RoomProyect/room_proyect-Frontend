@@ -4,27 +4,18 @@ import Filters from '../../componentes/filters/filters';
 import Cards from "../../componentes/cards/Cards"
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
+import {  getDeptoAsync } from '../../redux/actions'; 
 
 
 const Home = () => {
 
-    const dispatch = useDispatch();
-    const deptos = useSelector( (state) => state.counter.deptos );
-    const paginate = useSelector ( state => state.counter.paginado );
+const dispatch = useDispatch();
+useEffect(()=>{
+    dispatch(getDeptoAsync())
+}, [])
 
-    useEffect(()=>{
-        dispatch(getDeptoAsync( paginate.pageActual ))
-    }, [dispatch, paginate.pageActual])
 
-    const handleChangePage = ( event ) => {
-        if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
-            dispatch( nextPage() );
-        }
-        if( event.target.name === 'back' && paginate.pageActual > 1 ){
-            dispatch( prevPage() );
-        }
-    }
+const deptos = useSelector((state) => state.counter.deptos);
 
     return (
         <div className={styles.homeContainer}>
@@ -43,16 +34,11 @@ const Home = () => {
                         </p>
                 </div>
             </div>
-            <div className={ styles.contentFilters }>
+            <div>
                 <Filters/>
             </div>
-            <div className={ styles.contentCards }>
-                <div className={ styles.contentPaginate }>
-                    <button name='back' onClick={ handleChangePage } >Back</button>
-                    <span>{ paginate.pageActual }/{ paginate.totalPages }</span>
-                    <button name='next' onClick={ handleChangePage } >Next</button>
-                </div>
-                <Cards deptos={ deptos }/>
+            <div>
+                <Cards deptos={deptos}/>
             </div>
 
         </div>

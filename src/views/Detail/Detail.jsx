@@ -26,7 +26,7 @@ const Detail = () => {
             </div>
             <div className={styles.container}>
                 <div className={styles.goBack}>
-                <button onClick={() => navigate(-1)}> {"< Back"}</button>
+                <button onClick={() => navigate('/home')}> {"< Back"}</button>
                 </div>
                 <div className={styles.propertyDetails}>
                     <img src={vivienda.img} alt="house-image" className={styles.propertyImage} />
@@ -80,7 +80,7 @@ const Detail = () => {
             </div>
             <div className={styles.container}>
                 <div className={styles.goBack}>
-                <button onClick={() => navigate(-1)}> {"< Back"}</button>
+                <button onClick={() => navigate('/home')}> {"< Back"}</button>
                 </div>
             </div>
             </>
