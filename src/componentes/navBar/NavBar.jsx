@@ -71,8 +71,8 @@ const NavBar = () => {
                             <div className={styles.hamburgerMenu}>
                                 <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
                                 <Link to="/profile" className={styles.menuItem}>Perfil</Link>
-                                <Link to="/login" > Logearte </Link>
-                                <Link to='/register'> Registrarse</Link>
+                                <Link to="/login" className={styles.menuItem}> Logearte </Link>
+                                <Link to="/register" className={styles.menuItem}> Registrarse</Link>
                             </div>
                         </div>
                     )}

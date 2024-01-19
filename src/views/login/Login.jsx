@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { postActionLogin } from "../../redux/actions";
 import style from './Login.module.css'
+import NavBar from '../../componentes/navBar/NavBar'
 
 import { Link } from "react-router-dom";
 
@@ -11,8 +12,6 @@ import dptoUnoLogin from "../../assets/cloudinary/Login/dptoUnoLogin.jpg";
 import dptoTresLogin from "../../assets/cloudinary/Login/dptoTresLogin.jpg";
 import dptoCincoLogin from "../../assets/cloudinary/Login/dptoCincoLogin.jpg";
 import dptoSeisLogin from "../../assets/cloudinary/Login/dptoSeisLogin.jpg";
-
-// Luego, en tu componente:
 
 import GoogleIcon from "../../assets/cloudinary/google.svg"
 
@@ -43,7 +42,10 @@ const Login = () => {
   }, [currentIndex, images.length]);
 
   return (
+    <div>
+      <NavBar/>
     <div className={style.divContainer}>
+      
       <div className={style.imgLogin}>
         <img
           src={images[currentIndex]}
@@ -78,6 +80,7 @@ const Login = () => {
             <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2><Link to='/register' className={style.registerSolo}>Regístrate</Link>
           </div> 
       </div>
+    </div>
     </div>
   );
 };

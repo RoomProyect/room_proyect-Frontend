@@ -11,9 +11,9 @@ export const counterSlice = createSlice({
     max: false,
     minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
     maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
+    paginado: {},
     login: '',
     register: '',
-
   },
   reducers: {
 
@@ -31,8 +31,23 @@ export const counterSlice = createSlice({
     getDepto: (state, action) => {
       state.deptos = action.payload;
       state.deptosBackup = action.payload;
+    },   
+    paginate: ( state,action ) => {
+      state.totalPages = action.payload.totalPages;
+      state.paginado = {
+        totalPages: action.payload.totalPages,
+        pageActual: action.payload.page,
+        prevPage: action.payload.prevPage,
+        nextPage: action.payload.nextPage
+      };
     },
-    getDeptoFiltered: (state, action) => {
+    nextPage: ( state ) => {
+      state.paginado.pageActual += 1;
+    },
+    prevPage: ( state ) => {
+      state.paginado.pageActual -= 1;
+    },
+    getDeptoFiltered: ( state, action ) => {
       let array = action.payload[0]
       console.log(action.payload)
       if (action.payload[1][0] == "may_min") {
@@ -71,5 +86,14 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { postDepto, getDepto, getDeptoFiltered, postLogin, postRegister } = counterSlice.actions;
+export const { 
+  postDepto, 
+  getDepto, 
+  getDeptoFiltered,
+  paginate,
+  nextPage,
+  prevPage,
+  postLogin, 
+  postRegister
+} = counterSlice.actions;
 export default counterSlice.reducer;

@@ -9,7 +9,7 @@
     display: flex;
     height: 80vh;
     background-color: #d8d8d838;
-    margin: 5rem;
+    margin: 4rem;
     border-radius: 3rem;
     margin-left: 25rem;
     margin-right: 25rem;
@@ -18,6 +18,21 @@
 
 .title{
     margin-right: 8rem;
+}
+
+.imgLogin {
+    max-width: 100%;
+    max-height: 100%;
+    width: 550px;
+}
+
+.imgLogin img {
+    height: 700px;
+    width: 550px;
+    margin-top: 5rem;
+    margin-left: 6rem;
+    border-radius: 2rem;
+    object-fit: cover;
 }
 
 .formContainer {
@@ -40,6 +55,7 @@
     flex-direction: column;
     align-items:first baseline;
     border-radius: 0.625rem;
+    margin-bottom: 1rem;
 }
 
 .emailInput {
@@ -54,8 +70,9 @@
     font-weight: 400;
     line-height: 100%; /* 0.83331rem */
     letter-spacing: 0.00831rem;
-    width: 300px;
+    width: 260px;
     height: 40px;
+    margin-left: 1rem;
 }
 
 .nombreAInput{
@@ -70,19 +87,22 @@
     font-weight: 400;
     line-height: 100%; /* 0.83331rem */
     letter-spacing: 0.00831rem;
-    width: 150px;
+    width: 115px;
     height: 40px;
-    margin-right: -1rem;
     margin-bottom: 1rem;
+    margin-left: 0.3rem;
 }
 
 /* Register.module.css */
 
 .inputGroupNA {
     display: flex;
-    flex-direction: row; /* Alinea los elementos en fila (por defecto) */
-    gap: 1rem; /* Espacio entre los elementos (ajusta según sea necesario) */
+    flex-direction: row;
+    gap: 0.6rem; 
+    margin-left: 0.8rem;
 }
+
+
 
 .nombre,
 .apellido {
@@ -128,3 +148,73 @@
     border-radius: 2rem;
     object-fit: cover;
 }
+
+.containerRegister{
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+}
+
+.registerSolo{
+    color: #2E7A8C;
+    font-family: Roboto;
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.375rem;
+    letter-spacing: 0.02813rem;
+}
+
+.sinCuenta{
+    color: var(--gris, #606060);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.375rem; /* 146.667% */
+    letter-spacing: 0.02813rem;
+    margin-left: 3rem;
+}
+
+.linea {
+    width: 300px;
+    height: 0.2px;
+    background-color: #000; /* Puedes cambiar el color según tus preferencias */
+    margin-top: 1rem;
+}
+
+.googleImg{
+    margin-right: 0.3rem;
+}
+
+.btnIniciarGoogle{
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos */
+    justify-content: center; /* Centra horizontalmente los elementos */
+    background-color: #cecdcd56;
+    color: #000000; /* Color del texto */
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: 'Arial', sans-serif; 
+    font-size: 0.83331rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0.00831rem;
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 0.925rem;
+    letter-spacing: 0.00831rem;
+    width: 270px;
+    height: 40px;
+    margin-top: 0.8rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    box-shadow: 0 1.5px rgba(0, 0, 0, 0.418);
+}
+
+.nombreAInput,
+.emailInput {
+    padding-left: 10px;
+}
+

@@ -4,16 +4,18 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { postActionRegister } from '../../redux/actions';
 import style from './Register.module.css';
+import NavBar from '../../componentes/navBar/NavBar'
 
+import { Link } from "react-router-dom";
 
 import dptoUnoLogin from "../../assets/cloudinary/Login/dptoUnoLogin.jpg";
 import dptoTresLogin from "../../assets/cloudinary/Login/dptoTresLogin.jpg";
 import dptoCincoLogin from "../../assets/cloudinary/Login/dptoCincoLogin.jpg";
 import dptoSeisLogin from "../../assets/cloudinary/Login/dptoSeisLogin.jpg";
 
+import GoogleIcon from "../../assets/cloudinary/google.svg"
+
 const Register = () => {
-
-
 
     const images = [
         dptoUnoLogin,
@@ -41,7 +43,10 @@ const Register = () => {
     };
 
     return (
+        <div>
+        <NavBar/>
         <div className={style.divContainer}>
+            
             <div className={style.imgLogin}>
                 <img
                 src={images[currentIndex]}
@@ -85,10 +90,47 @@ const Register = () => {
                         type="text" {...register('email')} 
                         id="email" />
                     </div>
-                    <input className={style.submit} type="submit" />               
+
+                    <div className={style.inputGroup}>
+                        <label htmlFor="Telefono" className={style.emailLabel}>Telefono:</label>
+                        <input 
+                        placeholder="+5429453493024" 
+                        className={style.emailInput} 
+                        type="text" {...register('email')} 
+                        id="Telefono" />
+                    </div>
+
+                    <div className={style.inputGroup}>
+                        <label htmlFor="Contrasenia" className={style.emailLabel}>Contrasenia:</label>
+                        <input 
+                        placeholder="Al menos 8 caracteres" 
+                        className={style.emailInput} 
+                        type="text" {...register('Contrasenia')} 
+                        id="Contrasenia" />
+                    </div>
+
+                    <div className={style.inputGroup}>
+                        <input 
+                        placeholder="Confirmar contrasenia" 
+                        className={style.emailInput} 
+                        type="text" {...register('Contrasenia')} 
+                        id="Contrasenia" />
+                    </div>
+
+
+                    <input className={style.submit} type="submit" /> 
+
+                    <div className={style.linea}></div>
+
+                    <button className={style.btnIniciarGoogle} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
+
+                    <div className={style.containerRegister}>
+                        <h2 className={style.sinCuenta}>¿Ya tienes cuenta?  </h2><Link to='/login' className={style.registerSolo}>Inicia sesión</Link>
+                    </div>               
                 </form>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

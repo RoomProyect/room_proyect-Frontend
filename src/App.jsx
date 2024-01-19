@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Landing from './views/landing/Landing.jsx';
 import Login from './views/login/Login.jsx';
 import Register from './views/register/Register.jsx';
+import Form from './views/Form/Form.jsx';
 
 
 
@@ -20,7 +21,7 @@ function App() {
         <Route path={"/home"} element={<Home />} />
         <Route path={"/login"} element={<Login />} />
         <Route path={"/register"} element={<Register />} />
-        {/* <Route path={"/form"} element={<Form />} /> */}
+        <Route path={"/form"} element={<Form />} /> 
         <Route path={'/detail/:id'} element={<Detail/>}/>
       </Routes>
     </div>
