@@ -11,6 +11,7 @@ export const postUserData = createAsyncThunk('user/postUserData', async (userDat
         return thunkAPI.rejectWithValue({ error: 'Hubo un error al realizar la solicitud' });
     }
 })
+
  
 export const userSlice = createSlice({
     name: 'user',

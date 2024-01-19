@@ -42,7 +42,7 @@ const Register = () => {
         // The signed-in user info.
         const user = result.user;
         const data = {name: user.displayName, email: user.email}
-        dispatch(postUserData(data))
+        const response = dispatch(postUserData(data))
         console.log(user)
 
         // IdP data available using getAdditionalUserInfo(result)
@@ -67,31 +67,31 @@ const Register = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
 
       <label >name</label>
-      <input type="text" name='name'{...register('name',{
+      <input type="text" name='name' onChange={handleChange}{...register('name',{
         required:"Este campo es requerido",
       })}/>
       {errors.name && <p>{errors.name.message}</p>}
 
       <label >email</label>
-      <input type="text" name='email'{...register('email',{
+      <input type="text" name='email' {...register('email',{
         required:"Este campo es requerido",
         pattern:{
           value: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
           message: "Debe ingresar un email"  
         }
-      })}/>
+      })}onChange={handleChange}/>
       {errors.email && <p>{errors.email.message}</p>}
 
       <label >age</label>
-      <input type="number" name='age'{...register('age',{
+      <input type="number" name='age' {...register('age',{
         required:"Este campo es requerido",
-      })}/>
+      })}onChange={handleChange}/>
       {errors.age && <p>{errors.age.message}</p>}
 
       <label >averageRating </label>
-      <input type="number" name='averageRating'{...register('averageRating',{
+      <input type="number" name='averageRating' {...register('averageRating',{
         required:"Este campo es requerido",
-      })}/>
+      })}onChange={handleChange}/>
       <input type="submit"  />
       {errors.averageRating && <p>{errors.averageRating.message}</p>}
 
