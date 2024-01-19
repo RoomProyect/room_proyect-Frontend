@@ -41,3 +41,22 @@
     line-height: 1.30669rem;
 }
 
+.contentFilters{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.contentCards{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+
+.contentPaginate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+}
+

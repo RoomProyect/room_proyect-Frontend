@@ -15,13 +15,13 @@ const Form = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
     const result = await uploadFile(img);
     data.img = result;
-    console.log(result);
     dispatch(postDeptoAsync(data));
+    reset();
   };
 
   return (
