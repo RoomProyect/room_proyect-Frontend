@@ -19,6 +19,7 @@ const deptos = useSelector((state) => state.counter.deptos);
 
     return (
         <div className={styles.homeContainer}>
+            
             <div className={styles.navBar}>
                 <Navbar />
             </div>
@@ -40,7 +41,7 @@ const deptos = useSelector((state) => state.counter.deptos);
             <div>
                 <Cards deptos={deptos}/>
             </div>
-
+<SearchBar />
         </div>
     );
 };
