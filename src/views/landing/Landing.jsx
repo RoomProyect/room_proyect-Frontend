@@ -4,6 +4,7 @@ import SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
 import MauseBottom  from '../../assets/cloudinary/mauseBottom.svg';
 import { Link } from 'react-router-dom';
 import UserIcon  from '../../assets/cloudinary/userIcon.svg';
+import Login from '../../componentes/login/Login';
 
 const Landing = () => {
     const [inputValue, setInputValue] = useState('');
@@ -79,6 +80,9 @@ const Landing = () => {
                         </button>
                     </Link>
                 </div>
+            </div>
+            <div className={styles.buttonLogin}>
+<br /><br />
 
             </div>
             <div className={styles.bottomLanding}>
