@@ -1,28 +1,48 @@
 import { uploadFile } from "../../firebase/config";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { postDeptoAsync } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { postDeptoAsync, getProvincias } from "../../redux/actions";
 import styles from "./form.module.css";
 import NavBar from "../../componentes/navBar/NavBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { may_cero } from "./validator";
+
+
 
 const Form = () => {
   const [img, setImg] = useState();
   const dispatch = useDispatch();
+  const provincias = useSelector((state) => state.counter.provincias);
+
+  useEffect(() => {
+    if(!provincias.length){
+      dispatch(getProvincias())
+    }
+  }, []);
+  
   const {
     register,
     handleSubmit,
+    setValue,
+    trigger,
+    reset,
     formState: { errors },
-    reset
   } = useForm();
+  
   const onSubmit = async (data) => {
+    console.log(data);
     const result = await uploadFile(img);
     data.img = result;
+    console.log(result);
     dispatch(postDeptoAsync(data));
-    reset();
+    reset()
   };
+
+  const handleChange = (event) =>{
+    setValue(event.target.name, event.target.value)
+    trigger(event.target.name)
+  }
 
   return (
     <div className={styles.formContainer}>
@@ -30,7 +50,7 @@ const Form = () => {
         <NavBar />
       </div>
       <h2 className={styles.formTitle}> Formulario </h2>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)} >
         <div className={styles.formGroup}>
           <label htmlFor="titulo" className={styles.formLabel}>
             Titulo
@@ -54,10 +74,11 @@ const Form = () => {
               required: "El campo es requerido",
               validate: may_cero,
               pattern: {
-                value: /^[0-9]+$/,
+                value: /^-?[0-9]+$/,
                 message: "Solo se permiten números",
               },
             })}
+            onChange={handleChange}
             className={styles.formInput}
           />
 
@@ -74,38 +95,46 @@ const Form = () => {
               required: "El campo es requerido",
               validate: may_cero,
               pattern: {
-                value: /^[0-9]+$/,
+                value: /^-?[0-9]+$/,
                 message: "Solo se permiten números",
               },
             })}
+            onChange={handleChange}
             className={styles.formInput}
           />
           
           {errors.baños && <p>{errors.baños.message}</p>}
         </div>
 
-            <div className={styles.formGroup}>
-                <label htmlFor="cocheras" className={styles.formLabel}>Cocheras</label>
-                <input 
-                    type="text"
-                    name="cocheras"
-                    id="cocheras"
-                    className={styles.formInput}
-                    {...register('cochera') }
-                />
-            </div>
-
         <div className={styles.formGroup}>
-          <label htmlFor="ciudad" className={styles.formLabel}>
-            Ciudad
+          <label htmlFor="cochera" className={styles.formLabel}>
+            Cocheras
           </label>
           <input
             type="text"
-            name="ciudad"
-            id="ciudad"
-            {...register("ciudad")}
+            name="cochera"
+            id="cochera"
+            {...register("cochera", {
+              validate: may_cero,
+              pattern: {
+                value: /^-?[0-9]+$/,
+                message: "Solo se permiten números",
+              },
+            })}
+            onChange={handleChange}
             className={styles.formInput}
           />
+          {errors.cocheras && <p>{errors.cocheras.message}</p>}
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="ciudad" className={styles.formLabel}>
+            Provincia
+          </label>
+          <select name="ciudad" id="ciudad" {...register("ciudad")}>
+            <option value="---">---</option>
+            {provincias.map((provincias, index) => <option key={provincias} value={provincias}>{provincias}</option>)}
+          </select>
         </div>
 
             <div className={styles.formGroup}>
@@ -119,8 +148,6 @@ const Form = () => {
                 className={styles.formInput}
                 {...register('descripcion', {
                 required: true,
-                minLength: 100,
-                maxLength: 350,
                 })}
             />
             {errors.descripcion?.type === 'required' && (
@@ -142,9 +169,18 @@ const Form = () => {
             type="text"
             name="habitaciones"
             id="habitaciones"
-            {...register("habitaciones")}
+            {...register("habitaciones", {
+              required: "El campo es requerido",
+              validate: may_cero,
+              pattern: {
+                value: /^-?[0-9]+$/,
+                message: "Solo se permiten números",
+              },
+            })}
+            onChange={handleChange}
             className={styles.formInput}
           />
+          {errors.habitaciones && <p>{errors.habitaciones.message}</p>}
         </div>
 
         <div className={styles.formGroup}>
@@ -156,13 +192,15 @@ const Form = () => {
             {...register("mcTerreno", {
               required: "El campo es requerido",
               validate: may_cero,
+              pattern: {
+                value: /^-?[0-9]+$/,
+                message: "Solo se permiten números",
+              },
             })}
+            onChange={handleChange}
             className={styles.formInput}
           />
           {errors.mcTerreno && <p>{errors.mcTerreno.message}</p>}
-          {errors.mcTerreno?.type === "validate" && (
-            <p>no puede ser cero ni negativo</p>
-          )}
         </div>
 
         <div className={styles.formGroup}>
@@ -176,13 +214,15 @@ const Form = () => {
             {...register("precio", {
               required: "El campo es requerido",
               validate: may_cero,
+              pattern: {
+                value: /^-?[0-9]+$/,
+                message: "Solo se permiten números",
+              },
             })}
+            onChange={handleChange}
             className={styles.formInput}
           />
           {errors.precio && <p>{errors.precio.message}</p>}
-          {errors.precio?.type === "validate" && (
-            <p>El precio no puede ser cero ni negativo</p>
-          )}
         </div>
 
         <div className={styles.formGroup}>
