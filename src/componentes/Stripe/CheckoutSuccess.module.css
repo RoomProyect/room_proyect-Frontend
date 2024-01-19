@@ -1,0 +1,35 @@
+.mainContainer{
+    padding-top: 20em;
+    padding-left: 50em;
+    padding-right: 50em;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}
+.check {
+    height: 70px;
+    align-self: flex-start;    
+}
+
+.backButton{
+    background-color: #ffffff; 
+    border: 2px solid #254d25; 
+    color: #254d25; 
+    padding: 12px 30px; 
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 14px 2px; 
+    cursor: pointer;
+    border-radius: 20px; 
+    transition: all 0.3s;
+
+}
+
+.backButton:hover {
+    background-color: #254d25; 
+    color: #ffffff; 
+}

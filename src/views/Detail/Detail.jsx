@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../../componentes/navBar/NavBar.jsx';
 import styles from './Detail.module.css';
+import PayButton from '../../componentes/Stripe/PayButton.jsx';
 
 import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg'
 import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg'
@@ -24,7 +25,7 @@ const Detail = () => {
             </div>
             <div className={styles.container}>
                 <div className={styles.goBack}>
-                <button onClick={() => navigate(-1)}> {"< Back"}</button>
+                <button onClick={() => navigate("/home")}> {"< Back"}</button>
                 </div>
                 <div className={styles.propertyDetails}>
                     <img src={vivienda.img} alt="house-image" className={styles.propertyImage} />
@@ -62,9 +63,9 @@ const Detail = () => {
                 </div>
                 </div>
                 <div className={styles.buyButtonContainer}>
-                <button className={styles.buyButton}>
-                    Comprar
-                </button>
+                <PayButton
+                        items={vivienda}
+                    />
                 <button className={styles.buyButton}>
                     Consultar
                 </button>
@@ -78,7 +79,7 @@ const Detail = () => {
             </div>
             <div className={styles.container}>
                 <div className={styles.goBack}>
-                <button onClick={() => navigate(-1)}> {"< Back"}</button>
+                <button onClick={() => navigate("/home")}> {"< Back"}</button>
                 </div>
             </div>
             </>
