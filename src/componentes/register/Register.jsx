@@ -1,9 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postUserData } from '../../redux/slice/userSlice';
 import GoogleButton from 'react-google-button';
 import { signInWithPopup, getAuth, GoogleAuthProvider } from "firebase/auth"
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -18,6 +19,8 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   
+  const navigate = useNavigate();
+  const user  = useSelector((state) => state.user.data)
   
   const onSubmit = (data) => {
     console.log(data);
@@ -58,6 +61,10 @@ const Register = () => {
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
       });
+  }
+
+  if(user){
+    navigate('/home')
   }
 
   return (
