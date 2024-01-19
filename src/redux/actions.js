@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { postDepto, getDepto, getDeptoFiltered } from './slice/counterSlice';
 
-const endpoint = '/apartment';
+const endpoint =  '/apartment';
 
 export const postDeptoAsync = (data) => async (dispatch) => {
 
@@ -26,7 +26,7 @@ export const getDeptoAsync = () => async (dispatch) => {
     const response = await axios(endpoint);
 
     // Utiliza la acción directamente desde el slice
-    dispatch(getDepto(response.data));
+    dispatch(getDepto(response.data.docs));
   } catch (error) {
     dispatch({
       type: 'error',
@@ -47,5 +47,6 @@ export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
       payload: error.message,
     });
     console.log(error);
+
   }
 };

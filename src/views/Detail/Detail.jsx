@@ -6,6 +6,7 @@ import styles from './Detail.module.css';
 import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg'
 import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg'
 import ImgTres from '../../assets/cloudinary/fotosDetailPrueba/depto3.jpg'
+import PayButton from '../../componentes/Stripe/PayButton.jsx';
 
 const Detail = () => {
     const { id } = useParams();
@@ -17,6 +18,7 @@ const Detail = () => {
 
     return (
         <>
+        {/* {console.log(vivienda)} */}
         {vivienda ? (
             <>
             <div className={styles.navBarWrapper}>
@@ -62,9 +64,9 @@ const Detail = () => {
                 </div>
                 </div>
                 <div className={styles.buyButtonContainer}>
-                <button className={styles.buyButton}>
-                    Comprar
-                </button>
+                    <PayButton
+                        items={vivienda}
+                    />
                 <button className={styles.buyButton}>
                     Consultar
                 </button>
