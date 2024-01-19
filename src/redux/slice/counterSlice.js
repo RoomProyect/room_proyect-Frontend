@@ -7,24 +7,22 @@ export const counterSlice = createSlice({
     deptos: [],
     deptosFiltered: [],
     deptosBackup: [],
+    provincias: [],
     min: false,
     max: false,
     minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
     maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
-    login: '',
-    register: '',
-
+    paginado: {},
   },
   reducers: {
-
-
-    postRegister: (state, action) => {
-      state.register = action.payload
+    getProv: (state, action) =>{
+      let provin = [] 
+      console.log(action.payload.provincias)
+      action.payload.provincias.forEach(element => {
+        provin.push(element.nombre)
+      });
+      state.provincias = provin
     },
-    postLogin: (state, action) => {
-      state.login = action.payload
-    },
-
     postDepto: (state, action) => {
       state.depto = action.payload;
     },
@@ -32,17 +30,34 @@ export const counterSlice = createSlice({
       state.deptos = action.payload;
       state.deptosBackup = action.payload;
     },
-    getDeptoFiltered: (state, action) => {
+    paginate: ( state,action ) => {
+      state.totalPages = action.payload.totalPages;
+      state.paginado = {
+        totalPages: action.payload.totalPages,
+        pageActual: action.payload.page,
+        prevPage: action.payload.prevPage,
+        nextPage: action.payload.nextPage
+      };
+    },
+    nextPage: ( state ) => {
+      state.paginado.pageActual += 1;
+    },
+    prevPage: ( state ) => {
+      state.paginado.pageActual -= 1;
+    },
+    getDeptoFiltered: ( state, action ) => {
       let array = action.payload[0]
       console.log(action.payload)
-      if (action.payload[1][0] == "may_min") {
-        state.deptos = state.deptos.sort((a, b) => b.precio - a.precio)
+      if(action.payload[1][0] == "reset"){
+        state.deptos = state.deptosBackup
+      }
+      if(action.payload[1][0] == "may_min"){
+        state.deptos = state.deptos.sort((a, b) =>  b.precio - a.precio)
       }
       if (action.payload[1][0] == "min_may") {
         state.deptos = state.deptos.sort((a, b) => a.precio - b.precio)
       }
-      if (action.payload[1][0] == "default") {
-        console.log("oooaaaa")
+      if(action.payload[1][0] == "default"){
         state.deptos = state.deptosBackup
       }
       if (action.payload[1][0] == "no") {
@@ -71,5 +86,13 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { postDepto, getDepto, getDeptoFiltered, postLogin, postRegister } = counterSlice.actions;
+export const { 
+  postDepto, 
+  getDepto, 
+  getDeptoFiltered,
+  paginate,
+  nextPage,
+  prevPage,
+  getProv,
+} = counterSlice.actions;
 export default counterSlice.reducer;

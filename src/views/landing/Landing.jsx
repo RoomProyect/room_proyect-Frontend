@@ -83,14 +83,6 @@ const Landing = () => {
             </div>
             <div className={styles.buttonLogin}>
 <br /><br />
-<div>
-
-<Link to="/login" >LOGIN</Link>
-<div>
-<Link to='/register'> REGISTER</Link>
-
-</div>
-</div>
 
             </div>
             <div className={styles.bottomLanding}>

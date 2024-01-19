@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { postDepto, getDepto, getDeptoFiltered, postLogin, postRegister } from './slice/counterSlice';
+import { postDepto, getDepto, getDeptoFiltered, paginate, getProv } from './slice/counterSlice';
 
 const endpoint = '/apartment';
 
@@ -20,13 +20,15 @@ export const postDeptoAsync = (data) => async (dispatch) => {
   }
 };
 
-export const getDeptoAsync = (data) => async (dispatch) => {
+export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
 
   try {
-    const response = await axios.post(endpoint, data);
+    const response = await axios(`${ endpoint }?page=${ page }`);
+    // console.log( response.data );
 
     // Utiliza la acción directamente desde el slice
-    dispatch(getDepto(response.data));
+    dispatch( getDepto( response.data.docs ) );
+    dispatch( paginate( response.data ) );
   } catch (error) {
     dispatch({
       type: 'error',
@@ -36,48 +38,18 @@ export const getDeptoAsync = (data) => async (dispatch) => {
   }
 };
 
-export const postActionLogin = (dataUser) => async (dispatch ) => {
-  try {
-    const { data } = await axios.post( '/users', dataUser );
-    dispatch(postLogin(data))
-    console.log(data )
-  } catch (error) {
-    dispatch({
-      type: 'error',
-      payload: error.message,
-    });
-    console.log(error);
-  }
+export const nextPage = () => ({
+  type: 'counter/nextPage',
+})
 
-
-}
-
-
-
-export const postActionRegister = (dataUser) => async (dispatch ) => {
-  console.log(dataUser);
-  try {
-
-    const { data } = await axios.post( 'http://localhost:3001/users', dataUser );
-    dispatch(postRegister(data))
-    console.log(data )
-    alert('Usuario registrado')
-  } catch (error) {
-    dispatch({
-      type: 'error',
-      payload: error.message,
-    });
-    console.log(error);
-  }
-
-
-}
-
+export const prevPage = () => ({
+  type: 'counter/prevPage',
+})
 
 export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
   try {
     const { data } = await axios( endpoint );
-    dispatch(getDeptoFiltered([data, filtro]))
+    dispatch(getDeptoFiltered([data.docs, filtro]))
     console.log(data, filtro)
   } catch (error) {
     dispatch({
@@ -87,3 +59,15 @@ export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
     console.log(error);
   }
 };
+
+export const getProvincias = ()=> async(dispatch) => {
+  try {
+    const {data} = await axios('https://apis.datos.gob.ar/georef/api/provincias')
+    dispatch(getProv(data))
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    });
+  }
+}
