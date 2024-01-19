@@ -1,10 +1,12 @@
-// Register.js
-import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { postActionRegister } from '../../redux/actions';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+// import {useEffect} from 'react'
+import { postUserData } from '../../redux/slice/userSlice';
 import style from './Register.module.css';
 import NavBar from '../../componentes/navBar/NavBar'
+import { useNavigate } from 'react-router-dom';
+import { signInWithPopup, getAuth, GoogleAuthProvider } from "firebase/auth"
 
 import { Link } from "react-router-dom";
 
@@ -35,13 +37,62 @@ const Register = () => {
 
 
     const dispatch = useDispatch();
-    const { register, handleSubmit, errors } = useForm();
-
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        trigger,
+        reset,
+        formState: { errors },
+    } = useForm();
+    
+    const navigate = useNavigate();
+    const user  = useSelector((state) => state.user.data)
+    
     const onSubmit = (data) => {
-        dispatch(postActionRegister(data));
         console.log(data);
+        dispatch(postUserData(data))
+        reset()
     };
 
+    const handleChange = (event) =>{
+        setValue(event.target.name, event.target.value)
+        trigger(event.target.name)
+    }
+
+    const handleClick = () =>{
+        const auth = getAuth();
+        const providerGoogle = new GoogleAuthProvider(); 
+        signInWithPopup(auth, providerGoogle)
+            .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+    
+            // The signed-in user info.
+            const user = result.user;
+            const data = {name: user.displayName, email: user.email}
+            const response = dispatch(postUserData(data))
+            console.log(user)
+    
+            // IdP data available using getAdditionalUserInfo(result)
+            // ...
+            }).catch((error) => {
+            // Handle Errors here.
+            window.alert(error.message)
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.customData.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            // ...
+        });
+    }
+
+    if(user){
+        navigate('/home')
+    }
     return (
         <div>
         <NavBar/>
@@ -122,7 +173,7 @@ const Register = () => {
 
                     <div className={style.linea}></div>
 
-                    <button className={style.btnIniciarGoogle} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
+                    <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
 
                     <div className={style.containerRegister}>
                         <h2 className={style.sinCuenta}>¿Ya tienes cuenta?  </h2><Link to='/login' className={style.registerSolo}>Inicia sesión</Link>

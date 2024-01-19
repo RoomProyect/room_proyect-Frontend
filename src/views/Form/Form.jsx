@@ -1,26 +1,35 @@
 import { uploadFile } from "../../firebase/config";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { postDeptoAsync, getProvincias } from "../../redux/actions";
 import styles from "./form.module.css";
 import NavBar from "../../componentes/navBar/NavBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { may_cero } from "./validator";
-import { postDeptoAsync } from "../../redux/actions";
 
 const Form = () => {
   const [img, setImg] = useState();
   const [section, setSection] = useState(1);
   const dispatch = useDispatch();
+  const provincias = useSelector((state) => state.counter.provincias);
+
+  useEffect(() => {
+    if(!provincias.length){
+      dispatch(getProvincias())
+    }
+  }, []);
+  
   
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
     setValue,
+    trigger,
     reset,
-    getValues
+    getValues,
+    formState: { errors },
   } = useForm();
   
   const handleIncrement = (field) => {
@@ -33,18 +42,26 @@ const Form = () => {
     setValue(field, Math.max(value - 1, 0));
   };
 
+  
   const onSubmit = async (data) => {
     if (section === 1) {
       // Primera sección del formulario
       setSection(2);
     } else {
       // Segunda sección del formulario
-      const result = await uploadFile(img);
+      console.log(data);
+    const result = await uploadFile(img);
       data.img = result;
-      dispatch(postDeptoAsync(data));
-      reset();
+      console.log(result);
+    dispatch(postDeptoAsync(data));
+      reset()
     }
   };
+
+  const handleChange = (event) =>{
+    setValue(event.target.name, event.target.value)
+    trigger(event.target.name)
+  }
 
   return (
     <div>

@@ -1,24 +1,27 @@
-import { initializeApp } from "firebase/app";
-import {getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 import {v4} from 'uuid'
+import { initializeApp } from "firebase/app";
+import {getStorage, ref, uploadBytes} from 'firebase/storage'
+import { GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD3wH8NXcBMJ1xw31srOMDG6qqpTo2f1mg",
-  authDomain: "p-room.firebaseapp.com",
-  projectId: "p-room",
-  storageBucket: "p-room.appspot.com",
-  messagingSenderId: "106476533498",
-  appId: "1:106476533498:web:97284c94b2d4cf4bfc7b43"
+  apiKey: "AIzaSyA-NV4FuVuA4PupRpGSSt25oWa4gznkVH4",
+  authDomain: "room-proyect.firebaseapp.com",
+  projectId: "room-proyect",
+  storageBucket: "room-proyect.appspot.com",
+  messagingSenderId: "278448217919",
+  appId: "1:278448217919:web:47c771654d27bd69743d8a",
+  measurementId: "G-MZFPK4HPJE"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const storage = getStorage(app)
+export const providerGoogle = new GoogleAuthProvider();
+export const storage = getStorage(app);
+
 
 export const  uploadFile = async (file) =>{
-const storageRef= ref(storage, v4())
- await uploadBytes(storageRef, file)
-const url = await getDownloadURL(storageRef)
-console.log(url);
-return url
+  const storageRef= ref(storage, v4())
+  await uploadBytes(storageRef, file)
+  const url = await getDownloadURL(storageRef)
+  console.log(url);
+  return url
 }

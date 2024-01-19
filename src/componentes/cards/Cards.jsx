@@ -1,5 +1,6 @@
 import Card from '../card/Card';
 import styles from './Cards.module.css'; // Asegúrate de importar tus estilos
+import PropTypes from 'prop-types';
 
 const Cards = ({ deptos }) => {
   return (
@@ -23,6 +24,9 @@ const Cards = ({ deptos }) => {
       ))}
     </div>
   );
+};
+Cards.propTypes = {
+  deptos: PropTypes.array.isRequired
 };
 
 export default Cards;

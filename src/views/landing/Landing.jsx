@@ -82,10 +82,6 @@ const Landing = () => {
             </div>
             <div className={styles.buttonLogin}>
 <br /><br />
-<div>
-
-
-</div>
 
             </div>
             <div className={styles.bottomLanding}>

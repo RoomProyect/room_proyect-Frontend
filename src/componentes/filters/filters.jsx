@@ -44,8 +44,8 @@ const Filters = () => {
         };
     }
 
-    const handleClick = () =>{
-
+    const handleClick = (event) =>{
+        dispatch(getActionFiltered([event.target.value, event.target.name]))
     }
 
     return (
@@ -97,7 +97,7 @@ const Filters = () => {
                 </label>
 
 
-                <button name = "reset" className={styles.button} onClick={handleClick}>
+                <button name = "reset" value={"reset"} className={styles.button} onClick={handleClick}>
                     Reset
                 </button>
 

@@ -7,31 +7,29 @@ export const counterSlice = createSlice({
     deptos: [],
     deptosFiltered: [],
     deptosBackup: [],
+    provincias: [],
     min: false,
     max: false,
     minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
     maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
     paginado: {},
-    login: '',
-    register: '',
   },
   reducers: {
-
-
-    postRegister: (state, action) => {
-      state.register = action.payload
+    getProv: (state, action) =>{
+      let provin = [] 
+      console.log(action.payload.provincias)
+      action.payload.provincias.forEach(element => {
+        provin.push(element.nombre)
+      });
+      state.provincias = provin
     },
-    postLogin: (state, action) => {
-      state.login = action.payload
-    },
-
     postDepto: (state, action) => {
       state.depto = action.payload;
     },
     getDepto: (state, action) => {
       state.deptos = action.payload;
       state.deptosBackup = action.payload;
-    },   
+    },
     paginate: ( state,action ) => {
       state.totalPages = action.payload.totalPages;
       state.paginado = {
@@ -50,14 +48,16 @@ export const counterSlice = createSlice({
     getDeptoFiltered: ( state, action ) => {
       let array = action.payload[0]
       console.log(action.payload)
-      if (action.payload[1][0] == "may_min") {
-        state.deptos = state.deptos.sort((a, b) => b.precio - a.precio)
+      if(action.payload[1][0] == "reset"){
+        state.deptos = state.deptosBackup
+      }
+      if(action.payload[1][0] == "may_min"){
+        state.deptos = state.deptos.sort((a, b) =>  b.precio - a.precio)
       }
       if (action.payload[1][0] == "min_may") {
         state.deptos = state.deptos.sort((a, b) => a.precio - b.precio)
       }
-      if (action.payload[1][0] == "default") {
-        console.log("oooaaaa")
+      if(action.payload[1][0] == "default"){
         state.deptos = state.deptosBackup
       }
       if (action.payload[1][0] == "no") {
@@ -93,7 +93,6 @@ export const {
   paginate,
   nextPage,
   prevPage,
-  postLogin, 
-  postRegister
+  getProv,
 } = counterSlice.actions;
 export default counterSlice.reducer;
