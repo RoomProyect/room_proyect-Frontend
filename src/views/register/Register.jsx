@@ -91,7 +91,9 @@ const Register = () => {
     }
 
     if(user){
-        navigate('/home')
+        const userStorage = JSON.stringify( user );
+        localStorage.setItem( 'user',userStorage );
+        navigate('/home');
     }
     return (
         <div>
