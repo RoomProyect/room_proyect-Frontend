@@ -2,9 +2,10 @@ import Detail from './views/Detail/Detail.jsx'
 import Home from './views/home/Home'
 import { Route, Routes } from "react-router-dom";
 import Landing from './views/landing/Landing.jsx';
-import Form from './views/Form/form.jsx';
-import Login from './componentes/login/Login.jsx';
-import Register from './componentes/register/Register.jsx';
+import Login from './views/login/Login.jsx';
+import Register from './views/register/Register.jsx';
+import Form from './views/Form/Form.jsx';
+import CheckoutSuccess from './componentes/Stripe/CheckoutSuccess.jsx';
 
 
 
@@ -21,8 +22,9 @@ function App() {
         <Route path={"/home"} element={<Home />} />
         <Route path={"/login"} element={<Login />} />
         <Route path={"/register"} element={<Register />} />
-        <Route path={"/form"} element={<Form />} />
+        <Route path={"/form"} element={<Form />} /> 
         <Route path={'/detail/:id'} element={<Detail/>}/>
+        <Route path={'/checkout-success'} element={<CheckoutSuccess/>}/>
       </Routes>
     </div>
 

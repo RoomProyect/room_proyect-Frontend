@@ -4,6 +4,7 @@ import  SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
 import { Link } from 'react-router-dom';
 import CasaIcono  from '../../assets/cloudinary/casaicono.svg';
 import UserIcon  from '../../assets/cloudinary/userIcon.svg';
+import Session from '../session';
 
 
 const NavBar = () => {
@@ -28,6 +29,8 @@ const NavBar = () => {
     const handleMenuToggle = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    const userDataString = localStorage.getItem('usuario');
 
     return (
         <div className={styles.navBarContainer}>
@@ -69,9 +72,25 @@ const NavBar = () => {
                     {isMenuOpen && (
                         <div className={styles.hamburgerMenuContainer}>
                             <div className={styles.hamburgerMenu}>
+                               
+                            
+                            
+                            {
+userDataString ?
+                                <button
+                                onClick={() => {
+                                    
+                                    localStorage.removeItem('usuario');
+                                    
+                                }}
+                                >
+            Cerrar Sesión
+          </button> :
                                 <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
-                                <Link to="/register" className={styles.menuItem}>Registrarse</Link>
+                                } 
                                 <Link to="/profile" className={styles.menuItem}>Perfil</Link>
+                                <Link to="/login" className={styles.menuItem}> Logearte </Link>
+                                <Link to="/register" className={styles.menuItem}> Registrarse</Link>
                             </div>
                         </div>
                     )}

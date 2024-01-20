@@ -1,15 +1,14 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postUserData } from '../../redux/slice/userSlice';
 import GoogleButton from 'react-google-button';
 import { signInWithPopup, getAuth, GoogleAuthProvider } from "firebase/auth"
-import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Register = () => {
-  const navigate = useDispatch()
+
   const dispatch = useDispatch();
   const {
     register,
@@ -20,6 +19,8 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   
+  const navigate = useNavigate();
+  const user  = useSelector((state) => state.user.data)
   
   const onSubmit = (data) => {
     console.log(data);
@@ -36,16 +37,17 @@ const Register = () => {
     const auth = getAuth();
     const providerGoogle = new GoogleAuthProvider(); 
     signInWithPopup(auth, providerGoogle)
-      .then((result) => {
+    .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-
+        
         // The signed-in user info.
         const user = result.user;
         const data = {name: user.displayName, email: user.email}
-         dispatch(postUserData(data))
-  
+        dispatch(postUserData(data))
+        localStorage.setItem('usuario', JSON.stringify(user));
+        
         console.log(user)
 
         // IdP data available using getAdditionalUserInfo(result)
@@ -62,18 +64,14 @@ const Register = () => {
         // ...
       });
   }
-  const data = useSelector(state => state.user.data)
-  console.log(data);
-  useEffect(()=>{
-    console.log(data);
-    if (data) {
-      navigate('/home')
-    }
-  },[dispatch, data])
-    return (
-    <div >
 
-
+  if (user) {
+    const userData = JSON.stringify(userData);
+    localStorage.setItem('usuario', JSON.stringify(userData));
+    navigate('/home');
+  }
+  return (
+    <div>
 
     <h1>Registro</h1>
     <form onSubmit={handleSubmit(onSubmit)}>

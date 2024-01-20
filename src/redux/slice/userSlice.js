@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import axios from 'axios';
 
 export const postUserData = createAsyncThunk('user/postUserData', async (userData, thunkAPI) => {
