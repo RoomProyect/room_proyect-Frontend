@@ -47,12 +47,16 @@ const Home = () => {
                 <Filters/>
             </div>
             <div className={ styles.contentCards }>
-                <div className={ styles.contentPaginate }>
-                    <button name='back' onClick={ handleChangePage } >Back</button>
-                    <span>{ paginate.pageActual }/{ paginate.totalPages }</span>
-                    <button name='next' onClick={ handleChangePage } >Next</button>
+            <div className={styles.contentPaginate}>
+                <button name="back" onClick={handleChangePage} className={styles.paginateButton}>
+                    Back
+                </button>
+                    <span>{paginate.pageActual}/{paginate.totalPages}</span>
+                <button name="next" onClick={handleChangePage} className={styles.paginateButton}>
+                    Next
+                </button>
                 </div>
-                <Cards deptos={ deptos }/>
+                    <Cards deptos={ deptos }/>
             </div>
 
         </div>
