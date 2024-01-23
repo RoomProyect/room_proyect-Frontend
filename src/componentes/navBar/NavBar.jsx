@@ -10,6 +10,9 @@ const NavBar = () => {
     const [inputValue, setInputValue] = useState('');
     const [isSearchFocused, setIsSearchFocused] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    
+    const userStorage = localStorage.getItem( "user" );
+    const user = JSON.parse( userStorage );
 
     const handleInputChange = (e) => {
         const value = e.target.value;
@@ -28,6 +31,10 @@ const NavBar = () => {
     const handleMenuToggle = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    const handleLogout = () => {
+        localStorage.removeItem( 'user' );
+    }
 
     return (
         <div className={styles.navBarContainer}>
@@ -56,11 +63,14 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
-            <Link to="/form" >
-            <button className={styles.searchButton}>
-                + Crear publicación
-            </button>
-            </Link>                            
+            
+            { user && (
+                <Link to="/form" >
+                    <button className={styles.searchButton}>
+                        + Crear publicación
+                    </button>
+                </Link>
+            )}
 
             <div className={styles.navBarRigth}>
                     <div className={styles.userContainer}>
@@ -69,9 +79,19 @@ const NavBar = () => {
                     {isMenuOpen && (
                         <div className={styles.hamburgerMenuContainer}>
                             <div className={styles.hamburgerMenu}>
-                                <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
-                                <Link to="/register" className={styles.menuItem}>Registrarse</Link>
-                                <Link to="/profile" className={styles.menuItem}>Perfil</Link>
+                                { !user ? (
+                                    <>
+                                        <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
+                                        <Link to="/register" className={styles.menuItem}> Registrarse</Link>
+                                    </>
+                                ) 
+                                : (
+                                    <>
+                                        <Link to="/profile" className={styles.menuItem}>Perfil</Link>
+                                        <Link to="/" onClick={ handleLogout } >Logout</Link>
+                                    </>
+                                )}
+                                
                             </div>
                         </div>
                     )}

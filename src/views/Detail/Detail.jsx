@@ -2,11 +2,17 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../../componentes/navBar/NavBar.jsx';
 import styles from './Detail.module.css';
+import PayButton from '../../componentes/Stripe/PayButton.jsx';
 
 import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg'
 import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg'
 import ImgTres from '../../assets/cloudinary/fotosDetailPrueba/depto3.jpg'
 import PayButton from '../../componentes/Stripe/PayButton.jsx';
+
+import cama from "../../assets/cloudinary/card/cama.svg";
+import casa from "../../assets/cloudinary/card/casa.png";
+import ducha from "../../assets/cloudinary/card/ducha.svg";
+import ubi from "../../assets/cloudinary/card/ubi.svg";
 
 const Detail = () => {
     const { id } = useParams();
@@ -46,23 +52,28 @@ const Detail = () => {
 
                 </div>
                 </div>
-                <div className={styles.additionalDetailsContainer}>
+                <div className={styles.detailsContainer}>
                 <div className={styles.detail}>
-                    <h6 className={styles.detailLabel}>Ambientes: {vivienda.ambientes}</h6>
+                    <h6 className={styles.detailLabel}>Habitaciones: {vivienda.habitaciones}</h6>
+                    <img src={cama} alt="Cama" className={styles.icono} />
                 </div>
                 <div className={styles.detail}>
                     <h6 className={styles.detailLabel}>Baños: {vivienda.baños}</h6>
+                    <img src={ducha} alt="Ducha" className={styles.icono} />
                 </div>
                 <div className={styles.detail}>
                     <h6 className={styles.detailLabel}>Cochera: {vivienda.cochera}</h6>
+
                 </div>
                 <div className={styles.detail}>
                     <h6 className={styles.detailLabel}>Ciudad: {vivienda.ciudad}</h6>
+                    <img src={ubi} alt="Ciudad" className={styles.icono}/>
                 </div>
                 <div className={styles.detail}>
                     <h6 className={styles.detailLabel}>mcTerreno: {vivienda.mcTerreno}</h6>
+                    <img src={casa} alt="Casa" className={styles.icono} />
                 </div>
-                </div>
+            </div>
                 <div className={styles.buyButtonContainer}>
                     <PayButton
                         items={vivienda}

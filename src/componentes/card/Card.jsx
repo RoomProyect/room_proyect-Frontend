@@ -8,7 +8,7 @@ import ubi from "../../assets/cloudinary/card/ubi.svg";
 
 import PropTypes from 'prop-types';
 
-const Card = ({ id, baños, img, mcTerreno, precio, titulo,  habitaciones, ciudad }) => {
+const Card = ({ id, baños, img, mcTerreno, precio, titulo, habitaciones, ciudad }) => {
     return (
         <div className={styles.card}>
             <div className={styles.cardContainer}>
