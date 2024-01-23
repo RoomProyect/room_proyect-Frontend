@@ -5,6 +5,7 @@ export const counterSlice = createSlice({
   initialState: {
     depto: [],
     deptos: [],
+    deptoById: {},
     deptosFiltered: [],
     deptosBackup: [],
     provincias: [],
@@ -29,6 +30,9 @@ export const counterSlice = createSlice({
     getDepto: (state, action) => {
       state.deptos = action.payload;
       state.deptosBackup = action.payload;
+    },
+    getDeptoById: (state, action) =>{
+      state.deptoById = action.payload
     },
     paginate: ( state,action ) => {
       state.totalPages = action.payload.totalPages;
@@ -82,7 +86,7 @@ export const counterSlice = createSlice({
           state.deptos = state.deptosBackup.filter((casa) => casa.precio < parseInt(action.payload[1][0]))
         }
       }
-    }
+    },
   },
 });
 
@@ -94,5 +98,6 @@ export const {
   nextPage,
   prevPage,
   getProv,
+  getDeptoById
 } = counterSlice.actions;
 export default counterSlice.reducer;
