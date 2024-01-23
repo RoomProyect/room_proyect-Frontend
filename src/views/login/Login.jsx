@@ -50,29 +50,25 @@ const Login = () => {
     const providerGoogle = new GoogleAuthProvider(); 
     signInWithPopup(auth, providerGoogle)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-
-        // The signed-in user info.
+        // Manejar autenticación exitosa
         const user = result.user;
-        console.log(user)
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-      }).catch((error) => {
+        console.log("Usuario autenticado:", user);
+        // Puedes realizar acciones adicionales después de la autenticación exitosa.
+      })
+      .catch((error) => {
         // Handle Errors here.
-        window.alert(error.message)
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
+        console.error("Error de autenticación:", error);
+
+        if (error.code === 'auth/cancelled-popup-request') {
+          console.error("El usuario cerró la ventana emergente de autenticación.");
+          // Puedes manejar esta situación de manera específica si es necesario.
+        } else {
+          console.error("Error desconocido:", error.message);
+          // Puedes manejar otros errores aquí.
+          window.alert(error.message); // Muestra un mensaje de alerta al usuario.
+        }
       });
   }
-
-
 
   return (
     <div>
@@ -86,7 +82,6 @@ const Login = () => {
           className={style.carouselImg}
         />
       </div>
-
 
       <div className={style.formContainer}>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -119,3 +114,4 @@ const Login = () => {
 };
 
 export default Login;
+
