@@ -29,7 +29,7 @@
 }
 
 .propertyTitle {
-    width: 33.03988rem;
+    width: 60rem;
     height: 2.73706rem;
     color: #000;
     font-family: Inter;
@@ -70,7 +70,6 @@
 
 .propertyInfo{
     margin-left: 4rem;
-
 }
 
 .additionalDetailsContainer {
@@ -82,7 +81,7 @@
 
 /* Estilos para el contenedor del botón de retroceso */
 .goBack {
-    margin: 1.5rem;
+    
     font-size: 1.2rem;
 }
 
@@ -95,6 +94,8 @@
     border-radius: 0.3rem;
     cursor: pointer;
     font-size: 1rem;
+    margin-top: 2rem;
+    margin-left: 4rem;
 }
 
 /* Cambiar estilos al pasar el ratón sobre el botón */
@@ -121,4 +122,29 @@
     outline: none;
     margin-right: 30px;
 }
+
+.icono {
+    width: 25px;
+    height: 25px;
+    margin-left: 30px;
+    color: #375345;
+}
+
+.detailsContainer {
+    display: flex;
+    flex-direction: column; /* Contenedor de columna */
+    align-items: flex-start; /* Alinea los elementos a la izquierda */
+}
+
+.detail {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos dentro de cada .detail */
+    margin-bottom: -30px; /* Ajusta el espaciado vertical entre los detalles */
+}
+
+.detailLabel{
+    font-size: 1rem;
+    margin-left: 4rem;
+}
+
 

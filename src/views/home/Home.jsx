@@ -4,18 +4,27 @@ import Filters from '../../componentes/filters/filters';
 import Cards from "../../componentes/cards/Cards"
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  getDeptoAsync } from '../../redux/actions'; 
+import {  getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
 
 
 const Home = () => {
 
-const dispatch = useDispatch();
-useEffect(()=>{
-    dispatch(getDeptoAsync())
-}, [])
+    const dispatch = useDispatch();
+    const deptos = useSelector( (state) => state.counter.deptos );
+    const paginate = useSelector ( state => state.counter.paginado );
 
+    useEffect(()=>{
+        dispatch(getDeptoAsync( paginate.pageActual ))
+    }, [dispatch, paginate.pageActual])
 
-const deptos = useSelector((state) => state.counter.deptos);
+    const handleChangePage = ( event ) => {
+        if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
+            dispatch( nextPage() );
+        }
+        if( event.target.name === 'back' && paginate.pageActual > 1 ){
+            dispatch( prevPage() );
+        }
+    }
 
     return (
         <div className={styles.homeContainer}>
@@ -34,11 +43,20 @@ const deptos = useSelector((state) => state.counter.deptos);
                         </p>
                 </div>
             </div>
-            <div>
+            <div className={ styles.contentFilters }>
                 <Filters/>
             </div>
-            <div>
-                <Cards deptos={deptos}/>
+            <div className={ styles.contentCards }>
+            <div className={styles.contentPaginate}>
+                <button name="back" onClick={handleChangePage} className={styles.paginateButton}>
+                    Back
+                </button>
+                    <span>{paginate.pageActual}/{paginate.totalPages}</span>
+                <button name="next" onClick={handleChangePage} className={styles.paginateButton}>
+                    Next
+                </button>
+                </div>
+                    <Cards deptos={ deptos }/>
             </div>
 
         </div>
