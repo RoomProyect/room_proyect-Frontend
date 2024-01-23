@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { postDepto, getDepto, getDeptoFiltered,paginate } from './slice/counterSlice';
+import { postDepto, getDepto, getDeptoFiltered, paginate, getProv } from './slice/counterSlice';
 
 const endpoint = '/apartment';
 
@@ -49,7 +49,7 @@ export const prevPage = () => ({
 export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
   try {
     const { data } = await axios( endpoint );
-    dispatch(getDeptoFiltered([data, filtro]))
+    dispatch(getDeptoFiltered([data.docs, filtro]))
     console.log(data, filtro)
   } catch (error) {
     dispatch({
@@ -59,3 +59,15 @@ export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
     console.log(error);
   }
 };
+
+export const getProvincias = ()=> async(dispatch) => {
+  try {
+    const {data} = await axios('https://apis.datos.gob.ar/georef/api/provincias')
+    dispatch(getProv(data))
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    });
+  }
+}

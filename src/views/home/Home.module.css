@@ -60,3 +60,36 @@
     height: 3rem;
 }
 
+.contentFilters{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.contentCards{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+
+.contentPaginate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+}
+
+.paginateButton {
+    background-color: #4f886b;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin: 0 0.2rem;
+    font-size: 1rem;
+}
+
+.paginateButton:hover {
+    background-color: #294036;
+}

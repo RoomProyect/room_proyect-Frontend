@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {getStorage, ref, uploadBytes} from 'firebase/storage'
+import { getAuth } from "firebase/auth";
 import {v4} from 'uuid'
 
 const firebaseConfig = {
@@ -14,6 +15,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app)
+
+export const auth = getAuth(app);
+
 
 export const  uploadFile = (file) =>{
 const storageRef= ref(storage, v4())
