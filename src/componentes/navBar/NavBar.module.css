@@ -60,7 +60,7 @@
     margin-top: 8px;
     width: 30px;
     height: 30px;
-    background-color: #375345;
+    background-color: #4F886B;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -143,7 +143,7 @@
 }
 
 .customUserIcon {   
-    color: #4f886b;
+    color: #4F886B;
     margin-right: 8rem;
 }
 
