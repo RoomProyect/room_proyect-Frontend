@@ -17,10 +17,16 @@ export const userSlice = createSlice({
     name: 'user',
     initialState:{
         data: null,
-        status: 'idle'
+        status: 'idle',
+        users:[],
     },
     reducers: {
-
+      getUsers_: (state, action)=>{
+        state.users = action.payload
+      },
+      setUser_: (state, action)=>{
+        state.data = action.payload
+      }
     },
     extraReducers: (builder) => {
         builder.addCase(postUserData.pending, (state) => {
@@ -38,7 +44,7 @@ export const userSlice = createSlice({
     },
 
 })
-
+export const {getUsers_, setUser_} = userSlice.actions
 export default userSlice.reducer;
 
 //   export default userSlice.reducer;

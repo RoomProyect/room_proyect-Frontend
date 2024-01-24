@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
+import {getUsers_, setUser_} from './slice/userSlice'
 
 const endpoint = '/apartment';
 
@@ -84,3 +85,20 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
     })
   }
 }
+
+export const getUsers = () => async(dispatch) => {
+  try {
+    const {data} = await axios('/users')
+    console.log(data)
+    dispatch(getUsers_(data))
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    });
+  }
+}
+
+export const setUser = (data) => (dispatch) => {
+  dispatch(setUser_(data))
+};

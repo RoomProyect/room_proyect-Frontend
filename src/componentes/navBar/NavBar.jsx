@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import CasaIcono  from '../../assets/cloudinary/casaicono.svg';
 import UserIcon  from '../../assets/cloudinary/userIcon.svg';
 import SearchBar from '../SearchBar/SearchBar';
+import { setUser } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
 
 
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    
+    const dispatch = useDispatch();
     const userStorage = localStorage.getItem( "user" );
     const user = JSON.parse( userStorage );
     console.log(user)
@@ -18,6 +20,7 @@ const NavBar = () => {
     };
 
     const handleLogout = () => {
+        dispatch(setUser(null))
         localStorage.removeItem( 'user' );
     }
 
