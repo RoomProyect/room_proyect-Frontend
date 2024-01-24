@@ -4,13 +4,15 @@ import  SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
 import { Link } from 'react-router-dom';
 import CasaIcono  from '../../assets/cloudinary/casaicono.svg';
 import UserIcon  from '../../assets/cloudinary/userIcon.svg';
-import Session from '../session';
 
 
 const NavBar = () => {
     const [inputValue, setInputValue] = useState('');
     const [isSearchFocused, setIsSearchFocused] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    
+    const userStorage = localStorage.getItem( "user" );
+    const user = JSON.parse( userStorage );
 
     const handleInputChange = (e) => {
         const value = e.target.value;
@@ -30,7 +32,9 @@ const NavBar = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const userDataString = localStorage.getItem('usuario');
+    const handleLogout = () => {
+        localStorage.removeItem( 'user' );
+    }
 
     return (
         <div className={styles.navBarContainer}>
@@ -59,11 +63,14 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
-            <Link to="/form" >
-            <button className={styles.searchButton}>
-                + Crear publicación
-            </button>
-            </Link>                            
+            
+            { user && (
+                <Link to="/form" >
+                    <button className={styles.searchButton}>
+                        + Crear publicación
+                    </button>
+                </Link>
+            )}
 
             <div className={styles.navBarRigth}>
                     <div className={styles.userContainer}>
@@ -72,25 +79,19 @@ const NavBar = () => {
                     {isMenuOpen && (
                         <div className={styles.hamburgerMenuContainer}>
                             <div className={styles.hamburgerMenu}>
-                               
-                            
-                            
-                            {
-userDataString ?
-                                <button
-                                onClick={() => {
-                                    
-                                    localStorage.removeItem('usuario');
-                                    
-                                }}
-                                >
-            Cerrar Sesión
-          </button> :
-                                <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
-                                } 
-                                <Link to="/profile" className={styles.menuItem}>Perfil</Link>
-                                <Link to="/login" className={styles.menuItem}> Logearte </Link>
-                                <Link to="/register" className={styles.menuItem}> Registrarse</Link>
+                                { !user ? (
+                                    <>
+                                        <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
+                                        <Link to="/register" className={styles.menuItem}> Registrarse</Link>
+                                    </>
+                                ) 
+                                : (
+                                    <>
+                                        <Link to="/profile" className={styles.menuItem}>Perfil</Link>
+                                        <Link to="/" onClick={ handleLogout } >Logout</Link>
+                                    </>
+                                )}
+                                
                             </div>
                         </div>
                     )}

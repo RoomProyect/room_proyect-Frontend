@@ -109,11 +109,11 @@ const Login = () => {
         <div className={style.linea}></div>
         <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
         
+      </div>
+    </div>
           <div className={style.containerRegister}>
             <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2><Link to='/register' className={style.registerSolo}>Regístrate</Link>
           </div> 
-      </div>
-    </div>
     </div>
   );
 };

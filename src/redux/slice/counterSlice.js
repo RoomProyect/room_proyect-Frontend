@@ -13,6 +13,7 @@ export const counterSlice = createSlice({
     minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
     maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
     paginado: {},
+    
   },
   reducers: {
     getProv: (state, action) =>{

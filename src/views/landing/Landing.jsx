@@ -46,8 +46,6 @@ const Landing = () => {
                             <div className={styles.hamburgerMenu}>
                                 <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
                                 <Link to="/register" className={styles.menuItem}>Registrarse</Link>
-                                <Link to="/perfil" className={styles.menuItem}>Perfil</Link>
-                                <Link to="/form" className={styles.menuItem}>Agregar alojamiento</Link>
                             </div>
                         </div>
                     )}
