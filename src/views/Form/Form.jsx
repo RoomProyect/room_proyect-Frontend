@@ -65,7 +65,9 @@ const Form = () => {
 
   return (
     <div>
-      <NavBar/>
+      <div className={styles.navBar}>
+        <NavBar />
+      </div>
     <div className={styles.formContainer}>
 
       <h2 className={styles.formTitle}> Formulario </h2>
