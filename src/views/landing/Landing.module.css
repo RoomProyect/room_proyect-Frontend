@@ -10,13 +10,11 @@
 }
 
 .buttonLogin{
-  
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-background-color: aliceblue;
-
+    background-color: aliceblue;
 }
 
 /*naBar*/
@@ -36,7 +34,6 @@ background-color: aliceblue;
     background-size: contain; 
     height: 110px;                                                                     
     width: 120px; 
-    
 }
 
 .navBarRigth {
@@ -83,7 +80,7 @@ background-color: aliceblue;
 
 .menuItem {
     width: 150px;
-    padding: 8px;
+    padding: 12px 45px;
     border-radius: 5px;
     margin-bottom: 8px;
     text-decoration: none;
@@ -94,7 +91,6 @@ background-color: aliceblue;
 }
 
 .menuItem:hover {
-    background-color: rgba(221, 221, 221, 0.151); 
     color: #ffffff;
     transition: background-color 0.3s;
     backdrop-filter: blur(5px); 
@@ -183,10 +179,10 @@ background-color: aliceblue;
     color: white;
     margin-top: 4rem;
     border-radius: 0.6875rem;
-    
     background: rgba(255, 255, 255, 0.11);
     backdrop-filter: blur(1px);
     border: 2px #f8fffb ;
+    cursor: pointer;
 }
 
 .bottonDownSearchBar:hover{

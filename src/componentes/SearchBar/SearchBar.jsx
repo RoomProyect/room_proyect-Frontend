@@ -1,9 +1,10 @@
-import * as React from 'react';
 import { createAutocomplete } from '@algolia/autocomplete-core';
 import { useState } from 'react';
 import { useMemo } from 'react';
 import { useRef } from 'react';
 import styles from '../navBar/NavBar.module.css';
+
+import SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
 
 const AutocompleteItem = ({ id, ciudad}) => {
 // este es el componente que renderiza cada opcion del autocomplete
@@ -68,6 +69,9 @@ const SearchBar = (props) => {
                     className={styles.searchInput}
                     {...inputProps}
                 />
+                        <div className={styles.circle}>
+                            <img src={SearchIcon} alt="CasaIcono" />
+                        </div>
             
             {/* {console.log("Is autocomplete open?", autocomplete.isOpen)} */}
             {

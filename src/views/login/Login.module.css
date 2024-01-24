@@ -1,5 +1,9 @@
 /* Login.module.css */
 
+.navBar{
+    margin-top: 7rem;
+}
+
 .divContainer {
     display: flex;
     height: 80vh;
@@ -38,9 +42,9 @@
 }
 
 .imgLogin img {
-    height: 700px;
-    width: 550px;
-    margin-top: 5rem;
+    height: 650px;
+    width: 450px;
+    margin-top: 4rem;
     margin-left: 6rem;
     border-radius: 2rem;
     object-fit: cover;

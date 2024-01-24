@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styles from './NavBar.module.css';
-import  SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
 import { Link } from 'react-router-dom';
 import CasaIcono  from '../../assets/cloudinary/casaicono.svg';
 import UserIcon  from '../../assets/cloudinary/userIcon.svg';
