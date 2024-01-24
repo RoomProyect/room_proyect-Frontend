@@ -1,40 +1,26 @@
 import { useState } from 'react';
 import styles from './NavBar.module.css';
-import  SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
 import { Link } from 'react-router-dom';
 import CasaIcono  from '../../assets/cloudinary/casaicono.svg';
 import UserIcon  from '../../assets/cloudinary/userIcon.svg';
+import SearchBar from '../SearchBar/SearchBar';
+import { setUser } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
 
 
 const NavBar = () => {
-    const [inputValue, setInputValue] = useState('');
-    const [isSearchFocused, setIsSearchFocused] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    
+    const dispatch = useDispatch();
     const userStorage = localStorage.getItem( "user" );
     const user = JSON.parse( userStorage );
-
-    const handleInputChange = (e) => {
-        const value = e.target.value;
-        setInputValue(value);
-        document.getElementById('searchInput').style.color = value ? 'white' : '';
-    };
-
-    const handleInputFocus = () => {
-        setIsSearchFocused(true);
-    };
-
-    const handleInputBlur = () => {
-        setIsSearchFocused(false);
-    };
 
     const handleMenuToggle = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
     const handleLogout = () => {
+        dispatch(setUser(null))
         localStorage.removeItem( 'user' );
-
     }
 
     return (
@@ -47,23 +33,7 @@ const NavBar = () => {
             </Link>
 
             {/* Barra de búsqueda */}
-            <div className={styles.searchBar}>
-                <div className={styles.searchHeader}>
-                    <input
-                        id="searchInput"
-                        type="text"
-                        placeholder={isSearchFocused || inputValue ? '' : 'Buscar propiedad'}
-                        value={inputValue}
-                        className={styles.searchInput}
-                        onChange={handleInputChange}
-                        onFocus={handleInputFocus}
-                        onBlur={handleInputBlur}
-                    />
-                    <div className={styles.circle}>
-                        <img src={SearchIcon} className={styles.searchIcon}/>
-                    </div>
-                </div>
-            </div>
+            <SearchBar/>
             
             { user && (
                 <Link to="/form" >

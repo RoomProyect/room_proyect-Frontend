@@ -13,7 +13,6 @@ export const postUserData = createAsyncThunk('user/postUserData', async (userDat
     }
 })
 
- 
 export const userSlice = createSlice({
     name: 'user',
     initialState:{

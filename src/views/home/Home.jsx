@@ -2,9 +2,11 @@ import styles from './Home.module.css';
 import Navbar from '../../componentes/navBar/NavBar';
 import Filters from '../../componentes/filters/filters';
 import Cards from "../../componentes/cards/Cards"
+import Footer from '../../componentes/footer/footer';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
+import { getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
+import { Reviews } from '../../componentes/reviews/Reviews';
 
 
 const Home = () => {
@@ -47,18 +49,23 @@ const Home = () => {
                 <Filters/>
             </div>
             <div className={ styles.contentCards }>
+                <Cards deptos={ deptos }/>
+            </div>
             <div className={styles.contentPaginate}>
                 <button name="back" onClick={handleChangePage} className={styles.paginateButton}>
                     Back
                 </button>
-                    <span>{paginate.pageActual}/{paginate.totalPages}</span>
+                <span>{paginate.pageActual}/{paginate.totalPages}</span>
                 <button name="next" onClick={handleChangePage} className={styles.paginateButton}>
                     Next
                 </button>
-                </div>
-                    <Cards deptos={ deptos }/>
             </div>
-
+            <div>
+                <Reviews />
+            </div>
+            <div>
+                <Footer/>
+            </div>
         </div>
     );
 };

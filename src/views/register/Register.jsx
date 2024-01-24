@@ -96,13 +96,17 @@ const Register = () => {
             }).catch((error) => {
             // Handle Errors here.
             window.alert(error.message)
+            
             const errorCode = error.code;
+
             const errorMessage = error.message;
             // The email of the user's account used.
+
             const email = error.customData.email;
             // The AuthCredential type that was used.
+
             const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
+
         });
     }
 
@@ -112,7 +116,7 @@ const Register = () => {
         navigate('/home');
     }
     return (
-        <div>
+        <div className={style.navBar}>
         <NavBar/>
         <div className={style.divContainer}>
             
@@ -164,7 +168,7 @@ const Register = () => {
                         <label htmlFor="Telefono" className={style.emailLabel}>Telefono:</label>
                         <input 
                         placeholder="+5429453493024" 
-                        className={style.emailInput} 
+                        className={style.emailInput}  
                         type="text" {...register('Telefono')} 
                         id="Telefono" />
                     </div>
@@ -195,7 +199,7 @@ const Register = () => {
                     <button className={style.btnIniciarGoogle} onClick={handleClickGoogle} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
 
                     <div className={style.containerRegister}>
-                        <h2 className={style.sinCuenta}>¿Ya tienes cuenta?  </h2><Link to='/login' className={style.registerSolo}>Inicia sesión</Link>
+                        <h2 className={style.sinCuenta}>¿Ya tienes cuenta?</h2><Link to='/login' className={style.registerSolo}> Inicia sesión</Link>
                     </div>               
                 </form>
                 </div>

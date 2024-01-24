@@ -68,14 +68,14 @@ const Landing = () => {
                             <img src={SearchIcon} alt="CasaIcono" />
                         </div>
                     </div>
-                    <button className={`bi bi-plus custom-plus-icon ${styles.bottonDownSearchBar}`}>
-                        <Link to="/form" className={styles.menuItem}>Agregar alojamiento</Link>
-                    </button>
-                    <Link to="/home" >
-                        <button className={styles.bottonDownSearchBar}>
-                            Ver Catalogo de Hospeajes
-                        </button>
-                    </Link>
+                    {/* <button className={`bi bi-plus custom-plus-icon ${styles.bottonDownSearchBar}`}>
+                        <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
+                    </button> */}
+                        <Link to="/home" >
+                            <button className={styles.bottonDownSearchBar}>
+                                Ver Catalogo de Hospeajes
+                            </button>
+                        </Link>
                 </div>
             </div>
             <div className={styles.buttonLogin}>

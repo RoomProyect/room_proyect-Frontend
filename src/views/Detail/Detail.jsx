@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../../componentes/navBar/NavBar.jsx';
 import styles from './Detail.module.css';
@@ -12,18 +12,26 @@ import cama from "../../assets/cloudinary/card/cama.svg";
 import casa from "../../assets/cloudinary/card/casa.png";
 import ducha from "../../assets/cloudinary/card/ducha.svg";
 import ubi from "../../assets/cloudinary/card/ubi.svg";
+import { useEffect, useState } from 'react';
+import { getDeptoByIdAsync } from '../../redux/actions.js';
 
 const Detail = () => {
     const { id } = useParams();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const vivienda = useSelector((state) => {
-    const response = state.counter.deptos.find((depto) => depto._id === id);
-    return response;
-    });
+    const [isLoading, setIsLoading] = useState(false);
+    const vivienda = useSelector((state)=> state.counter.deptoById);
+
+    useEffect(()=>{
+        setIsLoading(false)
+        dispatch(getDeptoByIdAsync( id )).then(()=>{
+            setIsLoading(true)
+        })
+    },[])
 
     return (
         <>
-        {vivienda ? (
+        {isLoading ? (
             <>
             <div className={styles.navBarWrapper}>
                 <NavBar />
@@ -90,6 +98,9 @@ const Detail = () => {
             <div className={styles.container}>
                 <div className={styles.goBack}>
                 <button onClick={() => navigate("/home")}> {"< Back"}</button>
+                <div className={styles.loading}>
+                    CARGANDO...
+                </div>
                 </div>
             </div>
             </>
