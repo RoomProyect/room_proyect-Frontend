@@ -5,3 +5,40 @@
     height: 30rem;
     width: 100%;
 }
+/* Reviews.module.css */
+
+.carousel {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.navContainer {
+    display: flex; 
+    margin-top: 10px;
+}
+
+/* Reviews.module.css */
+
+.navButton {
+    background: #4F886B;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.5rem; 
+    cursor: pointer;
+    margin-right: 20px;
+    padding: 8px; 
+    width: 50px;
+    height: 50px; 
+    line-height: 0; 
+    align-items: center;
+    font-weight: 10; 
+    transition: background 0.3s ease;
+}
+
+.navButton.selected {
+    background: #fff;
+    color: #EFEFEF; 
+}
