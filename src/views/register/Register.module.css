@@ -6,6 +6,10 @@
     margin-bottom: 1rem;
 }
 
+.navBar{
+    margin-top: 7rem;
+}
+
 .divContainer {
     display: flex;
     height: 80vh;

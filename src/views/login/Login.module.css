@@ -1,5 +1,9 @@
 /* Login.module.css */
 
+.navBar{
+    margin-top: 7rem;
+}
+
 .divContainer {
     display: flex;
     height: 80vh;

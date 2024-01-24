@@ -1,5 +1,5 @@
 .navBarContainer {
-    width: auto;
+    width: 100%;
     height: 4rem;
     flex-shrink: 0;
     display: flex;
@@ -7,10 +7,11 @@
     align-items: center;
     background-color: #e9e9e9;
     padding: 0 20px; 
+    position: fixed;
+    margin-top: -7rem;
 }
 
 .logoContainer{
-
     margin-left: 8rem;
 }
 

@@ -100,7 +100,7 @@ const Register = () => {
         navigate('/home');
     }
     return (
-        <div>
+        <div className={style.navBar}>
         <NavBar/>
         <div className={style.divContainer}>
             
