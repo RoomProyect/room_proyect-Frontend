@@ -29,6 +29,17 @@ const Detail = () => {
         })
     },[])
 
+    function redirectToWhatsApp(phoneNumber) {
+
+        const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
+    
+        const whatsappLink = `https://wa.me/${formattedPhoneNumber}`;
+
+        window.open(whatsappLink, '_blank');
+    }
+    
+    
+
     return (
         <>
         {isLoading ? (
@@ -38,7 +49,7 @@ const Detail = () => {
             </div>
             <div className={styles.container}>
                 <div className={styles.goBack}>
-                <button onClick={() => navigate("/home")}> {"< Back"}</button>
+                <button onClick={() => navigate("/home")}> {"Back"}</button>
                 </div>
                 <div className={styles.propertyDetails}>
                     <img src={vivienda.img} alt="house-image" className={styles.propertyImage} />
@@ -84,9 +95,9 @@ const Detail = () => {
                 <PayButton
                         items={vivienda}
                     />
-                <button className={styles.buyButton}>
-                    Consultar
-                </button>
+                    <button className={styles.buyButton} onClick={() => redirectToWhatsApp('+123456789')}>
+                        Consultar
+                    </button>
                 </div>
             </div>
             </>

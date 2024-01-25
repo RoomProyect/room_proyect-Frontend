@@ -6,7 +6,9 @@
     width: 30rem;
     height: 20rem;
     border-radius: 1.5rem;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: rgba(243, 243, 243, 0.192);
+    color: rgba(255, 255, 255, 0.705);
+    margin: 1.5rem;
 }
 
 .contentProfile{

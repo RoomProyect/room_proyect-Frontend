@@ -6,7 +6,6 @@ import Footer from '../../componentes/footer/footer';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
-import { Reviews } from '../../componentes/reviews/Reviews';
 
 
 const Home = () => {
@@ -59,9 +58,6 @@ const Home = () => {
                 <button name="next" onClick={handleChangePage} className={styles.paginateButton}>
                     Next
                 </button>
-            </div>
-            <div>
-                <Reviews />
             </div>
             <div>
                 <Footer/>

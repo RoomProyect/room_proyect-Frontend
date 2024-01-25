@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styles from './Landing.module.css';
 import SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
-import MauseBottom  from '../../assets/cloudinary/mauseBottom.svg';
 import { Link } from 'react-router-dom';
 import UserIcon  from '../../assets/cloudinary/userIcon.svg';
+import { Reviews } from '../../componentes/reviews/Reviews';
 
 const Landing = () => {
     const [inputValue, setInputValue] = useState('');
@@ -76,16 +76,14 @@ const Landing = () => {
                                 Ver Catalogo de Hospeajes
                             </button>
                         </Link>
+                        <div>
+                            <Reviews />
+                        </div>
                 </div>
             </div>
             <div className={styles.buttonLogin}>
 <br /><br />
 
-            </div>
-            <div className={styles.bottomLanding}>
-                <div className={styles.mauseBottom}>
-                    <img src={MauseBottom} alt="CasaIcono" />
-                </div>
             </div>
         </div>
     );
