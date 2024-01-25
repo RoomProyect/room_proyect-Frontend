@@ -3,7 +3,7 @@ import Navbar from '../../../componentes/navBar/NavBar';
 import Footer from '../../../componentes/footer/footer';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getActionUsers } from '../../../redux/actions';
+import { getActionsUsers } from '../../../redux/actions';
 
 
 const AdminHomeUsers = () => {
@@ -11,7 +11,7 @@ const AdminHomeUsers = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getActionUsers())
+        dispatch(getActionsUsers())
     }, [dispatch])
 
 

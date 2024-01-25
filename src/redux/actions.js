@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
+import { getUsers, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
 import {getUsers_, setUser_} from './slice/userSlice'
 
 const endpoint = '/apartment';
@@ -20,7 +20,22 @@ export const postDeptoAsync = (data) => async (dispatch) => {
     console.log(error);
   }
 };
+export const getActionsUsers = () => async (dispatch) => {
 
+  try {
+    const response = await axios ('/users');
+
+
+    dispatch(getUsers(response.data));
+ console.log(response.data);
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    });
+    console.log(error);
+  }
+};
 export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
 
   try {
@@ -86,18 +101,18 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
   }
 }
 
-export const getUsers = () => async(dispatch) => {
-  try {
-    const {data} = await axios('/users')
-    console.log(data)
-    dispatch(getUsers_(data))
-  } catch (error) {
-    dispatch({
-      type: 'error',
-      payload: error.message,
-    });
-  }
-}
+// export const getUsers = () => async(dispatch) => {
+//   try {
+//     const {data} = await axios('/users')
+//     console.log(data)
+//     dispatch(getUsers_(data))
+//   } catch (error) {
+//     dispatch({
+//       type: 'error',
+//       payload: error.message,
+//     });
+//   }
+// }
 
 export const setUser = (data) => (dispatch) => {
   dispatch(setUser_(data))

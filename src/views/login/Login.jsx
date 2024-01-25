@@ -152,14 +152,10 @@ const Login = () => {
           <button className={style.btnIniciarSesion} type="submit">Iniciar sesión</button>
         </form>
         <div className={style.linea}></div>
-<<<<<<< HEAD
         <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
         
       </div>
     </div>
-=======
-        <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>      
->>>>>>> 46f0d15626a8909ccf5be06347a2146f17ad2db5
           <div className={style.containerRegister}>
             <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
           </div> 
