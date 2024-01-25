@@ -50,14 +50,14 @@ const NavBar = () => {
                                 : (
                                     <>
                                         <Link to="/perfil" className={styles.menuItem}>Perfil</Link>
-                                        <Link to="/" onClick={ handleLogout } >Logout</Link>
-                                        { user.rol == "superadmin" && (
+                                        <Link to="/" onClick={ handleLogout } className={styles.menuItem} >Logout</Link>
+                                        { user[0].rol == "superadmin" && (
                                             <>
                                                 <Link to="/AdminUsers" className={styles.menuItem}>AdminUsers</Link>
                                                 <Link to="/AdminPosts" className={styles.menuItem}>AdminPosts</Link>
                                             </>
                                         )}
-                                        { user.rol == "superadmin" || user.rol == "admin" && (
+                                        { user[0].rol == "superadmin" || user[0].rol == "admin" && (
                                                         <Link to="/form" >
                                                             <button className={styles.searchButton}>
                                                                 + Crear publicación

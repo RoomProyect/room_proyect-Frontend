@@ -99,6 +99,19 @@ export const getUsers = () => async(dispatch) => {
   }
 }
 
+export const updateUser = (data) => async (dispatch) =>{
+  try {
+    const response = await axios.put('/users', data);
+    // Utiliza la acción directamente desde el slice
+    
+  } catch (error) {
+    dispatch({
+      type: "error",
+      payload: error.message
+    })
+  }
+}
+
 export const setUser = (data) => (dispatch) => {
   dispatch(setUser_(data))
 };
