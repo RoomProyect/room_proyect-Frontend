@@ -113,8 +113,6 @@
     width: 2.5vmin;
     height: 10vmin;
   }
-
-
   
   .head {
     text-align: right;
@@ -178,7 +176,6 @@
     width: 250px;
     border-radius: 0 0 0 1vmin;
   }
-  
   
   .note {
     position: absolute;

@@ -1,6 +1,6 @@
 import styles from './AdminPosts.module.css';
 import Navbar from '../../../componentes/navBar/NavBar';
-import Footer from '../../../componentes/footer/footer';
+
 
 const AdminPost = () => {
 
@@ -46,9 +46,6 @@ const AdminPost = () => {
                             </tr>
                         </tbody>
                     </table>
-            </div>
-            <div>
-                <Footer/>
             </div>
         </div>
     );

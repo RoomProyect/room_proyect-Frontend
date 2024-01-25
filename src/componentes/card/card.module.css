@@ -10,7 +10,7 @@
 }
 
 .card:hover {
-    transform: scale(1.0002); /* Incrementa el tamaño al 105% cuando hay hover */
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .icono {
