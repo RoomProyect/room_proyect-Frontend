@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 export const counterSlice = createSlice({
   name: 'counter',
   initialState: {
-    users : [],
     depto: [],
     deptos: [],
     deptoById: {},
@@ -12,18 +11,13 @@ export const counterSlice = createSlice({
     provincias: [],
     min: false,
     max: false,
-    minPrice: 0,
-    maxPrice: Infinity,
-    paginado: {
-      totalPages: 0,
-      pageActual: 1,
-      cardsPerPage: 8,
-    },
+    minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
+    maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
+    paginado: {},
+    putDeptos: [],
+    
   },
   reducers: {
-    getUsers: (state, action) => {
-      state.users = action.payload;
-    },
     getProv: (state, action) =>{
       let provin = [] 
       console.log(action.payload.provincias)
@@ -35,9 +29,13 @@ export const counterSlice = createSlice({
     postDepto: (state, action) => {
       state.depto = action.payload;
     },
+
     getDepto: (state, action) => {
       state.deptos = action.payload;
       state.deptosBackup = action.payload;
+    },
+    putDepto: (state, action) => {
+      state.putDeptos = action.payload;
     },
     getDeptoById: (state, action) =>{
       state.deptoById = action.payload
@@ -102,6 +100,7 @@ export const counterSlice = createSlice({
 });
 
 export const { 
+  putDepto,
   getUsers,
   postDepto, 
   getDepto, 
