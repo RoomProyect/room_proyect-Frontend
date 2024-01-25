@@ -7,7 +7,6 @@ import PayButton from '../../componentes/Stripe/PayButton.jsx';
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
-
 import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg';
 import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg';
 import ImgTres from '../../assets/cloudinary/fotosDetailPrueba/depto3.jpg';
@@ -87,16 +86,19 @@ const Detail = () => {
                                 Consultar
                             </button>
                         </div>
-                        <MapContainer center={position} zoom={13} scrollWheelZoom={false} className={styles.mapContainer}>
-                            <TileLayer
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            className={styles.tileLayerStyle}/>
-                            <Marker position={position}>
-                                <Popup className={styles.popupStyle}>
-                                    A pretty CSS3 popup. <br /> Easily customizable.
-                                </Popup>
-                            </Marker>
+                        <div>
+                        <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "40vh", width: "102%" }}>
+                        <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker position={position}>
+                        <Popup>
+                        A pretty CSS3 popup. <br /> Easily customizable.
+                        </Popup>
+                        </Marker>
                         </MapContainer>
+                        </div>
                     </div>
                 </React.Fragment>
             ) : (

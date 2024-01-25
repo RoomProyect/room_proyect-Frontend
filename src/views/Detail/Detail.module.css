@@ -169,11 +169,11 @@
 .propertyImage:hover,
 .tresImgIndividual:hover,
 .zoomedImage {
-  transform: scale(1.4); /* Puedes ajustar el valor según sea necesario */
+  transform: scale(1.2); /* Puedes ajustar el valor según sea necesario */
 }
 
 .zoomed {
-  transform: scale(1.4); /* Puedes ajustar el valor según sea necesario */
+  transform: scale(1.2); /* Puedes ajustar el valor según sea necesario */
 }
 
 /* Agrega estos estilos a tu archivo .css o .module.css */
@@ -181,7 +181,6 @@
 .mapContainer {
     height: 100px;
     width: 100%;
-    flex-direction: center;
   
   }
   
