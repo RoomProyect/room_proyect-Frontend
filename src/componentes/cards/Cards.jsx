@@ -16,7 +16,7 @@ const Cards = ({ deptos }) => {
             cochera={casa.cochera}
             descripcion={casa.descripcion}
             img={casa.img}
-            precio={casa.mcTerreno}
+            precio={casa.precio}
             mcTerreno={casa.mcTerreno}
             ciudad={casa.ciudad}
           />
