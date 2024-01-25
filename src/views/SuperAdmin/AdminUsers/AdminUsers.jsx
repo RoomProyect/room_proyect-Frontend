@@ -1,4 +1,4 @@
-import styles from './AdminHome.module.css';
+import styles from './AdminUsers.module.css';
 import Navbar from '../../../componentes/navBar/NavBar';
 import Footer from '../../../componentes/footer/footer';
 // import { useEffect } from 'react';

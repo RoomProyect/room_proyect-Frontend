@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
+
   const dispatch = useDispatch();
   const {
     register,
@@ -36,15 +37,17 @@ const Register = () => {
     const auth = getAuth();
     const providerGoogle = new GoogleAuthProvider(); 
     signInWithPopup(auth, providerGoogle)
-      .then((result) => {
+    .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-
+        
         // The signed-in user info.
         const user = result.user;
         const data = {name: user.displayName, email: user.email}
-        const response = dispatch(postUserData(data))
+        dispatch(postUserData(data))
+        localStorage.setItem('usuario', JSON.stringify(user));
+        
         console.log(user)
 
         // IdP data available using getAdditionalUserInfo(result)
@@ -62,10 +65,11 @@ const Register = () => {
       });
   }
 
-  if(user){
-    navigate('/home')
+  if (user) {
+    const userData = JSON.stringify(userData);
+    localStorage.setItem('usuario', JSON.stringify(userData));
+    navigate('/home');
   }
-
   return (
     <div>
 
