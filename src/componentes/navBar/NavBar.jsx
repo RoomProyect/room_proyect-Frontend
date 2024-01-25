@@ -60,9 +60,14 @@ const NavBar = () => {
                                     <>
                                         <Link to="/profile" className={styles.menuItem}>Perfil</Link>
                                         <Link to="/" onClick={ handleLogout } >Logout</Link>
+                                        {user.SuperAdmin && (
+                                            <>
+                                                <Link to="/AdminUsers" className={styles.menuItem}>AdminUsers</Link>
+                                                <Link to="/AdminPosts" className={styles.menuItem}>AdminPosts</Link>
+                                            </>
+                                        )}
                                     </>
                                 )}
-                                
                             </div>
                         </div>
                     )}
