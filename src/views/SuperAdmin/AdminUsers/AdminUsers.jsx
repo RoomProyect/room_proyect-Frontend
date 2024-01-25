@@ -17,7 +17,7 @@ const updateUser = async(obj)=>{
     }
 }
 
-const AdminHomeUsers = () => {
+const AdminUsers = () => {
     const users = useSelector((state) => state.user.users);
     const [rol, setRol] = useState("--");
     const dispatch = useDispatch();
@@ -84,7 +84,7 @@ const AdminHomeUsers = () => {
                                 <th>Activo/Inactivo</th>
                                 <th>ROL</th>
                                 <th>CORREO</th>
-                                <th></th> {/* Espacio para el botón "Ver Publicación" */}
+                                <th>{/* Espacio para los botones*/}</th> 
                             </tr>
                         </thead>
                         <tbody>
@@ -115,4 +115,4 @@ const AdminHomeUsers = () => {
     );
 };
 
-export default AdminHomeUsers;
+export default AdminUsers;
