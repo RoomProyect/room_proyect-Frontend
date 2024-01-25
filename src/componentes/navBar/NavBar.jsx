@@ -13,7 +13,6 @@ const NavBar = () => {
     const dispatch = useDispatch();
     const userStorage = localStorage.getItem( "user" );
     const user = JSON.parse( userStorage );
-    console.log(user)
 
     const handleMenuToggle = () => {
         setIsMenuOpen(!isMenuOpen);

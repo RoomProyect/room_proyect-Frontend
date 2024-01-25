@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
 
 
+
+
 const Home = () => {
 
     const dispatch = useDispatch();

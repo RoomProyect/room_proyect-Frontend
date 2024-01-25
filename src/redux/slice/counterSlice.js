@@ -11,13 +11,10 @@ export const counterSlice = createSlice({
     provincias: [],
     min: false,
     max: false,
-    minPrice: 0,
-    maxPrice: Infinity,
-    paginado: {
-      totalPages: 0,
-      pageActual: 1,
-      cardsPerPage: 8,
-    },
+    minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
+    maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
+    paginado: {},
+    
   },
   reducers: {
     getProv: (state, action) =>{
