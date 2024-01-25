@@ -127,8 +127,7 @@
     width: 100px;
     height: 35px;
     cursor: pointer;
-    box-shadow: 0 1.5px rgba(0, 0, 0, 0.418);
-    margin-right: 10.6rem;
+    box-shadow: 0 1.5px rgba(0, 0, 0, 0.418);   
 }
 
 .userTable {
@@ -157,14 +156,16 @@
     background-color: #C9F7F5;
     color: rgba(0, 0, 0, 0.76);
 
+    box-shadow: 0 1.5px rgba(0, 0, 0, 0.288);
+    margin-left: 10px;
     width: 171.49px;
-    height: 34px;
+    height: 35px;
     top: 174px;
     left: 886px;
     border-radius: 6px;
     border: none ;
     cursor: pointer;
-    box-shadow: 0 1.5px rgba(0, 0, 0, 0.418);
+
 
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: 'Arial', sans-serif; 
