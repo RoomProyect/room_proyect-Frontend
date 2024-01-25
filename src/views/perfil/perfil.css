@@ -49,7 +49,9 @@
   .card--back {
     border-radius: 2rem;
     transform: rotateY(180deg);
-    background-position: 10vmin 10vmin;
+    background-size: cover;
+    background-position: center;
+    
   }
   .card--back--flip {
     transform: rotateY(0);
@@ -153,6 +155,7 @@
     padding-right: 4vmin;
     padding-left: 7vmin;
     background: linear-gradient(to right, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0) 100%);
+    cursor: initial
   }
   
   .contact > li:first-child > p {
