@@ -33,11 +33,8 @@ const NavBar = () => {
                 </div>
             </Link>
 
-            {/* Barra de búsqueda */}
             <SearchBar/>
             
-
-
             <div className={styles.navBarRigth}>
                     <div className={styles.userContainer}>
                         <Link to="#" className={styles.customUserIcon} onClick={handleMenuToggle}><img src={UserIcon} alt="UserIcon" /> </Link>
@@ -53,7 +50,7 @@ const NavBar = () => {
                                 ) 
                                 : (
                                     <>
-                                        <Link to="/profile" className={styles.menuItem}>Perfil</Link>
+                                        <Link to="/perfil" className={styles.menuItem}>Perfil</Link>
                                         <Link to="/" onClick={ handleLogout } >Logout</Link>
                                         { user.rol == "superadmin" && (
                                             <>

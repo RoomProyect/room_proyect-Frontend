@@ -13,7 +13,7 @@ export const CardReview = () => {
                     <img className={ style.imgComilla } src="https://res.cloudinary.com/dstaqtpvc/image/upload/v1706119307/h6odaitfbfr2nuqrztsd.svg" alt="comillas" />
                 </div>
                 <p className={ style.pReview } >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet nemo culpa alias, aspernatur odit incidunt quidem! Ipsa dicta, cupiditate, ratione rerum doloribus dolorum veniam tempora facere cum cumque eaque inventore?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet nemo culpa alias, aspernatur odit incidunt 
                 </p>
                 <div className={ style.comillasEnd } >
                     <img className={ style.imgComilla } src="https://res.cloudinary.com/dstaqtpvc/image/upload/v1706119307/h6odaitfbfr2nuqrztsd.svg" alt="comillas" />
