@@ -1,8 +1,13 @@
 .inputGroup {
     display: flex;
     flex-direction: column;
-    align-items:first baseline;
+    align-items: baseline; /* Corregido: align-items:baseline; */
     border-radius: 0.625rem;
+    margin-bottom: 1rem;
+}
+
+.navBar{
+    margin-top: 7rem;
 }
 
 .divContainer {
@@ -14,25 +19,6 @@
     margin-left: 25rem;
     margin-right: 25rem;
     box-shadow: 0 2px rgba(0, 0, 0, 0.418);
-}
-
-.title{
-    margin-right: 8rem;
-}
-
-.imgLogin {
-    max-width: 100%;
-    max-height: 100%;
-    width: 550px;
-}
-
-.imgLogin img {
-    height: 700px;
-    width: 550px;
-    margin-top: 5rem;
-    margin-left: 6rem;
-    border-radius: 2rem;
-    object-fit: cover;
 }
 
 .formContainer {
@@ -141,9 +127,9 @@
 }
 
 .imgLogin img {
-    height: 700px;
-    width: 550px;
-    margin-top: 5rem;
+    height: 650px;
+    width: 450px;
+    margin-top: 4rem;
     margin-left: 6rem;
     border-radius: 2rem;
     object-fit: cover;

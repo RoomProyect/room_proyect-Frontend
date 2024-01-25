@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const PayButton = ({items}) => {
 
     const handlerCheckout = () => {
-        axios.post(`http://localhost:3001/create-checkout-session`,  items ).then((res) => {
+        axios.post(`https://room-project-backend.onrender.com/create-checkout-session`,  items ).then((res) => {
             if(res.data.url){
                 window.location.href = res.data.url
             }
