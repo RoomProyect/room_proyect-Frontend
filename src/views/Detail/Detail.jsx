@@ -71,24 +71,24 @@ const Detail = () => {
                 </div>
                 <div className={styles.detailsContainer}>
                 <div className={styles.detail}>
+                    <img src={cama} alt="Cama" className={`${styles.icono} ${styles.casa}`} />
                     <h6 className={styles.detailLabel}>Habitaciones: {vivienda.habitaciones}</h6>
-                    <img src={cama} alt="Cama" className={styles.icono} />
+                    
                 </div>
                 <div className={styles.detail}>
-                    <h6 className={styles.detailLabel}>Baños: {vivienda.baños}</h6>
                     <img src={ducha} alt="Ducha" className={styles.icono} />
+                    <h6 className={styles.detailLabel}>Baños: {vivienda.baños}</h6>                   
                 </div>
                 <div className={styles.detail}>
                     <h6 className={styles.detailLabel}>Cochera: {vivienda.cochera}</h6>
-
                 </div>
                 <div className={styles.detail}>
-                    <h6 className={styles.detailLabel}>Ciudad: {vivienda.ciudad}</h6>
                     <img src={ubi} alt="Ciudad" className={styles.icono}/>
+                    <h6 className={styles.detailLabel}>Ciudad: {vivienda.ciudad}</h6>                    
                 </div>
                 <div className={styles.detail}>
-                    <h6 className={styles.detailLabel}>mcTerreno: {vivienda.mcTerreno}</h6>
                     <img src={casa} alt="Casa" className={styles.icono} />
+                    <h6 className={styles.detailLabel}>mcTerreno: {vivienda.mcTerreno}</h6>
                 </div>
             </div>
                 <div className={styles.buyButtonContainer}>

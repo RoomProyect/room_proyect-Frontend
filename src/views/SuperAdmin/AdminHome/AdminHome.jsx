@@ -36,10 +36,6 @@ const AdminHomeUsers = () => {
                     <div className={styles.tableHeader}>
                         <h2>Tabla de Usuarios</h2>
                     </div>
-                    <div className={styles.tableActions}>
-                        <button className={styles.blueButton}>Dar Rol</button>
-                        <button className={styles.redButton}>Banear</button>
-                    </div>
                     <table className={styles.userTable}>
                         <thead>
                             <tr className={styles.tableHeaderRow}>
@@ -56,8 +52,10 @@ const AdminHomeUsers = () => {
                                 <td>Activo</td>
                                 <td>Rol1</td>
                                 <td>correo1@example.com</td>
-                                <td>
-                                    <button className={styles.viewButton}>Ver Publicaciónes</button>
+                                <td>                                  
+                                    <button className={styles.blueButton}>Dar Rol</button>
+                                    <button className={styles.redButton}>Banear</button>
+                                    <button className={styles.viewButton}>Ver Publicación</button>
                                 </td>
                             </tr>
                         </tbody>

@@ -1,6 +1,6 @@
 .container {
     margin: 3rem;
-    height: 42vw;
+    height: 40vw;
     flex-shrink: 0;
     border-radius: 0.83088rem;
     background: rgba(0, 0, 0, 0.03);
@@ -126,25 +126,27 @@
 .icono {
     width: 25px;
     height: 25px;
-    margin-left: 30px;
+    margin-right: 10px;
     color: #375345;
+    margin-top: 2.4rem;
 }
 
 .detailsContainer {
     display: flex;
-    flex-direction: column; /* Contenedor de columna */
-    align-items: flex-start; /* Alinea los elementos a la izquierda */
+    flex-direction: row; 
+    align-items: flex-start; 
 }
 
 .detail {
     display: flex;
-    align-items: center; /* Centra verticalmente los elementos dentro de cada .detail */
-    margin-bottom: -30px; /* Ajusta el espaciado vertical entre los detalles */
+    align-items: center; 
+    margin-bottom: -30px; 
 }
 
 .detailLabel{
     font-size: 1rem;
-    margin-left: 4rem;
+    margin-right: 6rem;
+    margin-top: 5rem;
 }
 
 .loading{
@@ -152,4 +154,11 @@
     justify-content: center;
     align-items: center;
     height: 400px;
+}
+.navBarWrapper{
+    margin-top: 7rem;
+}
+
+.casa{
+    margin-left: 4rem;
 }
