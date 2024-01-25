@@ -67,7 +67,6 @@
     background: rgba(0, 0, 0, 0.336);
     backdrop-filter: blur(1px);
     border: 2px #f8fffb ;
-    
 }
 
 .hamburgerMenu {
@@ -173,11 +172,11 @@
 }
 
 .bottonDownSearchBar {
-    width: 190px;
     height: 40px;
     line-height: 40px;
     color: white;
     margin-top: 4rem;
+    width: 190px;
     border-radius: 0.6875rem;
     background: rgba(255, 255, 255, 0.11);
     backdrop-filter: blur(1px);

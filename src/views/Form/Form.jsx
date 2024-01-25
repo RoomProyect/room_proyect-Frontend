@@ -82,10 +82,10 @@ const Form = () => {
                 type="text"
                 name="titulo"
                 id="titulo"
+                onChange={handleChange}
                 {...register("titulo")}
                 className={styles.formInput}
                 placeholder="Dpto a estrenar en Nueva Cordoba"
-                
               />
               {errors.descripcion?.type === 'required' && (
                 <p className={styles.error}>Este campo es requerido</p>
@@ -101,6 +101,7 @@ const Form = () => {
                 name="descripcion"
                 id="descripcion"
                 className={styles.formInput}
+                onChange={handleChange}
                 {...register('descripcion', {
                   required: true,
                   minLength: 100,
@@ -125,6 +126,7 @@ const Form = () => {
                 type="text"
                 name="mcTerreno"
                 id="mcTerreno"
+                onChange={handleChange}
                 {...register("mcTerreno", {
                   required: "El campo es requerido",
                   validate: may_cero,
@@ -148,6 +150,7 @@ const Form = () => {
                 type="text"
                 name="precio"
                 id="precio"
+                onChange={handleChange}
                 {...register("precio", {
                   required: "El campo es requerido",
                   validate: may_cero,
@@ -188,6 +191,7 @@ const Form = () => {
                   type="text"
                   name="habitaciones"
                   id="habitaciones"
+                  onChange={handleChange}
                   {...register("habitaciones")}
                   className={styles.formInputSeccionDos}
                 />
@@ -216,6 +220,7 @@ const Form = () => {
                   type="text"
                   name="cocheras"
                   id="cocheras"
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                   {...register('cochera') }
                 />
@@ -236,6 +241,7 @@ const Form = () => {
                 <button
                   type="button"
                   className={styles.decrementButton}
+                  
                   onClick={() => handleDecrement("baños")}
                 >
                   -
@@ -244,6 +250,7 @@ const Form = () => {
                   type="text"
                   name="baños"
                   id="baños"
+                  onChange={handleChange}
                   {...register("baños", {
                     required: "El campo es requerido",
                     validate: may_cero,
@@ -280,6 +287,7 @@ const Form = () => {
                   type="text"
                   name="ambientes"
                   id="ambientes"
+                  onChange={handleChange}
                   {...register("ambientes", {
                     required: "El campo es requerido",
                     validate: may_cero,
@@ -340,18 +348,18 @@ const Form = () => {
   );
 };
 
-// Form.propTypes = {
-//   //id: PropTypes.string.isRequired,
-//   ambientes: PropTypes.string.isRequired,
-//   baños: PropTypes.string.isRequired,
-//   cochera: PropTypes.string.isRequired,
-//   descripcion: PropTypes.string.isRequired,
-//   img: PropTypes.string.isRequired,
-//   mcTerreno: PropTypes.string.isRequired,
-//   precio: PropTypes.string.isRequired,
-//   titulo: PropTypes.string.isRequired,
-//   ciudad: PropTypes.string.isRequired,
-//   habitaciones: PropTypes.string.isRequired,
-// };
+Form.propTypes = {
+    //id: PropTypes.string.isRequired,
+    ambientes: PropTypes.string.isRequired,
+    baños: PropTypes.string.isRequired,
+    cochera: PropTypes.string.isRequired,
+    descripcion: PropTypes.string.isRequired,
+    img: PropTypes.string.isRequired,
+    mcTerreno: PropTypes.string.isRequired,
+    precio: PropTypes.string.isRequired,
+    titulo: PropTypes.string.isRequired,
+    ciudad: PropTypes.string.isRequired,
+    habitaciones: PropTypes.string.isRequired,
+};
 
 export default Form;

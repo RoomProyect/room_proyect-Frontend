@@ -26,7 +26,7 @@ export const userSlice = createSlice({
       },
       setUser_: (state, action)=>{
         state.data = action.payload
-      }
+      },
     },
     extraReducers: (builder) => {
         builder.addCase(postUserData.pending, (state) => {

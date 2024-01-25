@@ -29,6 +29,17 @@ const Detail = () => {
         })
     },[])
 
+    function redirectToWhatsApp(phoneNumber) {
+
+        const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
+    
+        const whatsappLink = `https://wa.me/${formattedPhoneNumber}`;
+
+        window.open(whatsappLink, '_blank');
+    }
+    
+    
+
     return (
         <>
         {isLoading ? (
@@ -38,7 +49,7 @@ const Detail = () => {
             </div>
             <div className={styles.container}>
                 <div className={styles.goBack}>
-                <button onClick={() => navigate("/home")}> {"< Back"}</button>
+                <button onClick={() => navigate("/home")}> {"Back"}</button>
                 </div>
                 <div className={styles.propertyDetails}>
                     <img src={vivienda.img} alt="house-image" className={styles.propertyImage} />
@@ -60,33 +71,33 @@ const Detail = () => {
                 </div>
                 <div className={styles.detailsContainer}>
                 <div className={styles.detail}>
+                    <img src={cama} alt="Cama" className={`${styles.icono} ${styles.casa}`} />
                     <h6 className={styles.detailLabel}>Habitaciones: {vivienda.habitaciones}</h6>
-                    <img src={cama} alt="Cama" className={styles.icono} />
+                    
                 </div>
                 <div className={styles.detail}>
-                    <h6 className={styles.detailLabel}>Baños: {vivienda.baños}</h6>
                     <img src={ducha} alt="Ducha" className={styles.icono} />
+                    <h6 className={styles.detailLabel}>Baños: {vivienda.baños}</h6>                   
                 </div>
                 <div className={styles.detail}>
                     <h6 className={styles.detailLabel}>Cochera: {vivienda.cochera}</h6>
-
                 </div>
                 <div className={styles.detail}>
-                    <h6 className={styles.detailLabel}>Ciudad: {vivienda.ciudad}</h6>
                     <img src={ubi} alt="Ciudad" className={styles.icono}/>
+                    <h6 className={styles.detailLabel}>Ciudad: {vivienda.ciudad}</h6>                    
                 </div>
                 <div className={styles.detail}>
-                    <h6 className={styles.detailLabel}>mcTerreno: {vivienda.mcTerreno}</h6>
                     <img src={casa} alt="Casa" className={styles.icono} />
+                    <h6 className={styles.detailLabel}>mcTerreno: {vivienda.mcTerreno}</h6>
                 </div>
             </div>
                 <div className={styles.buyButtonContainer}>
                 <PayButton
                         items={vivienda}
                     />
-                <button className={styles.buyButton}>
-                    Consultar
-                </button>
+                    <button className={styles.buyButton} onClick={() => redirectToWhatsApp('+123456789')}>
+                        Consultar
+                    </button>
                 </div>
             </div>
             </>
