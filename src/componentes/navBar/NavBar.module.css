@@ -187,3 +187,9 @@
     display: flex;
     align-items: center;
 }
+
+.menuItem:link,
+.menuItem:visited {
+  color: tuNuevoColor; /* Reemplaza tuNuevoColor con el color deseado */
+  text-decoration: none; /* Quita el subrayado */
+}
