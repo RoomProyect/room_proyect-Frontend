@@ -87,7 +87,7 @@ const Detail = () => {
                             </button>
                         </div>
                         <div>
-                        <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "40vh", width: "102%" }}>
+                        <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "40vh", width: "102 %" }}>
                         <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
