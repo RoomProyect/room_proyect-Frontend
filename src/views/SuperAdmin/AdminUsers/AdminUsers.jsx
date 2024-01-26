@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../../../redux/actions';
 import axios from 'axios';
 import { useState } from 'react';
+import Footer from "../../../componentes/footer/footer"
 // import {  getDeptoAsync, nextPage, prevPage } from '../../../redux/actions'; 
 const updateUser = async(obj)=>{
     try {
         const {data} = await axios.put('https://room-project-backend.onrender.com/users', obj)
         window.location.reload()
     } catch (error) {
-       console.log(error.message)
+        console.log(error.message)
     }
 }
 
@@ -45,20 +46,7 @@ const AdminUsers = () => {
     const handleChange = (event) =>{
         setRol(event.target.value);
     }
-    // const paginate = useSelector ( state => state.counter.paginado );
 
-    // useEffect(()=>{
-    //     dispatch(getDeptoAsync( paginate.pageActual ))
-    // }, [dispatch, paginate.pageActual])
-
-    // const handleChangePage = ( event ) => {
-    //     if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
-    //         dispatch( nextPage() );
-    //     }
-    //     if( event.target.name === 'back' && paginate.pageActual > 1 ){
-    //         dispatch( prevPage() );
-    //     }
-    // }
 
     return (
         <div className={styles.homeContainer}>
@@ -84,15 +72,15 @@ const AdminUsers = () => {
                         </thead>
                         <tbody>
                             {users.map((user)=>{
-                                return <tr key= {user._id}>
+                                return <tr key={user._id} key= {user._id}>
                                         <td>{user.name}</td>
                                         <td>{user.active?"Activo":"Inactivo"}</td>
                                         <td>{user.rol}</td>
                                         <td>{user.email}</td>
                                         <td>
-                                            <select name="rol" id="rol" onChange={handleChange}>
+                                            <select name="rol" id="rol" onChange={handleChange} className={styles.blueButton}>
                                                 <option value="--">--</option>
-                                                <option value="admin">admin</option>
+                                                <option className={styles.blueButton} value="admin">admin</option>
                                                 <option value="user">user</option>
                                             </select>
 
@@ -105,6 +93,9 @@ const AdminUsers = () => {
 
                         </tbody>
                     </table>
+            </div>
+            <div>
+                <Footer/>
             </div>
         </div>
     );

@@ -29,13 +29,13 @@
 }
 
 .contentTable{
-    height: 30rem;
+    height: 100%;
     width: 90%;
     margin-left: auto;
     background-color: #d4d4d42c;
     margin-right: 4rem;
     border-radius: 15px;
-    margin-bottom: 3rem;
+    padding-bottom: 4rem;
 }
 
 .paginateButton {
@@ -110,7 +110,7 @@
 .blueButton {
     background-color: #4F886B;
     color: white;
-    margin-right: 10px;
+    margin-right: 20px;
     border-radius: 6px;
     border: none;
     width: 100px;
@@ -132,9 +132,11 @@
 
 .userTable {
     width: 98%;
+    height: 98%;
     border-collapse: collapse;
     margin-top: 10px; 
     margin-left: 1rem;
+    margin-bottom: 2rem;
 }
 
 .tableHeaderRow {
@@ -157,8 +159,8 @@
     color: rgba(0, 0, 0, 0.76);
 
     box-shadow: 0 1.5px rgba(0, 0, 0, 0.288);
-    margin-left: 10px;
-    width: 171.49px;
+    margin-left: 20px;
+    width: 140px;
     height: 35px;
     top: 174px;
     left: 886px;
