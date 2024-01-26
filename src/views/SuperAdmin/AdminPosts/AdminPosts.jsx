@@ -1,8 +1,31 @@
 import styles from './AdminPosts.module.css';
 import Navbar from '../../../componentes/navBar/NavBar';
+import axios from 'axios';
+
+const updateUser = async(obj)=>{
+    try {
+        console.log(obj)
+        const {data} = await axios.put('https://room-project-backend.onrender.com/users', obj)
+        console.log(data)
+        window.location.reload()
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 
 
 const AdminPost = () => {
+
+    const handleClickBan = (event)=>{
+        
+        if(event.target.value === 'true'){
+            updateUser({_id: event.target.id, active: false})
+        }else{
+            updateUser({_id: event.target.id, active: true})
+        }
+        
+    }
+
 
     return (
         <div className={styles.homeContainer}>
@@ -40,7 +63,7 @@ const AdminPost = () => {
                                 <td>200m2</td>
                                 <td>                                  
                                     <button className={styles.blueButton}>Ver Publicacion</button>
-                                    <button className={styles.redButton}>Borrado Logico</button>
+                                    <button className={styles.redButton} id={user._id} value = {user.active} onClick={handleClickBan}>Borrado Logico</button>
                                     <button className={styles.viewButton}>Editar Publicacion</button>
                                 </td>
                             </tr>
