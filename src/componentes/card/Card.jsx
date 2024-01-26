@@ -15,6 +15,7 @@ const Card = ({ id, baños, img, mcTerreno, precio, titulo, habitaciones, ciudad
             <div className={styles.cardContainer}>
                 <div className={styles.imageContainer}>
                     <Link to={`/detail/${id}`}>
+                        
                         <img src={img} alt={img} className={styles.image} />
                     </Link>
                 </div>

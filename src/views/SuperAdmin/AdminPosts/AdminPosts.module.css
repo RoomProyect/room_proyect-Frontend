@@ -29,13 +29,14 @@
 }
 
 .contentTable{
-    height: 30rem;
+    height: 100%;
     width: 90%;
     margin-left: auto;
     background-color: #d4d4d42c;
     margin-right: 4rem;
     border-radius: 15px;
     margin-bottom: 3rem;
+    padding-bottom: 2rem;
 }
 
 .paginateButton {
@@ -164,7 +165,11 @@
     border-radius: 6px;
     border: none ;
     cursor: pointer;
+}
 
-
-
+.contentPaginate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }

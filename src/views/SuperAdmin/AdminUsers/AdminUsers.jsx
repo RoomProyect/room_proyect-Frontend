@@ -9,9 +9,7 @@ import Footer from "../../../componentes/footer/footer"
 // import {  getDeptoAsync, nextPage, prevPage } from '../../../redux/actions'; 
 const updateUser = async(obj)=>{
     try {
-        console.log(obj)
         const {data} = await axios.put('https://room-project-backend.onrender.com/users', obj)
-        console.log(data)
         window.location.reload()
     } catch (error) {
         console.log(error.message)
@@ -22,16 +20,13 @@ const AdminUsers = () => {
     const users = useSelector((state) => state.user.users);
     const [rol, setRol] = useState("--");
     const dispatch = useDispatch();
-    console.log(users);
     useEffect(() => {
-        console.log(users)
         if(users){
             dispatch(getUsers())
         }
     }, []);
 
     const handleClickRol = (event)=>{
-        console.log(event.target.id)
         if(rol == "--"){return ""}
         const newUser ={_id: event.target.id, rol:rol}
         updateUser(newUser)
@@ -77,7 +72,7 @@ const AdminUsers = () => {
                         </thead>
                         <tbody>
                             {users.map((user)=>{
-                                return <tr key={user._id}>
+                                return <tr key={user._id} key= {user._id}>
                                         <td>{user.name}</td>
                                         <td>{user.active?"Activo":"Inactivo"}</td>
                                         <td>{user.rol}</td>

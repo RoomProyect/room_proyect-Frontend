@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 const Cards = ({ deptos }) => {
   return (
     <div className={styles.cardsRow}> 
-      {deptos.map((casa) => (
+      {deptos.map((casa) => (casa.active?
         <div key={casa._id}>
           <Card
             key={casa._id}
             id={casa._id}
+            habitaciones={casa.habitaciones}
             titulo={casa.titulo}
             ambientes={casa.ambientes}
             habitaciones={casa.habitaciones}
@@ -21,7 +22,7 @@ const Cards = ({ deptos }) => {
             mcTerreno={casa.mcTerreno}
             ciudad={casa.ciudad}
           />
-        </div>
+        </div>:""
       ))}
     </div>
   );
