@@ -329,7 +329,7 @@ const Form = () => {
               <input
                 type="file"
                 id="fileInput"
-                onChange={(e) => setImg(e.target.files[0])}
+                onChange={(e) => setImg(e.target.files[0,1,2])}
                 className={styles.fileInput}
               />
             </div>

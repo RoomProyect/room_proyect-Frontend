@@ -68,7 +68,7 @@ const AdminUsers = () => {
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
-                <Navbar />
+              <Navbar />
             </div>
             <div className={styles.contetTitle}>
                 <h1 className={styles.title}>Admin DashBoard</h1>

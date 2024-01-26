@@ -1,5 +1,5 @@
 import styles from './AdminPosts.module.css';
-import Navbar from '../../../componentes/navBar/NavBar';
+ 
 import { getDeptoAsync, nextPage, prevPage, putDeptoActions } from '../../../redux/actions';
 import { useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
@@ -63,7 +63,7 @@ const AdminPost = () => {
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
-                <Navbar />
+              
             </div>
             <div className={styles.contetTitle}>
                 <h1 className={styles.title}>Admin DashBoard</h1>

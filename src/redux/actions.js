@@ -90,7 +90,18 @@ export const putDeptoActions = (data)=> async (dispatch) =>{
     })
   }
 }
-
+export const getUsers = () => async(dispatch) => {
+  try {
+    const {data} = await axios('/users')
+    console.log(data)
+    dispatch(getUsers_(data))
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    });
+  }
+}
 
 export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
   try {
