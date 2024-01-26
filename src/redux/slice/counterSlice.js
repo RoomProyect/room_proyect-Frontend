@@ -14,6 +14,7 @@ export const counterSlice = createSlice({
     minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
     maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
     paginado: {},
+    putDeptos: [],
     
   },
   reducers: {
@@ -28,9 +29,13 @@ export const counterSlice = createSlice({
     postDepto: (state, action) => {
       state.depto = action.payload;
     },
+
     getDepto: (state, action) => {
       state.deptos = action.payload;
       state.deptosBackup = action.payload;
+    },
+    putDepto: (state, action) => {
+      state.putDeptos = action.payload;
     },
     getDeptoById: (state, action) =>{
       state.deptoById = action.payload
@@ -95,6 +100,8 @@ export const counterSlice = createSlice({
 });
 
 export const { 
+  putDepto,
+  getUsers,
   postDepto, 
   getDepto, 
   getDeptoFiltered,
