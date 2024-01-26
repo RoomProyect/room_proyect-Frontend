@@ -34,6 +34,7 @@ const AdminPost = () => {
 
     const deptos = useSelector((state) => state.counter.deptos);
     console.log(dataInput);
+    
     const handleData = (e) => {
         const valor = e.target.value;
         const clave = e.target.name;

@@ -20,8 +20,6 @@ const Form = () => {
     }
   }, []);
   
-  
-
   const {
     register,
     handleSubmit,
@@ -82,8 +80,8 @@ const Form = () => {
                 type="text"
                 name="titulo"
                 id="titulo"
-                onChange={handleChange}
                 {...register("titulo")}
+                onChange={handleChange}
                 className={styles.formInput}
                 placeholder="Dpto a estrenar en Nueva Cordoba"
               />
@@ -101,12 +99,12 @@ const Form = () => {
                 name="descripcion"
                 id="descripcion"
                 className={styles.formInput}
-                onChange={handleChange}
                 {...register('descripcion', {
                   required: true,
                   minLength: 100,
                   maxLength: 350,
                 })}
+                onChange={handleChange}
                 placeholder="Departamento en Buenos Aires, dos Habitaciones"
               />
               {errors.descripcion?.type === 'required' && (
@@ -126,14 +124,21 @@ const Form = () => {
                 type="text"
                 name="mcTerreno"
                 id="mcTerreno"
-                onChange={handleChange}
                 {...register("mcTerreno", {
                   required: "El campo es requerido",
-                  validate: may_cero,
+                    validate: may_cero,
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Solo se permiten números",
+                    }
                 })}
+                onChange={handleChange}
                 className={styles.formInput}
                 placeholder="150m2"
               />
+              {errors.mcTerreno && (
+                <p className={styles.error}>{errors.mcTerreno.message}</p>
+              )}
               {errors.descripcion?.type === 'required' && (
                 <p className={styles.error}>Este campo es requerido</p>
               )}
@@ -150,14 +155,21 @@ const Form = () => {
                 type="text"
                 name="precio"
                 id="precio"
-                onChange={handleChange}
                 {...register("precio", {
                   required: "El campo es requerido",
                   validate: may_cero,
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: "Solo se permiten números",
+                  }
                 })}
+                onChange={handleChange}
                 className={styles.formInput}
                 placeholder="$15000"
               />
+              {errors.precio && (
+                <p className={styles.error}>{errors.precio.message}</p>
+              )}
               {errors.descripcion?.type === 'required' && (
                 <p className={styles.error}>Este campo es requerido</p>
               )}
@@ -191,8 +203,8 @@ const Form = () => {
                   type="text"
                   name="habitaciones"
                   id="habitaciones"
-                  onChange={handleChange}
                   {...register("habitaciones")}
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                 />
 
@@ -220,9 +232,9 @@ const Form = () => {
                   type="text"
                   name="cocheras"
                   id="cocheras"
-                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                   {...register('cochera') }
+                  onChange={handleChange}
                 />
 
                 <button
@@ -250,7 +262,6 @@ const Form = () => {
                   type="text"
                   name="baños"
                   id="baños"
-                  onChange={handleChange}
                   {...register("baños", {
                     required: "El campo es requerido",
                     validate: may_cero,
@@ -259,6 +270,7 @@ const Form = () => {
                       message: "Solo se permiten números",
                     },
                   })}
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                 />
 
@@ -287,7 +299,6 @@ const Form = () => {
                   type="text"
                   name="ambientes"
                   id="ambientes"
-                  onChange={handleChange}
                   {...register("ambientes", {
                     required: "El campo es requerido",
                     validate: may_cero,
@@ -296,6 +307,7 @@ const Form = () => {
                       message: "Solo se permiten números",
                     },
                   })}
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                 />
                 <button
