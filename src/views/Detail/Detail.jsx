@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../../componentes/navBar/NavBar.jsx';
 import styles from './Detail.module.css';
 import PayButton from '../../componentes/Stripe/PayButton.jsx';
+import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 
 // import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg'
 // import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg'
@@ -50,15 +51,15 @@ const Detail = () => {
     
     
 
-    const position = [-34.6118, -58.4173]; 
+const position = [-34.6118, -58.4173]; 
     console.log({
         position,
         vivienda
     })
     return (
-        <>
+        <React.Fragment>
         {isLoading ? (
-            <>
+            <React.Fragment>
             <div className={styles.navBarWrapper}>
                 <NavBar />
             </div>
@@ -130,10 +131,23 @@ const Detail = () => {
                         Consultar
                     </button>
                 </div>
+                <div>
+                <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "40vh", width: "102 %" }}>
+                <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={position}>
+                <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+                </Popup>
+                </Marker>
+                </MapContainer>
+                </div>
             </div>
-            </>
+            </React.Fragment>
         ) : (
-            <>
+            <React.Fragment>
             <div className={styles.navBarWrapper}>
                 <NavBar />
             </div>
@@ -141,20 +155,14 @@ const Detail = () => {
                 <div className={styles.goBack}>
                 <button onClick={() => navigate("/home")}> {"< Back"}</button>
                 <div className={styles.loading}>
-                    CARGANDO...
+                CARGANDO...
                 </div>
                 </div>
             </div>
-            </>
+            </React.Fragment>
         )}
-        </>
+        </React.Fragment>
     );
 };
 
 export default Detail;
-
-
-
-
-
-
