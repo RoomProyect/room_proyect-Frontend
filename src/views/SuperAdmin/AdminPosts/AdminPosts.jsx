@@ -17,6 +17,7 @@ const AdminPost = () => {
     const [dataInput, setDatainput] = useState({})
     const paginate = useSelector(state => state.counter.paginado);
     const dispatch = useDispatch();
+    
     useEffect(() => {
         dispatch(getDeptoAsync(paginate.pageActual))
     }, [dispatch, paginate.pageActual,])
@@ -44,7 +45,15 @@ const AdminPost = () => {
     }
 
 
-
+    const handleClickDelete = (event)=>{
+        console.log("entrovich");
+        if(event.target.value === 'true'){
+            dispatch(putDeptoActions({_id: event.target.id, active: false}))
+        }else{
+            dispatch(putDeptoActions({_id: event.target.id, active: true}))
+        }
+        
+    }
 
     const handleEdit = (deptoId) => {
         console.log(edit);
@@ -82,6 +91,7 @@ const AdminPost = () => {
                             <th>Cochera</th>
                             <th>Provincia</th>
                             <th>mcTerreno</th>
+                            <th>Active</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -172,6 +182,7 @@ const AdminPost = () => {
                                         depto?.mcTerreno
                                     )}
                                 </td>
+                                <td>{depto.active?"Activo":"Inactivo"}</td>
                                 <td>
                                     {editingDeptoId === depto._id ? (
                                         <button className={styles.viewButton} onClick={() => handleEdit(depto._id)}>
@@ -180,7 +191,7 @@ const AdminPost = () => {
                                     ) : (
                                         <>
                                             <button className={styles.blueButton}>Ver Publicacion</button>
-                                            <button className={styles.redButton}>Borrado Logico</button>
+                                            <button className={styles.redButton} id={depto._id} value={depto.active} onClick={handleClickDelete}>Borrado Logico</button>
                                             <button className={styles.viewButton} onClick={() => handleEdit(depto._id)}>
                                                 Editar
                                             </button>

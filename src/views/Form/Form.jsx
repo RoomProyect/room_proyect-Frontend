@@ -10,10 +10,14 @@ import { may_cero } from "./validator";
 
 const Form = () => {
   const [img, setImg] = useState();
+  console.log(img);
   const [section, setSection] = useState(1);
   const dispatch = useDispatch();
   const provincias = useSelector((state) => state.counter.provincias);
-
+  const userStorage = localStorage.getItem( "user" );
+  const user = JSON.parse( userStorage );
+  
+  console.log(user)
   useEffect(() => {
     if(!provincias.length){
       dispatch(getProvincias())

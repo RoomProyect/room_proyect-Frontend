@@ -6,6 +6,7 @@
 
 .divContainer {
     display: flex;
+    
     height: 80vh;
     background-color: #d8d8d838;
     margin: 4rem;
@@ -15,6 +16,9 @@
     box-shadow: 0 2px rgba(0, 0, 0, 0.418);
 }
 
+.navBar{
+    margin-top: 7rem;
+}
 .formContainer {
     flex: 1;
     display: flex;
