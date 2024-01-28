@@ -5,9 +5,9 @@ import styles from './Detail.module.css';
 import PayButton from '../../componentes/Stripe/PayButton.jsx';
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 
-import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg'
-import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg'
-import ImgTres from '../../assets/cloudinary/fotosDetailPrueba/depto3.jpg'
+// import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg'
+// import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg'
+// import ImgTres from '../../assets/cloudinary/fotosDetailPrueba/depto3.jpg'
 
 import cama from "../../assets/cloudinary/card/cama.svg";
 import casa from "../../assets/cloudinary/card/casa.png";
@@ -38,6 +38,16 @@ const Detail = () => {
 
         window.open(whatsappLink, '_blank');
     }
+
+    const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
+
+    const mostrarImagenEnGrande = (imagen) => {
+      setImagenSeleccionada(imagen);
+    };
+  
+    const cerrarImagenEnGrande = () => {
+      setImagenSeleccionada(null);
+    };
     
     
 
@@ -68,9 +78,25 @@ const position = [-34.6118, -58.4173];
                         <span className={styles.descripcion}>{vivienda.descripcion}</span>
                     </div>
                     <div className={styles.tresImg}>
-                        <img src={ImgUno} alt="house-image" className={styles.tresImgIndividual} />
-                        <img src={ImgDos} alt="house-image" className={styles.tresImgIndividual} />
-                        <img src={ImgTres} alt="house-image" className={styles.tresImgIndividual} />
+                        <div>
+                            {vivienda.img.map((imagen, index) => (
+                                <img
+                                key={index}
+                                src={imagen}
+                                alt="house-image"
+                                className={styles.tresImgIndividual}
+                                onClick={() => mostrarImagenEnGrande(imagen)}
+                                />
+                            ))}
+                            
+                            {imagenSeleccionada && (
+                                <div className={styles.overlay} onClick={cerrarImagenEnGrande}>
+                                    <div className={styles.imagenEnGrandeContainer}>
+                                        <img src={imagenSeleccionada} alt="house-image" className={styles.imagenEnGrande} />
+                                    </div>
+                                </div>
+                            )}
+                    </div>
                     </div>
 
                 </div>
