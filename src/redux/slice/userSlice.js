@@ -6,22 +6,29 @@ export const postUserData = createAsyncThunk('user/postUserData', async (userDat
     console.log(userData)
     try {
         const response = await axios.post('https://room-project-backend.onrender.com/users', {...userData, rol: "user"})
-        return response.data
+        console.log(response.data)
+        return [response.data]
+
     } catch (error) {
         console.log(error.message)
         return thunkAPI.rejectWithValue({ error: 'Hubo un error al realizar la solicitud' });
     }
 })
 
- 
 export const userSlice = createSlice({
     name: 'user',
     initialState:{
         data: null,
-        status: 'idle'
+        status: 'idle',
+        users:[],
     },
     reducers: {
-
+      getUsers_: (state, action)=>{
+        state.users = action.payload
+      },
+      setUser_: (state, action)=>{
+        state.data = action.payload
+      },
     },
     extraReducers: (builder) => {
         builder.addCase(postUserData.pending, (state) => {
@@ -39,7 +46,7 @@ export const userSlice = createSlice({
     },
 
 })
-
+export const {getUsers_, setUser_} = userSlice.actions
 export default userSlice.reducer;
 
 //   export default userSlice.reducer;

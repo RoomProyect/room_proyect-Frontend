@@ -6,6 +6,9 @@ import Login from './views/login/Login.jsx';
 import Register from './views/register/Register.jsx';
 import Form from './views/Form/Form.jsx';
 import CheckoutSuccess from './componentes/Stripe/CheckoutSuccess.jsx';
+import AdminUsers from "../src/views/SuperAdmin/AdminUsers/AdminUsers.jsx"
+import AdminPosts from "../src/views/SuperAdmin/AdminPosts/AdminPosts.jsx"
+import Perfil from './views/perfil/Perfil.jsx';
 
 
 
@@ -25,6 +28,9 @@ function App() {
         <Route path={"/form"} element={<Form />} /> 
         <Route path={'/detail/:id'} element={<Detail/>}/>
         <Route path={'/checkout-success'} element={<CheckoutSuccess/>}/>
+        <Route path={"/perfil"} element={ <Perfil /> } />
+        <Route path={"/AdminUsers"} element={ <AdminUsers /> } />
+        <Route path={"/AdminPosts"} element={ <AdminPosts /> } />
       </Routes>
     </div>
 

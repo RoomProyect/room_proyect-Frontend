@@ -1,14 +1,14 @@
 .container {
     margin: 3rem;
-    height: 42vw;
+    height: 40vw;
     flex-shrink: 0;
     border-radius: 0.83088rem;
     background: rgba(0, 0, 0, 0.03);
 }
 
 .propertyImage {
-    width: 20.74275rem;
-    height: 20.46419rem;
+    width: 30.74275rem;
+    height: 25.46419rem;
     flex-shrink: 0;
     border-radius: 0.9775rem;
     object-fit: cover; 
@@ -57,7 +57,6 @@
 .tresImg {
     display: flex;
     flex-direction: row;
-    
 }
 
 .tresImgIndividual{
@@ -127,70 +126,39 @@
 .icono {
     width: 25px;
     height: 25px;
-    margin-left: 30px;
+    margin-right: 10px;
     color: #375345;
+    margin-top: 2.4rem;
 }
 
 .detailsContainer {
     display: flex;
-    flex-direction: column; /* Contenedor de columna */
-    align-items: flex-start; /* Alinea los elementos a la izquierda */
+    flex-direction: row; 
+    align-items: flex-start; 
 }
 
 .detail {
     display: flex;
-    align-items: center; /* Centra verticalmente los elementos dentro de cada .detail */
-    margin-bottom: -30px; /* Ajusta el espaciado vertical entre los detalles */
+    align-items: center; 
+    margin-bottom: -30px; 
 }
 
 .detailLabel{
     font-size: 1rem;
+    margin-right: 6rem;
+    margin-top: 5rem;
+}
+
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+.navBarWrapper{
+    margin-top: 7rem;
+}
+
+.casa{
     margin-left: 4rem;
 }
-
-
-/* Añade estos estilos en tu archivo CSS (Detail.module.css) */
-/* .zoomableImage {
-    transition: transform 0.5s;
-    cursor: pointer;
-  } */
-  
-  /* .zoomed {
-    transform: scale(1.2); /* Ajusta el valor según sea necesario para el zoom deseado 
-  } */
-  
-  /* Detalle.module.css */
-.propertyImage,
-.tresImgIndividual,
-.zoomedImage {
-  transition: transform 0.3s ease-in-out;
-}
-
-.propertyImage:hover,
-.tresImgIndividual:hover,
-.zoomedImage {
-  transform: scale(1.2); /* Puedes ajustar el valor según sea necesario */
-}
-
-.zoomed {
-  transform: scale(1.2); /* Puedes ajustar el valor según sea necesario */
-}
-
-/* Agrega estos estilos a tu archivo .css o .module.css */
-
-.mapContainer {
-    height: 100px;
-    width: 100%;
-  
-  }
-  
-  .tileLayerStyle{
-    z-index: 1;
-  }
-  
-  .popupStyle {
-    background-color: #fff;
-    color: #333;
-    padding: 10px;
-  }
-  

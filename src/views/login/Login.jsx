@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { postActionLogin } from "../../redux/actions";
 import style from './Login.module.css'
 import NavBar from '../../componentes/navBar/NavBar'
-
-import { signInWithPopup, getAuth, GoogleAuthProvider } from "firebase/auth"
-
-import { Link } from "react-router-dom";
+import { getUsers, setUser } from "../../redux/actions";
+import { signInWithPopup, getAuth, GoogleAuthProvider, signInWithEmailAndPassword  } from "firebase/auth"
+import { postUserData } from "../../redux/slice/userSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 // Importa las imágenes
 import dptoUnoLogin from "../../assets/cloudinary/Login/dptoUnoLogin.jpg";
@@ -17,14 +17,48 @@ import dptoSeisLogin from "../../assets/cloudinary/Login/dptoSeisLogin.jpg";
 
 import GoogleIcon from "../../assets/cloudinary/google.svg"
 
+
 const Login = () => {
   const { register, handleSubmit, errors } = useForm();
-
+  
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+  const users = useSelector((state) => state.user.users);
+  const user  = useSelector((state) => state.user.data)
+  
+  useEffect(() => {
+    console.log(users)
+    dispatch(getUsers())
+  }, []);
 
+  const signin = (email, password) =>{
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+      dispatch(setUser(users.filter(el => el.email == user.email)))
+      navigate('/home')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+
+  }
+
+  if(user){
+    const userStorage = JSON.stringify( user );
+    localStorage.setItem( 'user',userStorage );
+    navigate('/home');
+}
+  
   const onSubmit = (data) => {
     // dispatch(postActionLogin(data));
-    // console.log(data);
+    signin(data.email, data.password)
+    console.log(data);
   };
 
   const images = [
@@ -35,7 +69,7 @@ const Login = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -50,28 +84,43 @@ const Login = () => {
     const providerGoogle = new GoogleAuthProvider(); 
     signInWithPopup(auth, providerGoogle)
       .then((result) => {
-        // Manejar autenticación exitosa
-        const user = result.user;
-        console.log("Usuario autenticado:", user);
-        // Puedes realizar acciones adicionales después de la autenticación exitosa.
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        console.error("Error de autenticación:", error);
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
 
-        if (error.code === 'auth/cancelled-popup-request') {
-          console.error("El usuario cerró la ventana emergente de autenticación.");
-          // Puedes manejar esta situación de manera específica si es necesario.
-        } else {
-          console.error("Error desconocido:", error.message);
-          // Puedes manejar otros errores aquí.
-          window.alert(error.message); // Muestra un mensaje de alerta al usuario.
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user)
+        console.log(users, user)
+        const user_ver = users.filter((el)=> el.email == user.email)
+        console.log(user_ver)
+        if(user_ver.length){
+          dispatch(setUser(user_ver))
+          navigate('/home')
+        }else{
+          const response = dispatch(postUserData(user))
+          consol.log(response)
+          navigate('/home')
         }
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        window.alert(error.message)
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
       });
   }
 
+
+
   return (
-    <div>
+    <div className={style.navBar}>
       <NavBar/>
     <div className={style.divContainer}>
       
@@ -83,6 +132,7 @@ const Login = () => {
         />
       </div>
 
+
       <div className={style.formContainer}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={style.title}>
@@ -91,11 +141,11 @@ const Login = () => {
           <div className={style.inputContainer}>
             <div className={style.inputGroup}>
               <label className={style.emailLabel}>Email:</label>
-              <input className={style.emailInput} type="text" name="email" placeholder="Example@email.com" />
+              <input className={style.emailInput} type="text" name="email" placeholder="Example@email.com" {...register("email")}/>
             </div>
             <div className={style.inputGroup}>
               <label className={style.passwordLabel}>Contraseña:</label>
-              <input className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" />
+              <input className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" {...register("password")}/>
             </div>
             <div><h2 className={style.resClave}>Olvidaste tu contraseña?</h2></div>
           </div>
@@ -104,14 +154,13 @@ const Login = () => {
         <div className={style.linea}></div>
         <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
         
-          <div className={style.containerRegister}>
-            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2><Link to='/register' className={style.registerSolo}>Regístrate</Link>
-          </div> 
       </div>
     </div>
+          <div className={style.containerRegister}>
+            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
+          </div> 
     </div>
   );
 };
 
 export default Login;
-

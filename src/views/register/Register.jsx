@@ -6,8 +6,7 @@ import { postUserData } from '../../redux/slice/userSlice';
 import style from './Register.module.css';
 import NavBar from '../../componentes/navBar/NavBar'
 import { useNavigate } from 'react-router-dom';
-import { signInWithPopup, getAuth, GoogleAuthProvider } from "firebase/auth"
-
+import { signInWithPopup, getAuth, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth"
 import { Link } from "react-router-dom";
 
 import dptoUnoLogin from "../../assets/cloudinary/Login/dptoUnoLogin.jpg";
@@ -51,6 +50,7 @@ const Register = () => {
     
     const onSubmit = (data) => {
         console.log(data);
+        userPw(data.email, data.Contrasenia)
         dispatch(postUserData(data))
         reset()
     };
@@ -60,7 +60,23 @@ const Register = () => {
         trigger(event.target.name)
     }
 
-    const handleClick = () =>{
+    const userPw = (email, password) =>{
+        const auth = getAuth();
+        console.log(email, password)
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            // ...
+            })
+            .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ..
+            });
+    }
+
+    const handleClickGoogle = () =>{
         const auth = getAuth();
         const providerGoogle = new GoogleAuthProvider(); 
         signInWithPopup(auth, providerGoogle)
@@ -80,21 +96,27 @@ const Register = () => {
             }).catch((error) => {
             // Handle Errors here.
             window.alert(error.message)
+            
             const errorCode = error.code;
+
             const errorMessage = error.message;
             // The email of the user's account used.
+
             const email = error.customData.email;
             // The AuthCredential type that was used.
+
             const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
+
         });
     }
 
     if(user){
-        navigate('/home')
+        const userStorage = JSON.stringify( user );
+        localStorage.setItem( 'user',userStorage );
+        navigate('/home');
     }
     return (
-        <div>
+        <div className={style.navBar}>
         <NavBar/>
         <div className={style.divContainer}>
             
@@ -146,8 +168,8 @@ const Register = () => {
                         <label htmlFor="Telefono" className={style.emailLabel}>Telefono:</label>
                         <input 
                         placeholder="+5429453493024" 
-                        className={style.emailInput} 
-                        type="text" {...register('email')} 
+                        className={style.emailInput}  
+                        type="text" {...register('Telefono')} 
                         id="Telefono" />
                     </div>
 
@@ -161,22 +183,23 @@ const Register = () => {
                     </div>
 
                     <div className={style.inputGroup}>
+                        <label htmlFor="Contrasenia_2" className={style.emailLabel}>Contrasenia:</label>
                         <input 
                         placeholder="Confirmar contrasenia" 
                         className={style.emailInput} 
-                        type="text" {...register('Contrasenia')} 
+                        type="text" {...register('Contrasenia_2')} 
                         id="Contrasenia" />
                     </div>
 
+                    <div className={style.linea}></div>
 
                     <input className={style.submit} type="submit" /> 
 
-                    <div className={style.linea}></div>
 
-                    <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
+                    <button className={style.btnIniciarGoogle} onClick={handleClickGoogle} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
 
                     <div className={style.containerRegister}>
-                        <h2 className={style.sinCuenta}>¿Ya tienes cuenta?  </h2><Link to='/login' className={style.registerSolo}>Inicia sesión</Link>
+                        <h2 className={style.sinCuenta}>¿Ya tienes cuenta?</h2><Link to='/login' className={style.registerSolo}> Inicia sesión</Link>
                     </div>               
                 </form>
                 </div>
