@@ -25,7 +25,7 @@ export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
 
   try {
     const response = await axios(`${ endpoint }?page=${ page }`);
-    // console.log( response.data );
+    console.log( response );
 
     // Utiliza la acción directamente desde el slice
     dispatch( getDepto( response.data.docs ) );
@@ -38,6 +38,20 @@ export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const getUsers = () => async(dispatch) => {
+  try {
+    const {data} = await axios('/users')
+    console.log(data)
+    dispatch(getUsers_(data))
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    });
+  }
+}
+
 
 export const nextPage = () => ({
   type: 'counter/nextPage',
@@ -105,18 +119,6 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
   }
 }
 
-export const getUsers = () => async(dispatch) => {
-  try {
-    const {data} = await axios('/users')
-    console.log(data)
-    dispatch(getUsers_(data))
-  } catch (error) {
-    dispatch({
-      type: 'error',
-      payload: error.message,
-    });
-  }
-}
 
 export const updateUser = (data) => async (dispatch) =>{
   try {

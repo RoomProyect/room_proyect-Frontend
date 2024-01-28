@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import { may_cero } from "./validator";
 
 const Form = () => {
-  const [img, setImg] = useState();
+  const [img, setImg] = useState({});
   const [section, setSection] = useState(1);
   const dispatch = useDispatch();
   const provincias = useSelector((state) => state.counter.provincias);
@@ -19,8 +19,6 @@ const Form = () => {
       dispatch(getProvincias())
     }
   }, []);
-  
-  
 
   const {
     register,
@@ -49,20 +47,23 @@ const Form = () => {
       setSection(2);
     } else {
       // Segunda sección del formulario
-      if (!img || img.length === 0) {
+      if ( !img || img.length === 0 ) {
         console.error("Debes seleccionar al menos un archivo para subir.");
-        // Puedes mostrar un mensaje al usuario o manejar de otra manera
         return;
       }
   
+      
       try {
         console.log("Data antes de enviar:", data);
-  
+        if( img.length >= 10 && img.length <= 4 ) {
+          alert("Por eso te gorrean(facu)")
+        }
         const result = await uploadFiles(img);
         data.img = result;
         console.log(result);
         dispatch(postDeptoAsync(data));
         reset();
+        
       } catch (error) {
         console.error("Error al subir archivos:", error);
       }

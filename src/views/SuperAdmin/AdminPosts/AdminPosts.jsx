@@ -2,7 +2,7 @@ import styles from './AdminPosts.module.css';
 import Navbar from '../../../componentes/navBar/NavBar';
 import { getDeptoAsync, nextPage, prevPage, putDeptoActions } from '../../../redux/actions';
 import { useEffect, useState } from "react";
-import { set, useForm } from "react-hook-form";
+// import { set, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
 

@@ -177,3 +177,10 @@
     line-height: 100%;
     letter-spacing: 0.00831rem;
 }
+
+.contentPaginate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
