@@ -1,4 +1,3 @@
-import React from 'react';
 import {Link} from 'react-router-dom';
 import style from "./CheckoutSuccess.module.css";
 import check from "../../tilde.png";

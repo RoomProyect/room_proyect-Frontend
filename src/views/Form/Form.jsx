@@ -1,4 +1,4 @@
-import { uploadFile } from "../../firebase/config";
+import { uploadFiles } from "../../firebase/config";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { postDeptoAsync, getProvincias } from "../../redux/actions";
@@ -49,14 +49,26 @@ const Form = () => {
       setSection(2);
     } else {
       // Segunda sección del formulario
-      console.log(data);
-    const result = await uploadFile(img);
-      data.img = result;
-      console.log(result);
-    dispatch(postDeptoAsync(data));
-      reset()
+      if (!img || img.length === 0) {
+        console.error("Debes seleccionar al menos un archivo para subir.");
+        // Puedes mostrar un mensaje al usuario o manejar de otra manera
+        return;
+      }
+  
+      try {
+        console.log("Data antes de enviar:", data);
+  
+        const result = await uploadFiles(img);
+        data.img = result;
+        console.log(result);
+        dispatch(postDeptoAsync(data));
+        reset();
+      } catch (error) {
+        console.error("Error al subir archivos:", error);
+      }
     }
   };
+  
 
   const handleChange = (event) =>{
     setValue(event.target.name, event.target.value)
@@ -65,7 +77,9 @@ const Form = () => {
 
   return (
     <div>
-      <NavBar/>
+      <div className={styles.navBar}>
+        <NavBar />
+      </div>
     <div className={styles.formContainer}>
 
       <h2 className={styles.formTitle}> Formulario </h2>
@@ -80,10 +94,10 @@ const Form = () => {
                 type="text"
                 name="titulo"
                 id="titulo"
+                onChange={handleChange}
                 {...register("titulo")}
                 className={styles.formInput}
                 placeholder="Dpto a estrenar en Nueva Cordoba"
-                
               />
               {errors.descripcion?.type === 'required' && (
                 <p className={styles.error}>Este campo es requerido</p>
@@ -99,6 +113,7 @@ const Form = () => {
                 name="descripcion"
                 id="descripcion"
                 className={styles.formInput}
+                onChange={handleChange}
                 {...register('descripcion', {
                   required: true,
                   minLength: 100,
@@ -123,6 +138,7 @@ const Form = () => {
                 type="text"
                 name="mcTerreno"
                 id="mcTerreno"
+                onChange={handleChange}
                 {...register("mcTerreno", {
                   required: "El campo es requerido",
                   validate: may_cero,
@@ -146,6 +162,7 @@ const Form = () => {
                 type="text"
                 name="precio"
                 id="precio"
+                onChange={handleChange}
                 {...register("precio", {
                   required: "El campo es requerido",
                   validate: may_cero,
@@ -186,6 +203,7 @@ const Form = () => {
                   type="text"
                   name="habitaciones"
                   id="habitaciones"
+                  onChange={handleChange}
                   {...register("habitaciones")}
                   className={styles.formInputSeccionDos}
                 />
@@ -214,6 +232,7 @@ const Form = () => {
                   type="text"
                   name="cocheras"
                   id="cocheras"
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                   {...register('cochera') }
                 />
@@ -234,6 +253,7 @@ const Form = () => {
                 <button
                   type="button"
                   className={styles.decrementButton}
+                  
                   onClick={() => handleDecrement("baños")}
                 >
                   -
@@ -242,6 +262,7 @@ const Form = () => {
                   type="text"
                   name="baños"
                   id="baños"
+                  onChange={handleChange}
                   {...register("baños", {
                     required: "El campo es requerido",
                     validate: may_cero,
@@ -278,6 +299,7 @@ const Form = () => {
                   type="text"
                   name="ambientes"
                   id="ambientes"
+                  onChange={handleChange}
                   {...register("ambientes", {
                     required: "El campo es requerido",
                     validate: may_cero,
@@ -314,13 +336,14 @@ const Form = () => {
 
             <div className={styles.formGroup}>
               <label htmlFor="fileInput" className={styles.formLabel}>
-                Selecciona un archivo
+                Selecciona archivos
               </label>
               <input
                 type="file"
                 id="fileInput"
-                onChange={(e) => setImg(e.target.files[0])}
+                onChange={(e) => setImg(e.target.files)}
                 className={styles.fileInput}
+                multiple // Habilita la selección de múltiples archivos
               />
             </div>
             <button
@@ -339,17 +362,17 @@ const Form = () => {
 };
 
 Form.propTypes = {
-  id: PropTypes.string.isRequired,
-  ambientes: PropTypes.string.isRequired,
-  baños: PropTypes.string.isRequired,
-  cochera: PropTypes.string.isRequired,
-  descripcion: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  mcTerreno: PropTypes.string.isRequired,
-  precio: PropTypes.string.isRequired,
-  titulo: PropTypes.string.isRequired,
-  ciudad: PropTypes.string.isRequired,
-  habitaciones: PropTypes.string.isRequired,
+    //id: PropTypes.string.isRequired,
+    ambientes: PropTypes.string.isRequired,
+    baños: PropTypes.string.isRequired,
+    cochera: PropTypes.string.isRequired,
+    descripcion: PropTypes.string.isRequired,
+    img: PropTypes.string.isRequired,
+    mcTerreno: PropTypes.string.isRequired,
+    precio: PropTypes.string.isRequired,
+    titulo: PropTypes.string.isRequired,
+    ciudad: PropTypes.string.isRequired,
+    habitaciones: PropTypes.string.isRequired,
 };
 
 export default Form;

@@ -1,0 +1,179 @@
+/* Home.module.css */
+.contentContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    width: 20rem;
+    height: 20rem;
+    background-color: #d4d4d42c;
+    border-radius: 15px;
+    margin-left: 4rem;
+    float: left;
+
+}
+
+.contetTitle{
+    margin: 7rem;
+    text-align: center; 
+}
+
+.title {
+    color: #344E41;
+    text-align: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 600; /* Esto establece el grosor de la fuente a semibold */
+    line-height: normal;
+    margin-bottom: -3rem;
+}
+
+.contentTable{
+    height: 100%;
+    width: 90%;
+    margin-left: auto;
+    background-color: #d4d4d42c;
+    margin-right: 4rem;
+    border-radius: 15px;
+    padding-bottom: 4rem;
+}
+
+.paginateButton {
+    background-color: #4f886b;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin: 0 0.2rem;
+    font-size: 1rem;
+}
+
+.paginateButton:hover {
+    background-color: #294036;
+}
+
+.contentContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.btn:last-child {
+    margin-bottom: 0.2rem;
+    background-color: #924242;
+}
+
+.btn {
+    background-color: #4F886B;
+    color: #FFFFFF; 
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: 'Arial', sans-serif; 
+    font-size: 0.83331rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0.00831rem;
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 0.4rem;
+    letter-spacing: 0.00831rem;
+    width: 270px;
+    height: 50px;
+    cursor: pointer;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.418);
+    margin-left: 1.5rem;
+}
+
+
+/*tabla*/
+.tableHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    color: #344E41;
+    text-align: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 600; /* Esto establece el grosor de la fuente a semibold */
+    line-height: normal;
+    margin-left: 4rem;
+}
+
+.tableActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 5rem;
+}
+
+.blueButton {
+    background-color: #4F886B;
+    color: white;
+    margin-right: 20px;
+    border-radius: 6px;
+    border: none;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    box-shadow: 0 1.5px rgba(0, 0, 0, 0.418);
+}
+
+.redButton {
+    background-color: #924242;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    box-shadow: 0 1.5px rgba(0, 0, 0, 0.418);   
+}
+
+.userTable {
+    width: 98%;
+    height: 98%;
+    border-collapse: collapse;
+    margin-top: 10px; 
+    margin-left: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tableHeaderRow {
+    background-color: #888888;
+    color: white;
+}
+
+.userTable td, .userTable th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.userTable td {
+    text-align: center; /* Centra el contenido de las celdas */
+}
+
+.viewButton {
+    background-color: #C9F7F5;
+    color: rgba(0, 0, 0, 0.76);
+
+    box-shadow: 0 1.5px rgba(0, 0, 0, 0.288);
+    margin-left: 20px;
+    width: 140px;
+    height: 35px;
+    top: 174px;
+    left: 886px;
+    border-radius: 6px;
+    border: none ;
+    cursor: pointer;
+
+
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: 'Arial', sans-serif; 
+    font-size: 0.83331rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0.00831rem;
+}
