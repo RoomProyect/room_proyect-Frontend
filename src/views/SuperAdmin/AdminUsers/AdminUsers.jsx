@@ -72,7 +72,7 @@ const AdminUsers = () => {
                         </thead>
                         <tbody>
                             {users.map((user)=>{
-                                return <tr key={user._id} key= {user._id}>
+                                return <tr key={user._id}>
                                         <td>{user.name}</td>
                                         <td>{user.active?"Activo":"Inactivo"}</td>
                                         <td>{user.rol}</td>
