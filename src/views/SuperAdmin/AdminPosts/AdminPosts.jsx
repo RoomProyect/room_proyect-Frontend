@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 // import { set, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
-
+import Footer from "../../../componentes/footer/footer"
 
 
 
@@ -35,6 +35,7 @@ const AdminPost = () => {
 
     const deptos = useSelector((state) => state.counter.deptos);
     console.log(dataInput);
+    
     const handleData = (e) => {
         const valor = e.target.value;
         const clave = e.target.name;
@@ -214,6 +215,9 @@ const AdminPost = () => {
                 <button name="next" onClick={handleChangePage} className={styles.paginateButton}>
                     Next
                 </button>
+            </div>
+            <div>
+                <Footer/>
             </div>
         </div>
     );

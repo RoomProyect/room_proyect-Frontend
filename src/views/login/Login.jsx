@@ -95,9 +95,10 @@ const Login = () => {
         const token = credential.accessToken;
 
         // The signed-in user info.
-
-        const user_ver = users.filter((el) => el.email == user.email)
-        if (user_ver.length) {
+        const user = result.user;
+        const user_ver = users.filter((el)=> el.email == user.email)
+        console.log(user_ver)
+        if(user_ver.length){
           dispatch(setUser(user_ver))
           navigate('/home')
         } else {
