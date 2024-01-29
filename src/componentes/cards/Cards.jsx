@@ -10,7 +10,7 @@ const Cards = ({ deptos }) => {
           <Card
             key={casa._id}
             id={casa._id}
-            habitaciones={casa.habitaciones}
+            provincias={casa.provincias}
             titulo={casa.titulo}
             ambientes={casa.ambientes}
             habitaciones={casa.habitaciones}
