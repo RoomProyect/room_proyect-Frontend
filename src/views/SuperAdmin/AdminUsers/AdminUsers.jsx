@@ -1,22 +1,23 @@
 import styles from './AdminUsers.module.css';
 import Navbar from '../../../componentes/navBar/NavBar';
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../../../redux/actions';
 import axios from 'axios';
 import { useState } from 'react';
+import Footer from "../../../componentes/footer/footer"
 // import {  getDeptoAsync, nextPage, prevPage } from '../../../redux/actions'; 
 const updateUser = async(obj)=>{
     try {
         const {data} = await axios.put('https://room-project-backend.onrender.com/users', obj)
         window.location.reload()
     } catch (error) {
-       console.log(error.message)
+        console.log(error.message)
     }
 }
 
 const AdminUsers = () => {
-    const users = useSelector((state) => state.user.users);
     const [rol, setRol] = useState("--");
     const dispatch = useDispatch();
     useEffect(() => {
@@ -24,14 +25,14 @@ const AdminUsers = () => {
             dispatch(getUsers())
         }
     }, []);
-
+    
     const handleClickRol = (event)=>{
         if(rol == "--"){return ""}
         const newUser ={_id: event.target.id, rol:rol}
         updateUser(newUser)
         
     }
-
+    
     const handleClickBan = (event)=>{
         
         if(event.target.value === 'true'){
@@ -41,29 +42,30 @@ const AdminUsers = () => {
         }
         
     }
-
+    
     const handleChange = (event) =>{
         setRol(event.target.value);
     }
-    // const paginate = useSelector ( state => state.counter.paginado );
+    const [pass, setPass] = useState("");
 
-    // useEffect(()=>{
-    //     dispatch(getDeptoAsync( paginate.pageActual ))
-    // }, [dispatch, paginate.pageActual])
-
-    // const handleChangePage = ( event ) => {
-    //     if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
-    //         dispatch( nextPage() );
-    //     }
-    //     if( event.target.name === 'back' && paginate.pageActual > 1 ){
-    //         dispatch( prevPage() );
-    //     }
-    // }
-
+    const Users = useSelector((state) => state.user.users);
+    const users = pass
+    ? Users.filter((u) => {
+        const nombreMatch = u.name.toLowerCase().includes(pass.toLowerCase());
+        const correoMatch = u.email.toLowerCase().includes(pass.toLowerCase());
+        return nombreMatch || correoMatch;
+      })
+    : Users;
+    const handleFind = (event) => {
+        const name = event.target.value
+        setPass(name)
+        
+    }
+    
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
-              <Navbar />
+              {/* <Navbar /> */}
             </div>
             <div className={styles.contetTitle}>
                 <h1 className={styles.title}>Admin DashBoard</h1>
@@ -71,6 +73,12 @@ const AdminUsers = () => {
             <div className={styles.contentTable}>
                     <div className={styles.tableHeader}>
                         <h2>Tabla de Usuarios</h2>
+                        <input
+          className={styles.inputSearch}
+          onChange={handleFind}
+          type="search"
+          placeholder="Busca por el nombre o dni/pasaporte.."
+        />
                     </div>
                     <table className={styles.userTable}>
                         <thead>
@@ -84,27 +92,32 @@ const AdminUsers = () => {
                         </thead>
                         <tbody>
                             {users.map((user)=>{
-                                return <tr key= {user._id}>
+                                return <tr key={user._id}>
                                         <td>{user.name}</td>
                                         <td>{user.active?"Activo":"Inactivo"}</td>
                                         <td>{user.rol}</td>
                                         <td>{user.email}</td>
                                         <td>
-                                            <select name="rol" id="rol" onChange={handleChange}>
+                                            <select name="rol" id="rol" onChange={handleChange} className={styles.blueButton}>
                                                 <option value="--">--</option>
-                                                <option value="admin">admin</option>
+                                                <option className={styles.blueButton} value="admin">admin</option>
                                                 <option value="user">user</option>
                                             </select>
 
                                             <button className={styles.blueButton} id={user._id} onClick={handleClickRol}>Dar Rol</button>
                                             <button className={styles.redButton} id={user._id} value = {user.active} onClick={handleClickBan}>Banear/Desbanear</button>
-                                            <button className={styles.viewButton}>Ver Publicación</button>
+                                           <Link to={`/publicaciones/${user._id}` }>
+                                            <button className={styles.viewButton } >Ver Publicación</button>
+                                           </Link>
                                         </td>
                                     </tr>
                             })}
 
                         </tbody>
                     </table>
+            </div>
+            <div>
+                <Footer/>
             </div>
         </div>
     );

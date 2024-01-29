@@ -113,7 +113,7 @@ const Register = () => {
     if(user){
         const userStorage = JSON.stringify( user );
         localStorage.setItem( 'user',userStorage );
-        navigate('/home');
+        navigate('/');
     }
     return (
         <div className={style.navBar}>
