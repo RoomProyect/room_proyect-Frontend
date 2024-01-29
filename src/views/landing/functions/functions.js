@@ -1,5 +1,4 @@
 
-
 export const handleLogout = () => {
     localStorage.removeItem( 'user' );
     dispatch(setUser(null));
@@ -7,16 +6,20 @@ export const handleLogout = () => {
 
 export const handleNewReview = () => {
     let fondo = document.getElementById( 'fondoBlur' );
+    let comments = document.getElementById( 'reviews' );
+    let modal = document.getElementById( 'modal' );
     fondo.style.backgroundColor = 'rgb(0 0 0 / 80%)';
     fondo.style.display = 'flex';
-    let modal = document.getElementById( 'modal' );
+    comments.style.filter = 'blur(4px)';
     modal.style.display = 'flex';
 }
 
 export const handleClose = () => {
     let fondo = document.getElementById( 'fondoBlur' );
+    let comments = document.getElementById( 'reviews' );
+    let modal = document.getElementById( 'modal' );
     fondo.style.backgroundColor = 'rgb(255 255 255 / 100%)';
     fondo.style.display = 'none';
-    let modal = document.getElementById( 'modal' );
+    comments.style.filter = 'blur(0px)';
     modal.style.display = 'none';
 }

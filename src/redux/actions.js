@@ -26,7 +26,7 @@ export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
 
   try {
     const response = await axios(`${ endpoint }?page=${ page }`);
-    // console.log( response.data );
+    console.log( response );
 
     // Utiliza la acción directamente desde el slice
     dispatch( getDepto( response.data.docs ) );
@@ -139,9 +139,8 @@ export const setUser = (data) => (dispatch) => {
 
 export const getReviews = () => async ( dispatch ) => {
   try {
-    const data = await axios( '/coment' );
-    // dispatch( getComments( data ) );
-    console.log( data );
+    const { data } = await axios( '/coment' );
+    dispatch( getComments( data ) );
   } catch (error) {
     dispatch({
       type: 'error',

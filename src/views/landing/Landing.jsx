@@ -6,7 +6,8 @@ import UserIcon  from '../../assets/cloudinary/userIcon.svg';
 import { ContainerFormReview } from '../../componentes/reviews/componentReview';
 import { Reviews } from '../../componentes/reviews/Reviews';
 import { handleClose, handleLogout, handleNewReview } from './functions/functions';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getReviews } from '../../redux/actions';
 
 
 const Landing = () => {
@@ -17,7 +18,13 @@ const Landing = () => {
     const userStorage = localStorage.getItem( "user" );
     const userParse = JSON.parse( userStorage );
 
-    // const reviews = useSelector( state = state.);
+    const dispatch = useDispatch();
+    const comments = useSelector((state) => state.comment.reviews);
+
+
+    useEffect(() => {
+        dispatch( getReviews() );
+    }, [dispatch])
     
 
     const handleInputChange = (e) => {
@@ -98,7 +105,7 @@ const Landing = () => {
                                 </button>
                             </Link>
                             <div>
-                                <Reviews />
+                                <Reviews reviews={ comments }/>
                             </div>
                             {
                                 userStorage && !userStorage[0].Reviews && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>

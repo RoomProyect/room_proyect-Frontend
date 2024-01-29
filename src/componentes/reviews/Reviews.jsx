@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { CardReview } from './componentReview';
 
 
-export const Reviews = () => {
+export const Reviews = ({ reviews }) => {
 
   const [selectedArrow, setSelectedArrow] = useState(null); 
 
@@ -13,10 +13,19 @@ export const Reviews = () => {
 
   return (
     <>
-      <div className={styles.contentReviews}>
+      <div className={styles.contentReviews} id='reviews' >
         <div className={styles.carousel}>
-
-          <CardReview />
+          <div className={ styles.contentReviewsCarrousel }>
+            { reviews.map( review => {
+              return(
+                <CardReview
+                  key={ review._id }
+                  name={ review.userName } 
+                  message={ review.text } 
+                />
+              )
+            }) }
+          </div>
           <div className={styles.botones}>
           <button
             className={`${styles.navButton} ${selectedArrow === 'prev' && styles.selected}`}
