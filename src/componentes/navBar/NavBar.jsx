@@ -27,7 +27,7 @@ const NavBar = () => {
         dispatch(setUser(null))
         localStorage.removeItem( 'user' );
     }
-     console.log(user)
+     
     return (
         <div className={styles.navBarContainer}>
             

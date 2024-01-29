@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styles from './card.module.css'; // Asegúrate de importar el archivo de estilos correcto
+import styles from './card.module.css'; 
 
 import cama from "../../assets/cloudinary/card/cama.svg";
 import casa from "../../assets/cloudinary/card/casa.png";

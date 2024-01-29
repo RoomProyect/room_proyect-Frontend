@@ -15,9 +15,9 @@ import { getDeptoByIdAsync } from '../../redux/actions.js';
 // Componente Mapa
 const Mapa = () => {
     const [position, setPosition] = useState([-34.6118, -58.4173]);
-
-    const ActualizarPosicion = (e) => {
-        setPosition(e.latlng);
+  
+    const actualizarPosicion = (e) => {
+      setPosition([e.latlng.lat, e.latlng.lng]);
     };
 
     const LocationMarker = () => {
@@ -48,6 +48,7 @@ const Detail = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const vivienda = useSelector((state) => state.counter.deptoById);
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setIsLoading(false);
@@ -139,7 +140,7 @@ const Detail = () => {
                             </div>
                         </div>
                         <div className={styles.buyButtonContainer}>
-                            <PayButton items={vivienda} />
+                            <PayButton items={vivienda.img} />
                             <button className={styles.buyButton} onClick={() => redirectToWhatsApp('+123456789')}>
                                 Consultar
                             </button>
