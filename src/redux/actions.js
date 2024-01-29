@@ -141,7 +141,7 @@ export const setUser = (data) => (dispatch) => {
 export const getReviews = ( page = 1 ) => async ( dispatch ) => {
   try {
     // const { data } = await axios( '/coment' );
-    const { data } = await axios( `http://localhost:3001/coment?page=${ page }` );
+    const { data } = await axios( `/coment?page=${ page }` );
     console.log( data );
 
     dispatch( getComments( data.docs ) );
