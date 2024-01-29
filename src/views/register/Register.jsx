@@ -193,8 +193,7 @@ const Register = () => {
 
                     <div className={style.linea}></div>
 
-                    <input className={style.submit} type="submit" /> 
-
+                    <input className={style.submit} type="submit" />
 
                     <button className={style.btnIniciarGoogle} onClick={handleClickGoogle} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
 

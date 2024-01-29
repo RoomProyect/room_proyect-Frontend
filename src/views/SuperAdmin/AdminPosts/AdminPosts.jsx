@@ -1,14 +1,12 @@
 import styles from './AdminPosts.module.css';
 import Navbar from '../../../componentes/navBar/NavBar';
+import { useNavigate } from 'react-router-dom';
 import { getDeptoAsync, nextPage, prevPage, putDeptoActions } from '../../../redux/actions';
 import { useEffect, useState } from "react";
 // import { set, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { Link } from 'react-router-dom';
 import Footer from "../../../componentes/footer/footer"
-
-
-
 
 
 const AdminPost = () => {
@@ -19,6 +17,23 @@ const AdminPost = () => {
     const paginate = useSelector(state => state.counter.paginado);
     const dispatch = useDispatch();
     
+
+    const navigate = useNavigate();
+    
+    useEffect(()=>{
+        const userStorage = localStorage.getItem( "user" );
+        const user = JSON.parse( userStorage );
+        console.log( user[0].rol );
+
+        if(user[0].rol !== "superadmin"){
+            
+            navigate('/home')
+            alert('tomatela no tenes rol: (solo SuperAdmin)')
+        }
+
+    },[])
+
+
     useEffect(() => {
         dispatch(getDeptoAsync(paginate.pageActual))
     }, [dispatch, paginate.pageActual,])
@@ -62,7 +77,6 @@ const AdminPost = () => {
         console.log(deptoId);
         setEdit(!edit);
         setEditingDeptoId(edit ? null : deptoId);
-    
         // Envía la solicitud de edición, asegurándote de pasar el deptoId correcto
         dispatch(putDeptoActions({ _id: deptoId, ...dataInput }));
     }

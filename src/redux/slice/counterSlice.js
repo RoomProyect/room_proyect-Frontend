@@ -20,7 +20,6 @@ export const counterSlice = createSlice({
   reducers: {
     getProv: (state, action) =>{
       let provin = [] 
-      console.log(action.payload.provincias)
       action.payload.provincias.forEach(element => {
         provin.push(element.nombre)
       });
