@@ -28,8 +28,8 @@ const Login = () => {
   const user  = useSelector((state) => state.user.data)
   
   useEffect(() => {
-    console.log(users)
-    dispatch(getUsers())
+    let allUsers = true
+    dispatch(getUsers(allUsers))
   }, []);
 
   const signin = (email, password) =>{
@@ -97,7 +97,7 @@ const Login = () => {
           navigate('/home')
         }else{
           const response = dispatch(postUserData(user))
-          consol.log(response)
+          console.log(response.data);
           navigate('/home')
         }
         // IdP data available using getAdditionalUserInfo(result)
