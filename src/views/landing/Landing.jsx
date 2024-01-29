@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styles from './Landing.module.css';
 import SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
-import MauseBottom  from '../../assets/cloudinary/mauseBottom.svg';
 import { Link } from 'react-router-dom';
 import UserIcon  from '../../assets/cloudinary/userIcon.svg';
+import { Reviews } from '../../componentes/reviews/Reviews';
 
 const Landing = () => {
     const [inputValue, setInputValue] = useState('');
@@ -46,8 +46,6 @@ const Landing = () => {
                             <div className={styles.hamburgerMenu}>
                                 <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
                                 <Link to="/register" className={styles.menuItem}>Registrarse</Link>
-                                <Link to="/perfil" className={styles.menuItem}>Perfil</Link>
-                                <Link to="/form" className={styles.menuItem}>Agregar alojamiento</Link>
                             </div>
                         </div>
                     )}
@@ -70,21 +68,22 @@ const Landing = () => {
                             <img src={SearchIcon} alt="CasaIcono" />
                         </div>
                     </div>
-                    <button className={`bi bi-plus custom-plus-icon ${styles.bottonDownSearchBar}`}>
-                        <Link to="/form" className={styles.menuItem}>Agregar alojamiento</Link>
-                    </button>
-                    <Link to="/home" >
-                        <button className={styles.bottonDownSearchBar}>
-                            Ver Catalogo de Hospeajes
-                        </button>
-                    </Link>
+                    {/* <button className={`bi bi-plus custom-plus-icon ${styles.bottonDownSearchBar}`}>
+                        <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
+                    </button> */}
+                        <Link to="/home" >
+                            <button className={styles.bottonDownSearchBar}>
+                                Ver Catalogo de Hospeajes
+                            </button>
+                        </Link>
+                        <div>
+                            <Reviews />
+                        </div>
                 </div>
-
             </div>
-            <div className={styles.bottomLanding}>
-                <div className={styles.mauseBottom}>
-                    <img src={MauseBottom} alt="CasaIcono" />
-                </div>
+            <div className={styles.buttonLogin}>
+<br /><br />
+
             </div>
         </div>
     );

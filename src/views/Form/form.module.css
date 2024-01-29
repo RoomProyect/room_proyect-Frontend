@@ -1,65 +1,190 @@
 .formContainer {
-    flex-direction: column;
-    align-items: center;
-    background-image: url("../../assets/cloudinary/bosqueFondoPf.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+    width: 60%;
+    display: flex;
+    height: 80vh;
+    background-color: #d8d8d838;
+    margin: 5rem auto;
+    border-radius: 3rem;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.418);
+}
+
+.formTitle {
+    text-align: center;
+    font-size: 3rem;
+    color: #375345;
 }
 
 .form {
     width: 30rem;
     padding: 1rem;
-    margin: 5rem auto; /* Centra horizontalmente */
     box-shadow: 0px 2.3273494243621826px 2.3273494243621826px 0px hsla(0, 0%, 100%, 0.425);
     display: flex;
     flex-direction: column;
     border-radius: 0.72731rem;
     background: rgba(217, 217, 217, 0.521);
     box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.37);
-
-    /* Centra verticalmente */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
     font-size: 20px;
-}
-
-.formTitle {
-    font-size: 3rem;
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: rgb(226, 226, 226);
-
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 4rem;
 }
 
 .formGroup {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     margin-bottom: 1rem;
 }
 
 .formLabel {
+    margin-bottom: 5px;
     width: 45%;
     text-align: left;
+    display: block;
+    font-weight: bold;
 }
 
-.formInput {
-    width: 50%; 
-}
-
+.formInput,
 .fileInput {
-    width: 50%; 
+    width: 50%;
+    padding: 5px;
+    border-radius: 0.925rem;
+    border: 1px solid #D4D7E3;
+    background: #F7FBFF;
+    color: #8897AD;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Roboto;
+    font-size: 0.83331rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 0.83331rem */
+    letter-spacing: 0.00831rem;
+    width: 250px;
+    height: 30px;
 }
 
-.error{
+.fileInput::placeholder{
+    margin-left: 2rem;
+}
+
+.error {
     color: red;
     font-size: 12px;
+    margin-top: 5px;
+}
+
+.errorMessage {
+    font-size: 0.8rem;
+    color: #ff0000;
+}
+
+
+.formGroup {
+    margin-bottom: 15px;
+    margin: auto;
+    margin-bottom: 2rem;
+}
+
+.submitButton {
+    background-color: #375345;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 3rem;
+    width: 250px;
+    margin-left: 7rem;
+    margin-bottom: 1rem;
+}
+
+.submitButton:hover {
+    background-color: #2f473b;
+}
+
+.incrementButton,
+.decrementButton {
+    padding: 5px;
+    border-radius: 99999999px;
+    cursor: pointer;
+}
+
+.incrementButton {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 40px;
+    width: 30px;
+}
+
+.decrementButton {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 40px;
+    width: 30px;
+}
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+}
+
+.formContainer {
+    max-width: 600px;
+    margin: 5rem auto; /* Centra horizontalmente */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra verticalmente */
+    height: 80vh;
+    background-color: #d8d8d838;
+    border-radius: 3rem;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.418);
+}
+
+.form {
+    width: 30rem;
+    padding: 1rem;
+    box-shadow: 0px 2.3273494243621826px 2.3273494243621826px 0px hsla(0, 0%, 100%, 0.425);
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.72731rem;
+    background: rgba(217, 217, 217, 0.521);
+    box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.37);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
+
+.formInputSeccionDos{
+    width: 50%;
+    padding: 5px;
+    border: 1px solid #D4D7E3;
+    background: #F7FBFF;
+    color: #8897AD;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Roboto;
+    font-size: 0.83331rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 0.83331rem */
+    letter-spacing: 0.00831rem;
+    width: 50px;
+    height: 30px;
+}
+
+.formInputSeccionDos{
+    width: 50%;
+    padding: 5px;
+    border: 1px solid #D4D7E3;
+    background: #F7FBFF;
+    color: #8897AD;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Roboto;
+    font-size: 0.83331rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 0.83331rem */
+    letter-spacing: 0.00831rem;
+    width: 50px;
+    height: 30px;
 }

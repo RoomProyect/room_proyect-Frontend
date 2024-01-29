@@ -1,33 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './NavBar.module.css';
-import  SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
 import { Link } from 'react-router-dom';
 import CasaIcono  from '../../assets/cloudinary/casaicono.svg';
 import UserIcon  from '../../assets/cloudinary/userIcon.svg';
+import SearchBar from '../SearchBar/SearchBar';
+import { setUser } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
 
 
 const NavBar = () => {
-    const [inputValue, setInputValue] = useState('');
-    const [isSearchFocused, setIsSearchFocused] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const handleInputChange = (e) => {
-        const value = e.target.value;
-        setInputValue(value);
-        document.getElementById('searchInput').style.color = value ? 'white' : '';
-    };
+    const dispatch = useDispatch();
+    const userStorage = localStorage.getItem( "user" );
+    const user = JSON.parse( userStorage );
+    console.log(user)
 
-    const handleInputFocus = () => {
-        setIsSearchFocused(true);
-    };
-
-    const handleInputBlur = () => {
-        setIsSearchFocused(false);
-    };
+    useEffect(() => {
+    }, [user]);
 
     const handleMenuToggle = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    const handleLogout = () => {
+        dispatch(setUser(null))
+        localStorage.removeItem( 'user' );
+    }
 
     return (
         <div className={styles.navBarContainer}>
@@ -37,41 +36,44 @@ const NavBar = () => {
                     <img src={CasaIcono} alt="CasaIcono" />
                 </div>
             </Link>
-
-            {/* Barra de búsqueda */}
-            <div className={styles.searchBar}>
-                <div className={styles.searchHeader}>
-                    <input
-                        id="searchInput"
-                        type="text"
-                        placeholder={isSearchFocused || inputValue ? '' : 'Buscar propiedad'}
-                        value={inputValue}
-                        className={styles.searchInput}
-                        onChange={handleInputChange}
-                        onFocus={handleInputFocus}
-                        onBlur={handleInputBlur}
-                    />
-                    <div className={styles.circle}>
-                        <img src={SearchIcon} className={styles.searchIcon}/>
-                    </div>
-                </div>
-            </div>
-            <Link to="/form" >
-            <button className={styles.searchButton}>
-                + Crear publicación
-            </button>
-            </Link>                            
-
+            <SearchBar/>           
             <div className={styles.navBarRigth}>
+                {user && (user[0].rol === "superadmin" || user[0].rol === "admin") && (
+                    <Link to="/form">
+                        <button className={styles.searchButton}>+ Crear publicación</button>
+                    </Link>
+                )}
                     <div className={styles.userContainer}>
                         <Link to="#" className={styles.customUserIcon} onClick={handleMenuToggle}><img src={UserIcon} alt="UserIcon" /> </Link>
                     </div>
                     {isMenuOpen && (
                         <div className={styles.hamburgerMenuContainer}>
                             <div className={styles.hamburgerMenu}>
-                                <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
-                                <Link to="/register" className={styles.menuItem}>Registrarse</Link>
-                                <Link to="/profile" className={styles.menuItem}>Perfil</Link>
+                                { !user ? (
+                                    <>                                                
+                                        <Link to="/login" className={styles.menuItem}>Iniciar Sesión</Link>
+                                        <Link to="/register" className={styles.menuItem}> Registrarse</Link>
+                                    </>
+                                ) 
+                                : (
+                                    <>
+                                        <Link to="/perfil" className={styles.menuItem}>Perfil</Link>
+                                        <Link to="/" onClick={ handleLogout } className={styles.menuItem} >Logout</Link>
+                                        { user[0].rol == "superadmin" && (
+                                            <>
+                                                <Link to="/AdminUsers" className={styles.menuItem}>AdminUsers</Link>
+                                                <Link to="/AdminPosts" className={styles.menuItem}>AdminPosts</Link>
+                                            </>
+                                        )}
+                                        { user.rol == "superadmin" || user.rol == "admin" && (
+                                                        <Link to="/form" >
+                                                            <button className={styles.searchButton}>
+                                                                + Crear publicación
+                                                            </button>
+                                                        </Link>
+                                                    )}
+                                    </>
+                                )}
                             </div>
                         </div>
                     )}

@@ -1,6 +1,6 @@
 .container {
     margin: 3rem;
-    height: 42vw;
+    height: 40vw;
     flex-shrink: 0;
     border-radius: 0.83088rem;
     background: rgba(0, 0, 0, 0.03);
@@ -29,7 +29,7 @@
 }
 
 .propertyTitle {
-    width: 33.03988rem;
+    width: 60rem;
     height: 2.73706rem;
     color: #000;
     font-family: Inter;
@@ -70,7 +70,6 @@
 
 .propertyInfo{
     margin-left: 4rem;
-
 }
 
 .additionalDetailsContainer {
@@ -82,7 +81,7 @@
 
 /* Estilos para el contenedor del botón de retroceso */
 .goBack {
-    margin: 1.5rem;
+    
     font-size: 1.2rem;
 }
 
@@ -95,6 +94,8 @@
     border-radius: 0.3rem;
     cursor: pointer;
     font-size: 1rem;
+    margin-top: 2rem;
+    margin-left: 4rem;
 }
 
 /* Cambiar estilos al pasar el ratón sobre el botón */
@@ -122,3 +123,73 @@
     margin-right: 30px;
 }
 
+.icono {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    color: #375345;
+    margin-top: 2.4rem;
+}
+
+.detailsContainer {
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start; 
+}
+
+.detail {
+    display: flex;
+    align-items: center; 
+    margin-bottom: -30px; 
+}
+
+.detailLabel{
+    font-size: 1rem;
+    margin-right: 6rem;
+    margin-top: 5rem;
+}
+
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+.navBarWrapper{
+    margin-top: 7rem;
+}
+
+.casa{
+    margin-left: 4rem;
+}
+
+
+/* En tu archivo de estilos (tuEstilo.module.css) */
+.tresImgIndividual {
+    /* Estilos para tus imágenes pequeñas */
+    cursor: pointer;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .imagenEnGrandeContainer {
+    max-width: 80%;
+    max-height: 80%;
+  }
+  
+  .imagenEnGrande {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  

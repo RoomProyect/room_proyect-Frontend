@@ -6,10 +6,11 @@
     width: 70rem;
     background-color: #d4d4d42c;
     border-radius: 15px;
-    margin-top: 2rem;
+    margin-top: 7rem;
     margin-left: auto;
     margin-right: auto;
 }
+
 
 .imageContainer {
     width: 27.51594rem;
@@ -41,3 +42,36 @@
     line-height: 1.30669rem;
 }
 
+.contentFilters{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.contentCards{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+
+.contentPaginate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+}
+
+.paginateButton {
+    background-color: #4f886b;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin: 0 0.2rem;
+    font-size: 1rem;
+}
+
+.paginateButton:hover {
+    background-color: #294036;
+}

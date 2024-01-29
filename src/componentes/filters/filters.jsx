@@ -44,8 +44,8 @@ const Filters = () => {
         };
     }
 
-    const handleClick = () =>{
-
+    const handleClick = (event) =>{
+        dispatch(getActionFiltered([event.target.value, event.target.name]))
     }
 
     return (
@@ -53,7 +53,7 @@ const Filters = () => {
             <div className={styles.formContainer}>
                 <label className={styles.label}>
                     Ordenar por Precio
-                    <select name="select" onChange={handleSelecOrd}>
+                    <select className={styles.input} name="select" onChange={handleSelecOrd}>
                         <option value="default">---</option>
                         <option value="may_min">mayor a menor</option>
                         <option value="min_may">menor a mayor</option>
@@ -80,6 +80,7 @@ const Filters = () => {
                         name="min"
                         type="number"
                         value={precioMin}
+                        className={styles.input}
                         onChange={(e) => handleInputChange(e, setPrecioMin)}
                     />
                 </label>
@@ -90,12 +91,13 @@ const Filters = () => {
                         name="max"
                         type="number"
                         value={precioMax}
+                        className={styles.input}
                         onChange={(e) => handleInputChange(e, setPrecioMax)}
                     />
                 </label>
 
 
-                <button name = "reset" className={styles.button} onClick={handleClick}>
+                <button name = "reset" value={"reset"} className={styles.button} onClick={handleClick}>
                     Reset
                 </button>
 

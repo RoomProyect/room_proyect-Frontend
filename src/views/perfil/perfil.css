@@ -1,0 +1,207 @@
+.container {
+    position: relative;
+    width: 75vmin;
+    height: 40vmin;
+    perspective: 200vmin;
+    margin: auto;
+    margin-top: 15rem;
+  }
+  
+  .card {
+    cursor: default;
+    position: absolute;
+    display: flex;
+    width: 75vmin;
+    height: 40vmin;
+    border-radius: 2rem;
+    color: rgb(252, 252, 252);
+    outline: 1px solid transparent;
+    background-image: url("../../assets/cloudinary/bosqueFondoPf.jpg");
+    backface-visibility: hidden;
+    transition: transform 800ms cubic-bezier(0.63, -0.32, 0.4, 1.39);
+    position: absolute;
+    transform: translateX(-50%);
+    background-size: cover;
+    background-position: center;
+  }
+
+  .card:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -0.5vmin;
+    left: 2vmin;
+    right: 2vmin;
+    height: 1vmin;
+    border-radius: 100%;
+    background: rgba(0, 0, 0, 0.35);
+    -webkit-filter: blur(0.5vmin);
+    filter: blur(0.5vmin);
+    z-index: -1;
+
+  }
+  .card--front {
+    transform: rotateY(0deg);
+  }
+  .card--front--flip {
+    transform: rotateY(-180deg);
+  }
+  .card--back {
+    border-radius: 2rem;
+    transform: rotateY(180deg);
+    background-size: cover;
+    background-position: center;
+    
+  }
+  .card--back--flip {
+    transform: rotateY(0);
+  }
+  .card__content {
+    height: 100%;
+    width: 100%;
+  }
+  .card__content:before, .card__content:after {
+    content: "";
+    height: 100%;
+    box-sizing: content-box;
+    position: absolute;
+    left: 0;
+    width: 2.5vmin;
+    height: 10vmin;
+  }
+  .card__content:before {
+    background: #375345;;
+    top: 0;
+    border-radius: 1vmin 0 0 0;
+    border-bottom: 12vmin solid #f1c40f00;
+  }
+  .card__content:after {
+    background: #375345;
+    bottom: 0;
+    border-radius: 0 0 0 1vmin;
+    border-top: 10vmin solid #375345;;
+  }
+  
+  .logo,
+  .text {
+    flex: 0 1 auto;
+    align-self: center;
+  }
+  
+  .logo {
+    height: 100%;
+    width: 40%;
+    padding-left: 4vmin;
+  }
+  .logo__img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    fill: white;
+  }
+  
+  .text {
+    width: 60%;
+    padding: 2vmin 6.5vmin 2vmin 2vmin;
+    text-transform: uppercase;
+  }
+  .text:before, .text:after {
+    box-sizing: content-box;
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 2.5vmin;
+    height: 10vmin;
+  }
+  
+  .head {
+    text-align: right;
+  }
+  .head__name {
+    margin-bottom: 1em;
+    font-size: 4.4vmin;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  .head__name__fn {
+    font-weight: 700;
+  }
+  .head__subtitle {
+    opacity: 0.5;
+    font-size: 2vmin;
+  }
+  
+  .contact > li {
+    list-style: none;
+  }
+  .contact > li > p {
+    text-decoration: none;
+    display: inline-block;
+    outline: none;
+    color: white;
+    font-size: 2.3vmin;
+    margin: 0.5rem; /* Ajusta según sea necesario */
+    line-height: 8vmin;
+    padding-left: 5vmin;
+    padding-right: 2.5vmin;
+    cursor: pointer;
+    transition: padding 300ms;
+  }
+  
+  .contact > li > p:hover,
+  .contact > li > p:focus {
+    padding-right: 4vmin;
+    padding-left: 7vmin;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0) 100%);
+    cursor: initial
+  }
+  
+  .contact > li:first-child > p {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 1vmin 0 0 0;
+  }
+  
+  .contact > li:nth-child(2) > p {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0) 100%);
+    width: 400px;
+  }
+  
+  .contact > li:nth-child(3) > p {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0) 100%);
+    width: 250px;
+  }
+  
+  .contact > li:nth-child(4) > p {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0) 100%);
+    width: 250px;
+    border-radius: 0 0 0 1vmin;
+  }
+  
+  .note {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    white-space: nowrap;
+    font-size: 3.5vmin;
+    opacity: 0;
+    pointer-events: none;
+    animation: fadeInOut 4s;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes fadeInOut {
+    0% {
+      top: 0;
+      opacity: 0;
+    }
+    25%, 75% {
+      top: 10%;
+    }
+    75% {
+      opacity: 0.5;
+    }
+    100% {
+      top: 20%;
+      opacity: 0;
+    }
+  }

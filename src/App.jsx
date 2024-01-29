@@ -6,9 +6,14 @@ import Landing from './views/landing/Landing.jsx'
 import Detail from './views/detail/Detail.jsx';
 =======
 import Landing from './views/landing/Landing.jsx';
-import Form from './views/Form/form.jsx';
+import Login from './views/login/Login.jsx';
+import Register from './views/register/Register.jsx';
+import Form from './views/Form/Form.jsx';
+import CheckoutSuccess from './componentes/Stripe/CheckoutSuccess.jsx';
+import AdminUsers from "../src/views/SuperAdmin/AdminUsers/AdminUsers.jsx"
+import AdminPosts from "../src/views/SuperAdmin/AdminPosts/AdminPosts.jsx"
+import Perfil from './views/perfil/Perfil.jsx';
 
->>>>>>> 89dc96bb0415f8fe323217a2e6fe39976a783c0c
 
 
 function App() {
@@ -22,12 +27,14 @@ function App() {
       <Routes>
         <Route exact path={"/"} element={<Landing />} /> 
         <Route path={"/home"} element={<Home />} />
-<<<<<<< HEAD
-        <Route path={"/detail/id:"} element={<Detail />} />
-=======
-        <Route path={"/form"} element={<Form />} />
+        <Route path={"/login"} element={<Login />} />
+        <Route path={"/register"} element={<Register />} />
+        <Route path={"/form"} element={<Form />} /> 
         <Route path={'/detail/:id'} element={<Detail/>}/>
->>>>>>> 89dc96bb0415f8fe323217a2e6fe39976a783c0c
+        <Route path={'/checkout-success'} element={<CheckoutSuccess/>}/>
+        <Route path={"/perfil"} element={ <Perfil /> } />
+        <Route path={"/AdminUsers"} element={ <AdminUsers /> } />
+        <Route path={"/AdminPosts"} element={ <AdminPosts /> } />
       </Routes>
     </div>
 
