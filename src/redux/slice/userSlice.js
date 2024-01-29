@@ -36,7 +36,6 @@ export const userSlice = createSlice({
         });
         builder.addCase(postUserData.fulfilled, (state, action) => {
           state.data = action.payload
-          console.log(action.payload)
           state.status = 'succeeded';
         });
         builder.addCase(postUserData.rejected, (state, action) => {

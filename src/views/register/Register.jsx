@@ -88,8 +88,7 @@ const Register = () => {
             // The signed-in user info.
             const user = result.user;
             const data = {name: user.displayName, email: user.email}
-            const response = dispatch(postUserData(data))
-            console.log(user)
+            const response = dispatch(postUserData(data));
     
             // IdP data available using getAdditionalUserInfo(result)
             // ...
@@ -113,8 +112,9 @@ const Register = () => {
     if(user){
         const userStorage = JSON.stringify( user );
         localStorage.setItem( 'user',userStorage );
-        navigate('/');
+        navigate('/home');
     }
+
     return (
         <div className={style.navBar}>
         <NavBar/>

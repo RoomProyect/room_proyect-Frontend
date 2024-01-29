@@ -101,11 +101,11 @@ const Login = () => {
         console.log(user_ver)
         if(user_ver.length){
           dispatch(setUser(user_ver))
-          navigate('/home')
+          
         } else {
-          const response = dispatch(postUserData(user))
-          console.log(response.data);
-          navigate('/home')
+          
+          dispatch(postUserData({email: user.email, name: user.displayName}))          
+          
         }
         // IdP data available using getAdditionalUserInfo(result)
         // ...
