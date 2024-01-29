@@ -123,7 +123,6 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
 export const getUsers = (allUsers) => async(dispatch) => {
   try {
     const {data} = await axios(`/users?allUsers=${allUsers}`)
-    console.log(data)
     dispatch(getUsers_(data.docs))
   } catch (error) {
     dispatch({

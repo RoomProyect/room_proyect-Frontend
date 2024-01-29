@@ -29,6 +29,8 @@ const Home = () => {
         }
     }
 
+    
+
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
