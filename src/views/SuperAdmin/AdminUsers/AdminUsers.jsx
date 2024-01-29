@@ -1,5 +1,6 @@
 import styles from './AdminUsers.module.css';
 import Navbar from '../../../componentes/navBar/NavBar';
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers, nextPage, prevPage, } from '../../../redux/actions';
@@ -17,7 +18,6 @@ const updateUser = async(obj)=>{
 }
 
 const AdminUsers = () => {
-    const users = useSelector((state) => state.user.users);
     const [rol, setRol] = useState("--");
     const dispatch = useDispatch();
     const paginate = useSelector(state => state.counter.paginado);
@@ -27,14 +27,14 @@ const AdminUsers = () => {
             dispatch(getUsers())
         }
     }, []);
-
+    
     const handleClickRol = (event)=>{
         if(rol == "--"){return ""}
         const newUser ={_id: event.target.id, rol:rol}
         updateUser(newUser)
         
     }
-
+    
     const handleClickBan = (event)=>{
         
         if(event.target.value === 'true'){
@@ -44,13 +44,25 @@ const AdminUsers = () => {
         }
         
     }
-
+    
     const handleChange = (event) =>{
         setRol(event.target.value);
     }
+    const [pass, setPass] = useState("");
 
-
-
+    const Users = useSelector((state) => state.user.users);
+    const users = pass
+    ? Users.filter((u) => {
+        const nombreMatch = u.name.toLowerCase().includes(pass.toLowerCase());
+        const correoMatch = u.email.toLowerCase().includes(pass.toLowerCase());
+        return nombreMatch || correoMatch;
+    })
+    : Users;
+    const handleFind = (event) => {
+        const name = event.target.value
+        setPass(name)
+        
+    }
 
     useEffect(() => {
     }, [dispatch, paginate.pageActual,])
@@ -63,8 +75,7 @@ const AdminUsers = () => {
             dispatch(prevPage());
         }
     }
-
-
+    
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
@@ -76,6 +87,12 @@ const AdminUsers = () => {
             <div className={styles.contentTable}>
                     <div className={styles.tableHeader}>
                         <h2>Tabla de Usuarios</h2>
+                        <input
+            className={styles.inputSearch}
+            onChange={handleFind}
+            type="search"
+            placeholder="Busca por el nombre o dni/pasaporte.."
+            />
                     </div>
                     <table className={styles.userTable}>
                         <thead>
@@ -103,7 +120,9 @@ const AdminUsers = () => {
 
                                             <button className={styles.blueButton} id={user._id} onClick={handleClickRol}>Dar Rol</button>
                                             <button className={styles.redButton} id={user._id} value = {user.active} onClick={handleClickBan}>Banear/Desbanear</button>
-                                            <button className={styles.viewButton}>Ver Publicación</button>
+                                            <Link to={`/publicaciones/${user._id}` }>
+                                                <button className={styles.viewButton } >Ver Publicación</button>
+                                            </Link>
                                         </td>
                                     </tr>
                             })}

@@ -13,7 +13,10 @@ const Form = () => {
   const [section, setSection] = useState(1);
   const dispatch = useDispatch();
   const provincias = useSelector((state) => state.counter.provincias);
-
+  const userStorage = localStorage.getItem( "user" );
+  const user = JSON.parse( userStorage );
+  
+  console.log(user)
   useEffect(() => {
     if(!provincias.length){
       dispatch(getProvincias())
@@ -60,7 +63,9 @@ const Form = () => {
         }
         const result = await uploadFiles(img);
         data.img = result;
+        data.userId = user._id
         console.log(result);
+        console.log(data);
         dispatch(postDeptoAsync(data));
         reset();
         
@@ -79,7 +84,7 @@ const Form = () => {
   return (
     <div>
       <div className={styles.navBar}>
-        <NavBar />
+      <NavBar />
       </div>
     <div className={styles.formContainer}>
 

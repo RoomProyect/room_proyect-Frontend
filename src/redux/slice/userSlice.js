@@ -49,4 +49,3 @@ export const userSlice = createSlice({
 export const {getUsers_, setUser_} = userSlice.actions
 export default userSlice.reducer;
 
-//   export default userSlice.reducer;

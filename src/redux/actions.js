@@ -22,7 +22,6 @@ export const postDeptoAsync = (data) => async (dispatch) => {
 };
 
 export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
-
   try {
     const response = await axios(`${ endpoint }?page=${ page }`);
     console.log( response );
@@ -39,11 +38,13 @@ export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
   }
 };
 
-export const getUsers = () => async(dispatch) => {
+
+export const getUsers = ( page = 1) => async(dispatch) => {
   try {
-    const {data} = await axios('/users')
+    const {data} = await axios(`/users?page=${ page }`);
     console.log(data)
-    dispatch(getUsers_(data))
+    dispatch(getUsers_(  data.docs ));
+    dispatch( paginate( data ) );
   } catch (error) {
     dispatch({
       type: 'error',
@@ -52,6 +53,18 @@ export const getUsers = () => async(dispatch) => {
   }
 }
 
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    const { data } = await axios('/users/all');
+    console.log(data);
+    dispatch(getUsers_(data.docs));
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    });
+  }
+}
 
 export const nextPage = () => ({
   type: 'counter/nextPage',
@@ -104,7 +117,6 @@ export const putDeptoActions = (data)=> async (dispatch) =>{
     })
   }
 }
-
 
 export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
   try {
