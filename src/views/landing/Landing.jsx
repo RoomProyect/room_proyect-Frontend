@@ -108,10 +108,10 @@ const Landing = () => {
                                 <Reviews reviews={ comments }/>
                             </div>
                             {
-                                userStorage && !userStorage[0].Reviews && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
+                                userStorage && !userParse.review && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
                                 
                             }
-                            <ContainerFormReview handleClose={ handleClose }/>
+                            <ContainerFormReview handleClose={ handleClose } userLoged={ userParse } />
                     </div>
                 </div>
             </div>

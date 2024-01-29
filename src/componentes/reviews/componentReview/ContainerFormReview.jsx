@@ -1,13 +1,28 @@
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux';
 import styles from './ContainerFormReview.module.css'
+import { postReviews } from '../../../redux/actions';
+import { updateUser } from '../../../views/SuperAdmin/AdminUsers/AdminUsers';
 
-export const ContainerFormReview = ( { handleClose } ) => {
+export const ContainerFormReview = ( { handleClose,userLoged } ) => {
 
   const { register,handleSubmit,formState: { errors } } = useForm();
 
+
+  const dispatch =  useDispatch();
+  
   const onHandleSubmit = ( data ) => {
-    console.log( data );
+    const idUser = userLoged[0]._id
+    userLoged[0].review = true;
+    const newPost = {
+      text: data.review,
+      user: idUser
+    }
     handleClose();
+    updateUser({_id: idUser, review: true});
+    const updatedJsonString = JSON.stringify( userLoged[0] );
+    localStorage.setItem( 'user', updatedJsonString );
+    dispatch( postReviews( newPost ) );
   }
 
   return (
@@ -22,7 +37,7 @@ export const ContainerFormReview = ( { handleClose } ) => {
       <form className={ styles.formReview } onSubmit={ handleSubmit(onHandleSubmit) } >
         <h3>Deja tu comentario!</h3>
         <textarea 
-          name="review" 
+          name="text" 
           id="textAreaReview" 
           cols="60" 
           rows="10" 
