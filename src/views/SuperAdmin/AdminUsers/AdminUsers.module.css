@@ -9,7 +9,6 @@
     border-radius: 15px;
     margin-left: 4rem;
     float: left;
-
 }
 
 .contetTitle{
@@ -96,9 +95,6 @@
     font-family: "IBM Plex Mono", monospace;
     font-size: 1.3rem;
     font-style: normal;
-    font-weight: 600; /* Esto establece el grosor de la fuente a semibold */
-    line-height: normal;
-    margin-left: 4rem;
 }
 
 .tableActions {
@@ -168,7 +164,6 @@
     border: none ;
     cursor: pointer;
 
-
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: 'Arial', sans-serif; 
     font-size: 0.83331rem;
@@ -183,4 +178,19 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.searchBar {
+    width: 350px;
+    height: 45px;
+    margin-top: 2rem;
+    left: 60%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+    border-radius: 0.72731rem;
+    box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.719);
+    border: none;
 }

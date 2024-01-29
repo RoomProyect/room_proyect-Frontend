@@ -8,6 +8,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import Footer from "../../../componentes/footer/footer"
 // import {  getDeptoAsync, nextPage, prevPage } from '../../../redux/actions'; 
+
+
 const updateUser = async(obj)=>{
     try {
         const {data} = await axios.put('https://room-project-backend.onrender.com/users', obj)
@@ -88,11 +90,11 @@ const AdminUsers = () => {
                     <div className={styles.tableHeader}>
                         <h2>Tabla de Usuarios</h2>
                         <input
-            className={styles.inputSearch}
-            onChange={handleFind}
-            type="search"
-            placeholder="Busca por el nombre o dni/pasaporte.."
-            />
+                        className={styles.searchBar}
+                        onChange={handleFind}
+                        type="search"
+                        placeholder="Busca por el nombre o dni/pasaporte.."
+                        />
                     </div>
                     <table className={styles.userTable}>
                         <thead>

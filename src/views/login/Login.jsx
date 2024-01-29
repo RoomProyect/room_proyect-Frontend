@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { postActionLogin } from "../../redux/actions";
 import style from './Login.module.css'
 import NavBar from '../../componentes/navBar/NavBar'
-import { getAllUsers, setUser } from "../../redux/actions";
+import { getUsers, setUser } from "../../redux/actions";
 import { signInWithPopup, getAuth, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth"
 import { postUserData } from "../../redux/slice/userSlice";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,7 +28,8 @@ const Login = () => {
   const user = useSelector((state) => state.user.data)
 
   useEffect(() => {
-    dispatch(getAllUsers())
+    let allUsers = true
+    dispatch(getUsers(allUsers))
   }, []);
 
   const signin = (email, password) => {
@@ -103,7 +104,7 @@ const Login = () => {
           navigate('/home')
         } else {
           const response = dispatch(postUserData(user))
-          console.log(response)
+          console.log(response.data);
           navigate('/home')
         }
         // IdP data available using getAdditionalUserInfo(result)
