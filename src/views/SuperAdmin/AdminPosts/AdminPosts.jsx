@@ -4,6 +4,7 @@ import { getDeptoAsync, nextPage, prevPage, putDeptoActions } from '../../../red
 import { useEffect, useState } from "react";
 // import { set, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 
 
 
@@ -190,7 +191,9 @@ const AdminPost = () => {
                                         </button>
                                     ) : (
                                         <>
+                                        <Link to={`/detail/${depto._id}`}>
                                             <button className={styles.blueButton}>Ver Publicacion</button>
+                                        </Link>
                                             <button className={styles.redButton} id={depto._id} value={depto.active} onClick={handleClickDelete}>Borrado Logico</button>
                                             <button className={styles.viewButton} onClick={() => handleEdit(depto._id)}>
                                                 Editar
