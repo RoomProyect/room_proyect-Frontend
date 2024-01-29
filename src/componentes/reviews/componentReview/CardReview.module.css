@@ -3,8 +3,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 30rem;
-    height: 20rem;
+    width: 28rem;
+    height: 17rem;
     border-radius: 1.5rem;
     background: rgba(243, 243, 243, 0.192);
     color: rgba(255, 255, 255, 0.705);
@@ -17,7 +17,6 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: rem;
 }
 
 .profileImg{

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
 import {getUsers_, setUser_} from './slice/userSlice'
+import { getComments } from './slice/commentSlice';
 
 const endpoint = '/apartment';
 
@@ -24,6 +25,7 @@ export const postDeptoAsync = (data) => async (dispatch) => {
 export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
   try {
     const response = await axios(`${ endpoint }?page=${ page }`);
+    console.log( response );
     console.log( response );
 
     // Utiliza la acción directamente desde el slice
@@ -148,3 +150,17 @@ export const updateUser = (data) => async (dispatch) =>{
 export const setUser = (data) => (dispatch) => {
   dispatch(setUser_(data))
 };
+
+//Actions for reviews
+
+export const getReviews = () => async ( dispatch ) => {
+  try {
+    const { data } = await axios( '/coment' );
+    dispatch( getComments( data ) );
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message
+    })
+  }
+}

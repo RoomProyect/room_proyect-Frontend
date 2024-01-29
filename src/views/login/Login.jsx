@@ -136,33 +136,32 @@ const Login = () => {
         </div>
 
 
-        <div className={style.formContainer}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={style.title}>
-              <h1>Iniciar Sesión</h1>
-            </div>
-            <div className={style.inputContainer}>
-              <div className={style.inputGroup}>
-                <label className={style.emailLabel}>Email:</label>
-                <input className={style.emailInput} type="text" name="email" placeholder="Example@email.com" {...register("email")} />
-              </div>
-              <div className={style.inputGroup}>
-                <label className={style.passwordLabel}>Contraseña:</label>
-                <input className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" {...register("password")} />
-              </div>
-              <div><h2 className={style.resClave}>Olvidaste tu contraseña?</h2></div>
-            </div>
-            <button className={style.btnIniciarSesion} type="submit">Iniciar sesión</button>
-          </form>
-          <div className={style.linea}></div>
-          <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
-          <div className={style.containerRegister}>
-            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
+      <div className={style.formContainer}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={style.title}>
+            <h1>Iniciar Sesión</h1>
           </div>
-        </div>
+          <div className={style.inputContainer}>
+            <div className={style.inputGroup}>
+              <label className={style.emailLabel}>Email:</label>
+              <input className={style.emailInput} type="text" name="email" placeholder="Example@email.com" {...register("email")}/>
+            </div>
+            <div className={style.inputGroup}>
+              <label className={style.passwordLabel}>Contraseña:</label>
+              <input className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" {...register("password")}/>
+            </div>
+            <div><h2 className={style.resClave}>Olvidaste tu contraseña?</h2></div>
+          </div>
+          <button className={style.btnIniciarSesion} type="submit">Iniciar sesión</button>
+        </form>
+        <div className={style.linea}></div>
+        <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
         
       </div>
-
+    </div>
+          <div className={style.containerRegister}>
+            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
+          </div> 
     </div>
   );
 };
