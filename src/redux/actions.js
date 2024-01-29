@@ -108,8 +108,8 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
 
 export const getUsers = () => async(dispatch) => {
   try {
-    const {data} = await axios('/users')
-    dispatch(getUsers_(data))
+    const {data} = await axios('/users?limit=100')
+    dispatch(getUsers_(data.docs))
   } catch (error) {
     dispatch({
       type: 'error',
@@ -117,6 +117,7 @@ export const getUsers = () => async(dispatch) => {
     });
   }
 }
+
 
 export const updateUser = (data) => async (dispatch) =>{
   try {

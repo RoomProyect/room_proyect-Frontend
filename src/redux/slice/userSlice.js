@@ -14,6 +14,7 @@ export const postUserData = createAsyncThunk('user/postUserData', async (userDat
     }
 })
 
+
 export const userSlice = createSlice({
     name: 'user',
     initialState:{
@@ -47,5 +48,3 @@ export const userSlice = createSlice({
 })
 export const {getUsers_, setUser_} = userSlice.actions
 export default userSlice.reducer;
-
-//   export default userSlice.reducer;
