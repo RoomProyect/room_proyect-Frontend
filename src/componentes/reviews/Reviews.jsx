@@ -1,6 +1,7 @@
 import styles from './Reviews.module.css';
 import { useState } from 'react';
-import { CardReview } from './componentReview/CardReview';
+import { CardReview } from './componentReview';
+
 
 export const Reviews = () => {
 

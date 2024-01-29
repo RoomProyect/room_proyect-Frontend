@@ -1,4 +1,4 @@
-import { uploadFile } from "../../firebase/config";
+import { uploadFiles } from "../../firebase/config";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { postDeptoAsync, getProvincias } from "../../redux/actions";
@@ -49,14 +49,26 @@ const Form = () => {
       setSection(2);
     } else {
       // Segunda sección del formulario
-      console.log(data);
-    const result = await uploadFile(img);
-      data.img = result;
-      console.log(result);
-    dispatch(postDeptoAsync(data));
-      reset()
+      if (!img || img.length === 0) {
+        console.error("Debes seleccionar al menos un archivo para subir.");
+        // Puedes mostrar un mensaje al usuario o manejar de otra manera
+        return;
+      }
+  
+      try {
+        console.log("Data antes de enviar:", data);
+  
+        const result = await uploadFiles(img);
+        data.img = result;
+        console.log(result);
+        dispatch(postDeptoAsync(data));
+        reset();
+      } catch (error) {
+        console.error("Error al subir archivos:", error);
+      }
     }
   };
+  
 
   const handleChange = (event) =>{
     setValue(event.target.name, event.target.value)
@@ -324,13 +336,14 @@ const Form = () => {
 
             <div className={styles.formGroup}>
               <label htmlFor="fileInput" className={styles.formLabel}>
-                Selecciona un archivo
+                Selecciona archivos
               </label>
               <input
                 type="file"
                 id="fileInput"
-                onChange={(e) => setImg(e.target.files[0])}
+                onChange={(e) => setImg(e.target.files)}
                 className={styles.fileInput}
+                multiple // Habilita la selección de múltiples archivos
               />
             </div>
             <button

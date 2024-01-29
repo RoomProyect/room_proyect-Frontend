@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
+import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
 import {getUsers_, setUser_} from './slice/userSlice'
+import { getComments } from './slice/commentSlice';
 
 const endpoint = '/apartment';
 
@@ -73,6 +74,25 @@ export const getProvincias = ()=> async(dispatch) => {
   }
 }
 
+
+
+export const putDeptoActions = (data)=> async (dispatch) =>{
+  try {
+    const response = await axios.put('https://room-project-backend.onrender.com/apartment', data);
+  console.log(putDepto);
+  console.log(data);
+  console.log(endpoint);
+    dispatch( putDepto( response.data ) );
+    console.log(response.data);
+  } catch (error) {
+    dispatch({
+      type: "error",
+      payload: error.message
+    })
+  }
+}
+
+
 export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
   try {
     const response = await axios(`${ endpoint }/${ idDepto }`);
@@ -114,3 +134,18 @@ export const updateUser = (data) => async (dispatch) =>{
 export const setUser = (data) => (dispatch) => {
   dispatch(setUser_(data))
 };
+
+//Actions for reviews
+
+export const getReviews = () => async ( dispatch ) => {
+  try {
+    const data = await axios( '/coment' );
+    // dispatch( getComments( data ) );
+    console.log( data );
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message
+    })
+  }
+}

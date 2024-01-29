@@ -1,3 +1,11 @@
+.fondoFalso{
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(4px);
+}
+
 .landingContainer {
     background-image: url("../../assets/cloudinary/bosqueFondoPf.jpg");
     background-size: cover;
@@ -6,7 +14,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start; 
+    align-items: flex-start;
 }
 
 .buttonLogin{
@@ -198,4 +206,22 @@
     display: flex;
     justify-content: center;
     margin-bottom: 2rem;
+}
+
+.addReview{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.2rem;
+    width: 3.2rem;
+    background-color: #4F886B;
+    border-radius: 50%;
+    border: transparent;
+    cursor: pointer;
+    color: wheat;
+    font-family: Helvetica, sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    top: 35rem;
+    right: 50rem;
 }

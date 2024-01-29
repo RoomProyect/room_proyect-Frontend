@@ -9,11 +9,13 @@ import ubi from "../../assets/cloudinary/card/ubi.svg";
 import PropTypes from 'prop-types';
 
 const Card = ({ id, baños, img, mcTerreno, precio, titulo, habitaciones, ciudad }) => {
+
     return (
         <div className={styles.card}>
             <div className={styles.cardContainer}>
                 <div className={styles.imageContainer}>
                     <Link to={`/detail/${id}`}>
+                        
                         <img src={img} alt={img} className={styles.image} />
                     </Link>
                 </div>

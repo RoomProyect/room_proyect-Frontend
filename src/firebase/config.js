@@ -1,7 +1,7 @@
-import {v4} from 'uuid'
-import { initializeApp } from "firebase/app";
-import {getDownloadURL, getStorage, ref, uploadBytes} from 'firebase/storage'
-import { GoogleAuthProvider } from "firebase/auth";
+import { v4 } from 'uuid';
+import { initializeApp } from 'firebase/app';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA-NV4FuVuA4PupRpGSSt25oWa4gznkVH4",
@@ -17,11 +17,24 @@ const app = initializeApp(firebaseConfig);
 export const providerGoogle = new GoogleAuthProvider();
 export const storage = getStorage(app);
 
+// Modificar la función para subir múltiples archivos
+export const uploadFiles = async (files) => {
+  const urls = [];
 
-export const  uploadFile = async (file) =>{
-  const storageRef= ref(storage, v4())
-  await uploadBytes(storageRef, file)
-  const url = await getDownloadURL(storageRef)
-  console.log(url);
-  return url
-}
+  // Iterar sobre cada archivo y subirlo
+  for (const file of files) {
+    const storageRef = ref(storage, v4());
+
+    // Subir el archivo al almacenamiento de Firebase
+    await uploadBytes(storageRef, file);
+
+    // Obtener la URL de descarga del archivo subido
+    const url = await getDownloadURL(storageRef);
+
+    // Agregar la URL al array de URLs
+    urls.push(url);
+  }
+
+  // Devolver el array de URLs de descarga
+  return urls;
+};
