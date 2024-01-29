@@ -14,9 +14,7 @@ import AdminPostForID from './views/SuperAdmin/AdminPostForID/AdminPostForID.jsx
 
 
 function App() {
-  
-  // const location = useLocation();
-  // const isLandingPage = location.pathname === "/"; 
+
 
   return (
       <div className="App">
