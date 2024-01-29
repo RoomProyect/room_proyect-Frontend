@@ -1,17 +1,14 @@
-import styles from './AdminPosts.module.css';
-import Navbar from '../../../componentes/navBar/NavBar';
+import styles from './AdminPostsForID.module.css';
+import { useParams } from 'react-router-dom';
 import { getDeptoAsync, nextPage, prevPage, putDeptoActions } from '../../../redux/actions';
 import { useEffect, useState } from "react";
+import Navbar from '../../../componentes/navBar/NavBar';
 // import { set, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
-import Footer from "../../../componentes/footer/footer"
 
 
 
-
-
-const AdminPost = () => {
+const AdminPostForID = () => {
 
     const [editingDeptoId, setEditingDeptoId] = useState(null);
     const [edit, setEdit] = useState(false)
@@ -31,11 +28,13 @@ const AdminPost = () => {
             dispatch(prevPage());
         }
     }
-
-
+    const { id } = useParams();
+        console.log(id);
     const deptos = useSelector((state) => state.counter.deptos);
-    console.log(dataInput);
-    
+    const deptoForID = deptos.filter((depto) => {
+        return depto.userId == id;
+    });
+        console.log(deptoForID);
     const handleData = (e) => {
         const valor = e.target.value;
         const clave = e.target.name;
@@ -81,7 +80,7 @@ const AdminPost = () => {
             </div>
             <div className={styles.contentTable}>
                 <div className={styles.tableHeader}>
-                    <h2>Tabla de Posteos</h2>
+                    <h2>Tabla de Posteos por Usuario</h2>
                 </div>
                 <table className={styles.userTable}>
                     <thead>
@@ -101,7 +100,7 @@ const AdminPost = () => {
                         {deptos?.map((depto) => (
                             <tr key={depto._id}>
                                 <td>
-                                    {editingDeptoId === depto._id ? (
+                                    {deptoForID === depto._id ? (
                                         <input
                                             type="text"
                                             name="titulo"
@@ -192,9 +191,7 @@ const AdminPost = () => {
                                         </button>
                                     ) : (
                                         <>
-                                        <Link to={`/detail/${depto._id}`}>
                                             <button className={styles.blueButton}>Ver Publicacion</button>
-                                        </Link>
                                             <button className={styles.redButton} id={depto._id} value={depto.active} onClick={handleClickDelete}>Borrado Logico</button>
                                             <button className={styles.viewButton} onClick={() => handleEdit(depto._id)}>
                                                 Editar
@@ -216,11 +213,8 @@ const AdminPost = () => {
                     Next
                 </button>
             </div>
-            <div>
-                <Footer/>
-            </div>
         </div>
     );
 };
 
-export default AdminPost;
+export default AdminPostForID;
