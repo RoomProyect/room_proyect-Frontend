@@ -16,6 +16,7 @@
     margin-left: 4rem;
     margin-top: 2rem;
     box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.356);
+    
 }
 
 .propertyDetails {
@@ -57,6 +58,7 @@
 .tresImg {
     display: flex;
     flex-direction: row;
+    
 }
 
 .tresImgIndividual{
@@ -106,7 +108,7 @@
 .buyButtonContainer {
     display: flex;
     justify-content: flex-end;
-    margin-top: -3rem; /* Ajusta el valor según tu preferencia */
+    margin-top: -0rem; /* Ajusta el valor según tu preferencia */
 }
 
 .buyButton {
@@ -180,6 +182,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
   }
   
   .imagenEnGrandeContainer {
@@ -191,5 +194,6 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+    
   }
   

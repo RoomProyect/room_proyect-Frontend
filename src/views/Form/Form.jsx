@@ -74,7 +74,7 @@ const Form = () => {
     setValue(event.target.name, event.target.value)
     trigger(event.target.name)
   }
-
+   
   return (
     <div>
       <div className={styles.navBar}>
@@ -361,18 +361,18 @@ const Form = () => {
   );
 };
 
-Form.propTypes = {
-    //id: PropTypes.string.isRequired,
-    ambientes: PropTypes.string.isRequired,
-    baños: PropTypes.string.isRequired,
-    cochera: PropTypes.string.isRequired,
-    descripcion: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
-    mcTerreno: PropTypes.string.isRequired,
-    precio: PropTypes.string.isRequired,
-    titulo: PropTypes.string.isRequired,
-    ciudad: PropTypes.string.isRequired,
-    habitaciones: PropTypes.string.isRequired,
-};
+// Form.propTypes = {
+//     //id: PropTypes.string.isRequired,
+//     // ambientes: PropTypes.string.isRequired,
+//     baños: PropTypes.string.isRequired,
+//     cochera: PropTypes.string.isRequired,
+//     descripcion: PropTypes.string.isRequired,
+//     img: PropTypes.string.isRequired,
+//     mcTerreno: PropTypes.string.isRequired,
+//     precio: PropTypes.string.isRequired,
+//     titulo: PropTypes.string.isRequired,
+//     ciudad: PropTypes.string.isRequired,
+//     habitaciones: PropTypes.string.isRequired,
+// };
 
 export default Form;
