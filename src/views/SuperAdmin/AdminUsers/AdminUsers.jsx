@@ -3,7 +3,7 @@ import Navbar from '../../../componentes/navBar/NavBar';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers, nextPage, prevPage, } from '../../../redux/actions';
+import { getUsers, prevPageUsersAction, nextPageUsersAction } from '../../../redux/actions';
 import axios from 'axios';
 import { useState } from 'react';
 import Footer from "../../../componentes/footer/footer"
@@ -23,41 +23,35 @@ const updateUser = async(obj)=>{
 const AdminUsers = () => {
     const [rol, setRol] = useState("--");
     const dispatch = useDispatch();
-    const paginate = useSelector(state => state.counter.paginado);
-
     const navigate = useNavigate();
-    
+    const paginate = useSelector(state => state.user.paginado);
     useEffect(()=>{
+        const page = 1
+        dispatch(getUsers(page))
         const userStorage = localStorage.getItem( "user" );
         const user = JSON.parse( userStorage );
-        console.log( user[0].rol );
-
         if(user[0].rol !== "superadmin"){
-            
             navigate('/home')
             alert('tomatela no tenes rol: (solo SuperAdmin)')
         }
 
-    })
+    },[])
     
     useEffect(() => {
-        if(users){
-            dispatch(getUsers(paginate.pageActual))
-        }
-    }, [[dispatch, paginate.pageActual]]);
+        dispatch(getUsers(paginate.pageActual))
+        
+    }, [paginate.pageActual]);
 
     const handleChangePage = (event) => {
         if (event.target.name === 'next' && paginate.pageActual < paginate.totalPages) {
-            dispatch(nextPage());
+            dispatch(nextPageUsersAction);
         }
         if (event.target.name === 'back' && paginate.pageActual > 1) {
-            dispatch(prevPage());
+            dispatch(prevPageUsersAction);
         }
     }
 
 
-
-    
     const handleClickRol = (event)=>{
         if(rol == "--"){return ""}
         const newUser ={_id: event.target.id, rol:rol}

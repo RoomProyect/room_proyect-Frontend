@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
-import {getUsers_, setUser_} from './slice/userSlice'
+import {getUsers_, setUser_, paginateUsers, prevPageUsers, nextPageUsers} from './slice/userSlice'
 import { getComments } from './slice/commentSlice';
 
 const endpoint = '/apartment';
@@ -25,7 +25,6 @@ export const postDeptoAsync = (data) => async (dispatch) => {
 export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
   try {
     const response = await axios(`${ endpoint }?page=${ page }`);
-    console.log( response );
     console.log( response );
 
     // Utiliza la acción directamente desde el slice
@@ -120,16 +119,31 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
   }
 }
 
-export const getUsers = (allUsers) => async(dispatch) => {
+export const getUsers = (page, limit, allUsers) => async(dispatch) => {
   try {
-    const {data} = await axios(`/users?allUsers=${allUsers}`)
-    dispatch(getUsers_(data.docs))
+    if(allUsers){
+      const {data} = await axios(`/users?allUsers=${allUsers}`)
+      dispatch(getUsers_(data.docs))
+    }
+    if(page){
+      const {data} = await axios(`/users?page=${page}&limit=8`)
+      dispatch(getUsers_(data.docs))
+      dispatch(paginateUsers(data))
+    }
   } catch (error) {
     dispatch({
       type: 'error',
       payload: error.message,
     });
   }
+}
+
+export const nextPageUsersAction = (dispatch) => {
+  dispatch(nextPageUsers())
+}
+
+export const prevPageUsersAction = (dispatch) => {
+  dispatch(prevPageUsers())
 }
 
 

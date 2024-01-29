@@ -21,6 +21,7 @@ export const userSlice = createSlice({
         data: null,
         status: 'idle',
         users:[],
+        paginado: {},
     },
     reducers: {
       getUsers_: (state, action)=>{
@@ -28,6 +29,24 @@ export const userSlice = createSlice({
       },
       setUser_: (state, action)=>{
         state.data = action.payload
+      },
+      paginateUsers: ( state,action ) => {
+        //state.totalPages = action.payload.totalPages;
+        state.paginado = {
+          totalPages: action.payload.totalPages,
+          pageActual: action.payload.page,
+          prevPage: action.payload.prevPage,
+          nextPage: action.payload.nextPage,
+        };
+      },
+      setCardsPerPageUsers: (state,) => {
+        state.paginado.cardsPerPage = 8;
+      },
+      nextPageUsers: ( state ) => {
+        state.paginado.pageActual += 1;
+      },
+      prevPageUsers: ( state ) => {
+        state.paginado.pageActual -= 1;
       },
     },
     extraReducers: (builder) => {
@@ -45,5 +64,5 @@ export const userSlice = createSlice({
     },
 
 })
-export const {getUsers_, setUser_} = userSlice.actions
+export const {getUsers_, setUser_, paginateUsers, nextPageUsers, prevPageUsers} = userSlice.actions
 export default userSlice.reducer;
