@@ -6,6 +6,7 @@ export const commentSlice = createSlice({
     initialState: {
         reviews: [],
         review: {},
+        paginado: {},
     },
     reducers: {
         getComments: ( state,action ) => {
@@ -13,13 +14,30 @@ export const commentSlice = createSlice({
         },
         postComments: ( state,action ) => {
             state.review = action.payload;
-        }
-    }
-})
-
+        },
+        paginateComments: ( state,action ) => {
+            state.paginado = {
+                totalPages: action.payload.totalPages,
+                pageActual: action.payload.page,
+                prevPage: action.payload.prevPage,
+                nextPage: action.payload.nextPage
+            };
+        },
+        nextPageComment: (state) => {
+            state.paginado.pageActual += 1;
+        },
+        prevPageComment: (state) => {
+            state.paginado.pageActual -= 1;
+        },
+    },
+});
+      
 export const {
-    getComments,
-    postComments,
+getComments,
+postComments,
+paginateComments,
+nextPageComment,
+prevPageComment
 } = commentSlice.actions;
 
 export default commentSlice.reducer;
