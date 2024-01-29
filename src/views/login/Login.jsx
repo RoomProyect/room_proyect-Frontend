@@ -90,8 +90,6 @@ const Login = () => {
 
         // The signed-in user info.
         const user = result.user;
-        console.log(user)
-        console.log(users, user)
         const user_ver = users.filter((el)=> el.email == user.email)
         console.log(user_ver)
         if(user_ver.length){
