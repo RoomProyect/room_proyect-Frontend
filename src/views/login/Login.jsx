@@ -150,13 +150,12 @@ const Login = () => {
           <button className={style.btnIniciarSesion} type="submit">Iniciar sesión</button>
         </form>
         <div className={style.linea}></div>
-        <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
-        
-      </div>
-    </div>
+        <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>      
           <div className={style.containerRegister}>
             <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
           </div> 
+      </div>
+    </div>
     </div>
   );
 };
