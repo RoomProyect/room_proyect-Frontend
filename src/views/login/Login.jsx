@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-// import { postActionLogin } from "../../redux/actions";
+//import { postActionLogin } from "../../redux/actions";
 import style from './Login.module.css'
 import NavBar from '../../componentes/navBar/NavBar'
 import { getUsers, setUser } from "../../redux/actions";
@@ -46,8 +46,7 @@ const Login = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
-
-  }
+  };
 
   if (user) {
     const userStorage = JSON.stringify(user);
@@ -56,7 +55,7 @@ const Login = () => {
   }
 
   const onSubmit = (data) => {
-    dispatch(postActionLogin(data));
+    //dispatch(postActionLogin(data));
     signin(data.email, data.password)
   };
 
