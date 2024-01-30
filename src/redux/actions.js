@@ -2,7 +2,7 @@ import axios from 'axios';
 import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
 import {getUsers_, setUser_} from './slice/userSlice'
 import { getComments, nextPageComment, paginateComments, postComments, prevPageComment } from './slice/commentSlice';
-
+import Swal from 'sweetalert2'
 const endpoint = '/apartment';
 
 export const postDeptoAsync = (data) => async (dispatch) => {
@@ -12,7 +12,11 @@ export const postDeptoAsync = (data) => async (dispatch) => {
 
     // Utiliza la acción directamente desde el slice
     dispatch(postDepto(response.data));
-    alert('Agregado correctamente!');
+    Swal.fire({
+      icon: 'success',
+      title: `Agregado`,
+      text: 'El departamento se publico correctamente',
+    });
   } catch (error) {
     dispatch({
       type: 'error',
@@ -174,7 +178,11 @@ export const postReviews = ( dataReview ) => async( dispatch ) => {
   try {
     const { data } = await axios.post( '/coment',dataReview );
     dispatch( postComments( data ) );
-    alert('Agregado correctamente!');
+    Swal.fire({
+      icon: 'success',
+      title: `Agregado`,
+      text: 'El departamento comentario se publico correctamente',
+    });
     window.location.reload();
   } catch (error) {
     dispatch({
