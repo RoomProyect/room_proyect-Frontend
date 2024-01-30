@@ -41,10 +41,8 @@ const AdminUsers = () => {
     })
     
     useEffect(() => {
-        if(users){
-            dispatch(getUsers(paginate.pageActual))
-        }
-    }, [[dispatch, paginate.pageActual]]);
+        dispatch(getUsers(paginate.pageActual))
+    },[dispatch, paginate.pageActual]);
 
     const handleChangePage = (event) => {
         if (event.target.name === 'next' && paginate.pageActual < paginate.totalPages) {
@@ -54,9 +52,6 @@ const AdminUsers = () => {
             dispatch(prevPage());
         }
     }
-
-
-
     
     const handleClickRol = (event)=>{
         if(rol == "--"){return ""}

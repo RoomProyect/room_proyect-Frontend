@@ -31,7 +31,7 @@ const AdminPost = () => {
             alert('tomatela no tenes rol: (solo SuperAdmin)')
         }
 
-    },[])
+    })
 
 
     useEffect(() => {

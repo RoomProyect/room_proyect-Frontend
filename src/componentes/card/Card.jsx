@@ -8,7 +8,7 @@ import ubi from "../../assets/cloudinary/card/ubi.svg";
 
 import PropTypes from 'prop-types';
 
-const Card = ({ id, baños, img, mcTerreno, precio, titulo, habitaciones, ciudad }) => {
+const Card = ({ id, baños, img, mcTerreno, precio, titulo, habitaciones, provincias }) => {
 
     return (
         <div className={styles.card}>
@@ -23,7 +23,7 @@ const Card = ({ id, baños, img, mcTerreno, precio, titulo, habitaciones, ciudad
                     <p className={styles.titulo}>{titulo}</p>
                     <div className={styles.infoContainer}>
                         <div className={styles.ubicacion}>
-                                <img src={ubi} alt="ciudad" className={styles.icono}/>{ciudad}
+                                <img src={ubi} alt="provincias" className={styles.icono}/>{provincias}
                         </div>
                         <div className={styles.otroInfoContainer}>
                             <p className={styles.otroInfoItem}>
@@ -58,7 +58,7 @@ Card.propTypes = {
     mcTerreno: PropTypes.string.isRequired,
     precio: PropTypes.string.isRequired,
     titulo: PropTypes.string.isRequired,
-    ciudad: PropTypes.string.isRequired,
+    provincias: PropTypes.string.isRequired,
     habitaciones: PropTypes.string.isRequired,
 };
 

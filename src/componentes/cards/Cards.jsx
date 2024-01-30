@@ -3,6 +3,7 @@ import styles from './cards.module.css'; // Asegúrate de importar tus estilos
 import PropTypes from 'prop-types';
 
 const Cards = ({ deptos }) => {
+  
   return (
     <div className={styles.cardsRow}> 
       {deptos.map((casa) => (casa.active?
@@ -19,7 +20,7 @@ const Cards = ({ deptos }) => {
             img={casa.img}
             precio={casa.precio}
             mcTerreno={casa.mcTerreno}
-            ciudad={casa.ciudad}
+            provincias={casa.provincias}
           />
         </div>:""
       ))}

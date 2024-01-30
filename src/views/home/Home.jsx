@@ -15,6 +15,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const deptos = useSelector( (state) => state.counter.deptos );
     const paginate = useSelector ( state => state.counter.paginado );
+    console.log(deptos);
 
     useEffect(()=>{
         dispatch(getDeptoAsync( paginate.pageActual ))
@@ -28,8 +29,6 @@ const Home = () => {
             dispatch( prevPage() );
         }
     }
-
-    
 
     return (
         <div className={styles.homeContainer}>

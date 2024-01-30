@@ -99,7 +99,6 @@ const Detail = () => {
                 <div className={styles.detail}>
                     <img src={cama} alt="Cama" className={`${styles.icono} ${styles.casa}`} />
                     <h6 className={styles.detailLabel}>Habitaciones: {vivienda.habitaciones}</h6>
-                    
                 </div>
                 <div className={styles.detail}>
                     <img src={ducha} alt="Ducha" className={styles.icono} />
@@ -109,8 +108,8 @@ const Detail = () => {
                     <h6 className={styles.detailLabel}>Cochera: {vivienda.cochera}</h6>
                 </div>
                 <div className={styles.detail}>
-                    <img src={ubi} alt="Ciudad" className={styles.icono}/>
-                    <h6 className={styles.detailLabel}>Provincia: {vivienda.ciudad}</h6>                    
+                    <img src={ubi} alt="provincias" className={styles.icono}/>
+                    <h6 className={styles.detailLabel}>Provincia: {vivienda.provincias}</h6>                    
                 </div>
                 <div className={styles.detail}>
                     <img src={casa} alt="Casa" className={styles.icono} />
@@ -118,7 +117,7 @@ const Detail = () => {
                 </div>
             </div>
                 <div className={styles.buyButtonContainer}>
-                <PayButton
+                        <PayButton
                         items={vivienda}
                     />
                     <button className={styles.buyButton} onClick={() => redirectToWhatsApp('+123456789')}>
@@ -134,7 +133,7 @@ const Detail = () => {
             </div>
             <div className={styles.container}>
                 <div className={styles.goBack}>
-                <button onClick={() => navigate("/home")}> {"< Back"}</button>
+                <button onClick={() => navigate("/home")}> {"Back"}</button>
                 <div className={styles.loading}>
                     CARGANDO...
                 </div>

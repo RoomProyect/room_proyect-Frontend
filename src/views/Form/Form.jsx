@@ -12,46 +12,43 @@ import { useNavigate } from 'react-router-dom';
 const Form = () => {
   const [img, setImg] = useState({});
   const [section, setSection] = useState(1);
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const provincias = useSelector((state) => state.counter.provincias);
-  const [provinciaSeleccionada, setProvinciaSeleccionada] = useState('');
-
   const userStorage = localStorage.getItem( "user" );
   const user = JSON.parse( userStorage );
-
-
-  const handleSelect = (event) => {
-    const provinciaElegida = event.target.value;
-    setProvinciaSeleccionada(provinciaElegida);
-  };
-
 
   useEffect(()=>{
     const userStorage = localStorage.getItem( "user" );
     const user = JSON.parse( userStorage );
 
+
     if(user[0].rol !== "superadmin" && user[0].rol !== "admin"){       
         navigate('/home')
         alert('tomatela no tenes rol: (solo SuperAdmin)')
     }
-  })
+  }, []);
 
 
   useEffect(() => {
-    if(!provincias.length){
-      dispatch(getProvincias())
-    }
-  });
+    dispatch(getProvincias());
+  }, []);
   
-  
-  useEffect(() => {
-    if(!provincias.length){
-      dispatch(getProvincias())
-    }
-  });
 
+  const provincias = useSelector((state) => state.counter.provincias);
+
+  const [selectedProvince, setSelectedProvince] = useState(null);
+
+  const handleProvinceChange = (event) => {
+    const selectedProvinceName = event.target.value;
+    const province = provincias.find((p) => p.nombre === selectedProvinceName);
+    setSelectedProvince(province);
+    console.log(province)
+
+};
+  
   const {
     register,
     handleSubmit,
@@ -72,28 +69,26 @@ const Form = () => {
     setValue(field, Math.max(value - 1, 0));
   };
 
-  
   const onSubmit = async (data) => {
+  
     if (section === 1) {
       // Primera sección del formulario
       setSection(2);
     } else {
       // Segunda sección del formulario
-      if ( !img || img.length === 0 ) {
+      if (!img || img.length === 0) {
         console.error("Debes seleccionar al menos un archivo para subir.");
         return;
       }
-  
       
       try {
-        if( img.length >= 10 && img.length <= 4 ) {
+        if (img.length >= 10 && img.length <= 4) {
           alert("Por eso te gorrean(facu)")
         }
+  
         const result = await uploadFiles(img);
-        data.img = result;
-        
+        data.img = result;      
         data.userId = user[0]._id
-
         dispatch(postDeptoAsync(data));
         reset();
         
@@ -102,14 +97,11 @@ const Form = () => {
       }
     }
   };
-  
 
   const handleChange = (event) =>{
     setValue(event.target.name, event.target.value)
     trigger(event.target.name)
   }
-
-
 
   return (
     <div>
@@ -303,7 +295,6 @@ const Form = () => {
                 <button
                   type="button"
                   className={styles.decrementButton}
-                  
                   onClick={() => handleDecrement("baños")}
                 >
                   -
@@ -372,27 +363,38 @@ const Form = () => {
             </div>
 
             <div className={styles.formGroup}>
-            <select
-              className={styles.formSelectSeccionDos}
-              name="provincia"
-              value={provinciaSeleccionada}
-              onChange={handleSelect}
-              {...register("ciudad")}
-            >
-              {provincias.length > 0 ? (
-                provincias.map((provincia, index) => (
-                  <option key={index} value={provincia}>
-                    {provincia}
+            <>
+              <select
+                className={styles.formSelectSeccionDos}
+                name="provincias"
+                value={selectedProvince ? selectedProvince.nombre : ''}
+                onChange={handleProvinceChange}
+              >
+                {provincias.length > 0 ? (
+                  provincias.map((provincia, index) => (
+                    <option key={index} value={provincia.nombre}>
+                      {provincia.nombre}
+                    </option>
+                  ))
+                ) : (
+                  <option value="" disabled>
+                    Cargando provincias...
                   </option>
-                ))
-              ) : (
-                <option value="" disabled>
-                  Cargando provincias...
-                </option>
-              )}
-            </select>
+                )}
+              </select>
+              <input
+                type="text"
+                value={selectedProvince ? selectedProvince.centroide.lat : ''}
+                readOnly
+                
+              />
+              <input
+                type="text"
+                value={selectedProvince ? selectedProvince.centroide.lon : ''}
+                readOnly
+              />
+            </>
             </div>
-
             <div className={styles.formGroup}>
               <label htmlFor="fileInput" className={styles.formLabel}>
                 Selecciona archivos
@@ -402,7 +404,7 @@ const Form = () => {
                 id="fileInput"
                 onChange={(e) => setImg(e.target.files)}
                 className={styles.fileInput}
-                multiple // Habilita la selección de múltiples archivos
+                multiple 
               />
             </div>
             <button
