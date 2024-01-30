@@ -56,7 +56,7 @@ const Login = () => {
   }
 
   const onSubmit = (data) => {
-    dispatch(postActionLogin(data));
+    // dispatch(postActionLogin(data));
     signin(data.email, data.password)
   };
 
