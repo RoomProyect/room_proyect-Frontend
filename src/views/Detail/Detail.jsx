@@ -4,9 +4,9 @@ import NavBar from '../../componentes/navBar/NavBar.jsx';
 import styles from './Detail.module.css';
 import PayButton from '../../componentes/Stripe/PayButton.jsx';
 
-import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg'
-import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg'
-import ImgTres from '../../assets/cloudinary/fotosDetailPrueba/depto3.jpg'
+// import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg'
+// import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg'
+// import ImgTres from '../../assets/cloudinary/fotosDetailPrueba/depto3.jpg'
 
 import cama from "../../assets/cloudinary/card/cama.svg";
 import casa from "../../assets/cloudinary/card/casa.png";
@@ -37,6 +37,16 @@ const Detail = () => {
 
         window.open(whatsappLink, '_blank');
     }
+
+    const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
+
+    const mostrarImagenEnGrande = (imagen) => {
+        setImagenSeleccionada(imagen);
+    };
+
+    const cerrarImagenEnGrande = () => {
+        setImagenSeleccionada(null);
+    };
     
     
 
@@ -62,9 +72,25 @@ const Detail = () => {
                         <span className={styles.descripcion}>{vivienda.descripcion}</span>
                     </div>
                     <div className={styles.tresImg}>
-                        <img src={ImgUno} alt="house-image" className={styles.tresImgIndividual} />
-                        <img src={ImgDos} alt="house-image" className={styles.tresImgIndividual} />
-                        <img src={ImgTres} alt="house-image" className={styles.tresImgIndividual} />
+                        <div>
+                            {vivienda.img.map((imagen, index) => (
+                                <img
+                                key={index}
+                                src={imagen}
+                                alt="house-image"
+                                className={styles.tresImgIndividual}
+                                onClick={() => mostrarImagenEnGrande(imagen)}
+                                />
+                            ))}
+                            
+                            {imagenSeleccionada && (
+                                <div className={styles.overlay} onClick={cerrarImagenEnGrande}>
+                                    <div className={styles.imagenEnGrandeContainer}>
+                                        <img src={imagenSeleccionada} alt="house-image" className={styles.imagenEnGrande} />
+                                    </div>
+                                </div>
+                            )}
+                    </div>
                     </div>
 
                 </div>
@@ -84,7 +110,7 @@ const Detail = () => {
                 </div>
                 <div className={styles.detail}>
                     <img src={ubi} alt="Ciudad" className={styles.icono}/>
-                    <h6 className={styles.detailLabel}>Ciudad: {vivienda.ciudad}</h6>                    
+                    <h6 className={styles.detailLabel}>Provincia: {vivienda.ciudad}</h6>                    
                 </div>
                 <div className={styles.detail}>
                     <img src={casa} alt="Casa" className={styles.icono} />

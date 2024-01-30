@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
 
 
+
+
 const Home = () => {
 
     const dispatch = useDispatch();
@@ -27,10 +29,12 @@ const Home = () => {
         }
     }
 
+    
+
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
-                <Navbar />
+                <Navbar /> 
             </div>
             <div className={styles.contentContainer}>
                 <div className={styles.imageContainer}></div>

@@ -1,4 +1,4 @@
-import { uploadFile } from "../../firebase/config";
+import { uploadFiles } from "../../firebase/config";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { postDeptoAsync, getProvincias } from "../../redux/actions";
@@ -7,20 +7,50 @@ import NavBar from "../../componentes/navBar/NavBar";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { may_cero } from "./validator";
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
-  const [img, setImg] = useState();
+  const [img, setImg] = useState({});
   const [section, setSection] = useState(1);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const provincias = useSelector((state) => state.counter.provincias);
+  const [provinciaSeleccionada, setProvinciaSeleccionada] = useState('');
+
+  const userStorage = localStorage.getItem( "user" );
+  const user = JSON.parse( userStorage );
+
+
+  const handleSelect = (event) => {
+    const provinciaElegida = event.target.value;
+    setProvinciaSeleccionada(provinciaElegida);
+  };
+
+
+  useEffect(()=>{
+    const userStorage = localStorage.getItem( "user" );
+    const user = JSON.parse( userStorage );
+
+    if(user[0].rol !== "superadmin" && user[0].rol !== "admin"){       
+        navigate('/home')
+        alert('tomatela no tenes rol: (solo SuperAdmin)')
+    }
+  })
+
 
   useEffect(() => {
     if(!provincias.length){
       dispatch(getProvincias())
     }
-  }, []);
+  });
   
   
+  useEffect(() => {
+    if(!provincias.length){
+      dispatch(getProvincias())
+    }
+  });
 
   const {
     register,
@@ -49,24 +79,42 @@ const Form = () => {
       setSection(2);
     } else {
       // Segunda sección del formulario
-      console.log(data);
-    const result = await uploadFile(img);
-      data.img = result;
-      console.log(result);
-    dispatch(postDeptoAsync(data));
-      reset()
+      if ( !img || img.length === 0 ) {
+        console.error("Debes seleccionar al menos un archivo para subir.");
+        return;
+      }
+  
+      
+      try {
+        if( img.length >= 10 && img.length <= 4 ) {
+          alert("Por eso te gorrean(facu)")
+        }
+        const result = await uploadFiles(img);
+        data.img = result;
+        
+        data.userId = user[0]._id
+
+        dispatch(postDeptoAsync(data));
+        reset();
+        
+      } catch (error) {
+        console.error("Error al subir archivos:", error);
+      }
     }
   };
+  
 
   const handleChange = (event) =>{
     setValue(event.target.name, event.target.value)
     trigger(event.target.name)
   }
 
+
+
   return (
     <div>
       <div className={styles.navBar}>
-        <NavBar />
+      <NavBar />
       </div>
     <div className={styles.formContainer}>
 
@@ -83,6 +131,7 @@ const Form = () => {
                 name="titulo"
                 id="titulo"
                 {...register("titulo")}
+                onChange={handleChange}
                 className={styles.formInput}
                 placeholder="Dpto a estrenar en Nueva Cordoba"
               />
@@ -105,6 +154,7 @@ const Form = () => {
                   minLength: 100,
                   maxLength: 350,
                 })}
+                onChange={handleChange}
                 placeholder="Departamento en Buenos Aires, dos Habitaciones"
               />
               {errors.descripcion?.type === 'required' && (
@@ -126,11 +176,19 @@ const Form = () => {
                 id="mcTerreno"
                 {...register("mcTerreno", {
                   required: "El campo es requerido",
-                  validate: may_cero,
+                    validate: may_cero,
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Solo se permiten números",
+                    }
                 })}
+                onChange={handleChange}
                 className={styles.formInput}
                 placeholder="150m2"
               />
+              {errors.mcTerreno && (
+                <p className={styles.error}>{errors.mcTerreno.message}</p>
+              )}
               {errors.descripcion?.type === 'required' && (
                 <p className={styles.error}>Este campo es requerido</p>
               )}
@@ -150,10 +208,18 @@ const Form = () => {
                 {...register("precio", {
                   required: "El campo es requerido",
                   validate: may_cero,
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: "Solo se permiten números",
+                  }
                 })}
+                onChange={handleChange}
                 className={styles.formInput}
                 placeholder="$15000"
               />
+              {errors.precio && (
+                <p className={styles.error}>{errors.precio.message}</p>
+              )}
               {errors.descripcion?.type === 'required' && (
                 <p className={styles.error}>Este campo es requerido</p>
               )}
@@ -188,6 +254,7 @@ const Form = () => {
                   name="habitaciones"
                   id="habitaciones"
                   {...register("habitaciones")}
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                 />
 
@@ -217,6 +284,7 @@ const Form = () => {
                   id="cocheras"
                   className={styles.formInputSeccionDos}
                   {...register('cochera') }
+                  onChange={handleChange}
                 />
 
                 <button
@@ -235,6 +303,7 @@ const Form = () => {
                 <button
                   type="button"
                   className={styles.decrementButton}
+                  
                   onClick={() => handleDecrement("baños")}
                 >
                   -
@@ -251,6 +320,7 @@ const Form = () => {
                       message: "Solo se permiten números",
                     },
                   })}
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                 />
 
@@ -287,6 +357,7 @@ const Form = () => {
                       message: "Solo se permiten números",
                     },
                   })}
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                 />
                 <button
@@ -301,27 +372,37 @@ const Form = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="ciudad" className={styles.formLabel}>
-                Ciudad
-              </label>
-              <input
-                type="text"
-                name="ciudad"
-                id="ciudad"
-                {...register("ciudad")}
-                className={styles.formInput}
-              />
+            <select
+              className={styles.formSelectSeccionDos}
+              name="provincia"
+              value={provinciaSeleccionada}
+              onChange={handleSelect}
+              {...register("ciudad")}
+            >
+              {provincias.length > 0 ? (
+                provincias.map((provincia, index) => (
+                  <option key={index} value={provincia}>
+                    {provincia}
+                  </option>
+                ))
+              ) : (
+                <option value="" disabled>
+                  Cargando provincias...
+                </option>
+              )}
+            </select>
             </div>
 
             <div className={styles.formGroup}>
               <label htmlFor="fileInput" className={styles.formLabel}>
-                Selecciona un archivo
+                Selecciona archivos
               </label>
               <input
                 type="file"
                 id="fileInput"
-                onChange={(e) => setImg(e.target.files[0])}
+                onChange={(e) => setImg(e.target.files)}
                 className={styles.fileInput}
+                multiple // Habilita la selección de múltiples archivos
               />
             </div>
             <button

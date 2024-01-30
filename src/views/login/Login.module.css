@@ -6,6 +6,7 @@
 
 .divContainer {
     display: flex;
+    
     height: 80vh;
     background-color: #d8d8d838;
     margin: 4rem;
@@ -15,6 +16,9 @@
     box-shadow: 0 2px rgba(0, 0, 0, 0.418);
 }
 
+.navBar{
+    margin-top: 7rem;
+}
 .formContainer {
     flex: 1;
     display: flex;
@@ -42,8 +46,8 @@
 }
 
 .imgLogin img {
-    height: 650px;
-    width: 450px;
+    height: 85%;
+    width: 100%;
     margin-top: 4rem;
     margin-left: 6rem;
     border-radius: 2rem;
@@ -184,6 +188,7 @@
     display: flex;
     flex-direction: row; 
     align-items: center; 
+    margin-top: 1.5rem;
 }
 
 .sinCuenta{
@@ -195,6 +200,7 @@
     font-weight: 400;
     line-height: 1.375rem; /* 146.667% */
     letter-spacing: 0.02813rem;
+    margin-right: 0.5rem;
 }
 
 .registerSolo{

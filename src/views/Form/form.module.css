@@ -3,7 +3,6 @@
     display: flex;
     height: 80vh;
     background-color: #d8d8d838;
-    margin: 5rem auto;
     border-radius: 3rem;
     box-shadow: 0 2px rgba(0, 0, 0, 0.418);
 }
@@ -156,7 +155,6 @@
 }
 
 .formInputSeccionDos{
-    width: 50%;
     padding: 5px;
     border: 1px solid #D4D7E3;
     background: #F7FBFF;
@@ -172,9 +170,9 @@
     height: 30px;
 }
 
-.formInputSeccionDos{
-    width: 50%;
-    padding: 5px;
+.formSelectSeccionDos{
+    width: 200px;
+    padding: 10px;
     border: 1px solid #D4D7E3;
     background: #F7FBFF;
     color: #8897AD;
@@ -185,6 +183,5 @@
     font-weight: 400;
     line-height: 100%; /* 0.83331rem */
     letter-spacing: 0.00831rem;
-    width: 50px;
-    height: 30px;
+
 }

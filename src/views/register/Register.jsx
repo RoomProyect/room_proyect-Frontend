@@ -113,7 +113,7 @@ const Register = () => {
     if(user){
         const userStorage = JSON.stringify( user );
         localStorage.setItem( 'user',userStorage );
-        navigate('/home');
+        navigate('/');
     }
     return (
         <div className={style.navBar}>
@@ -191,10 +191,9 @@ const Register = () => {
                         id="Contrasenia" />
                     </div>
 
-
-                    <input className={style.submit} type="submit" /> 
-
                     <div className={style.linea}></div>
+
+                    <input className={style.submit} type="submit" />
 
                     <button className={style.btnIniciarGoogle} onClick={handleClickGoogle} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
 
