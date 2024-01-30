@@ -1,0 +1,19 @@
+.filtritoConteiner {
+    display: flex;
+width: 1080px;
+justify-content: space-between;
+align-items: flex-start;
+}
+
+.filtrito {
+    align-items: center;
+    margin: auto;
+    padding: 9px 14px 9px 14px;
+    border-radius: 20px;
+    border: 1px solid #000;
+    background: #F2F2F2;
+}
+
+.filtrito:hover {
+    background-color: #4f886b;
+}

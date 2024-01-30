@@ -38,12 +38,12 @@ const NavBar = () => {
             <SearchBar/>           
             <div className={styles.navBarRigth}>
 
-                {user && (user[0].rol === "superadmin" || user[0].rol === "admin") && (
+                {/* {user && (user[0].rol === "superadmin" || user[0].rol === "admin") && (
                 
                 <Link to="/form">
                         <button className={styles.searchButton}>+ Crear publicación</button>
                     </Link>
-                )}
+                )} */}
                     <div className={styles.userContainer}>
                         <Link to="#" className={styles.customUserIcon} onClick={handleMenuToggle}><img src={UserIcon} alt="UserIcon" /> </Link>
                     </div>

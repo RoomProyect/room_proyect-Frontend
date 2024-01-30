@@ -6,6 +6,7 @@ import Footer from '../../componentes/footer/footer';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
+import NewFilters from '../../componentes/newFilters/newFilters';
 
 
 
@@ -50,6 +51,9 @@ const Home = () => {
             </div>
             <div className={ styles.contentFilters }>
                 <Filters/>
+            </div>
+            <div className={ styles.contentFilters }>
+                <NewFilters/>
             </div>
             <div className={ styles.contentCards }>
                 <Cards deptos={ deptos }/>
