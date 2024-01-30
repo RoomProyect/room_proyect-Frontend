@@ -7,6 +7,7 @@ import { postReviews, updateUser } from '../../../redux/actions';
 export const ContainerFormReview = ( { handleClose,userLoged } ) => {
 
   const { register,handleSubmit,formState: { errors } } = useForm();
+  const btnReview = document.getElementById( 'addReview' );
 
 
   const dispatch =  useDispatch();
@@ -22,6 +23,7 @@ export const ContainerFormReview = ( { handleClose,userLoged } ) => {
     updateUser({_id: idUser, review: true});
     const updatedJsonString = JSON.stringify( userLoged[0] );
     localStorage.setItem( 'user', updatedJsonString );
+    btnReview.style.display = 'none';
     dispatch( postReviews( newPost ) );
   }
 

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
 import {getUsers_, setUser_} from './slice/userSlice'
 import { getComments, nextPageComment, paginateComments, postComments, prevPageComment } from './slice/commentSlice';
+import Swal from 'sweetalert2'
 
 const endpoint = '/apartment';
 
@@ -172,8 +173,15 @@ export const postReviews = ( dataReview ) => async( dispatch ) => {
   try {
     const { data } = await axios.post( '/coment',dataReview );
     dispatch( postComments( data ) );
-    alert('Agregado correctamente!');
-    window.location.reload();
+    // alert('Agregado correctamente!');
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Agregado correctamente!",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    // window.location.reload();
   } catch (error) {
     dispatch({
       type: 'error',

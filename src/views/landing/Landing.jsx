@@ -133,7 +133,7 @@ const Landing = () => {
                                 <Reviews reviews={ comments } changePage={ handleChangePage } />
                             </div>
                             {
-                                userStorage && !userParse.review && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
+                                userStorage && !userParse.review && <button id='addReview' onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
                                 
                             }
                             <ContainerFormReview handleClose={ handleClose } userLoged={ userParse } />
