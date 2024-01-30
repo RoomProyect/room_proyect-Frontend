@@ -26,6 +26,7 @@ const Footer = () => {
                     <li><a href="https://github.com/YamilCondori" target="_blank" rel="noopener noreferrer">YamilCondori</a></li>
                     <li><a href="https://github.com/pabloponc" target="_blank" rel="noopener noreferrer">pabloponc</a></li>
                     <li><a href="https://github.com/DilanGerber" target="_blank" rel="noopener noreferrer">DilanGerber</a></li>
+                    <li><a href="https://github.com/DMariaJimenez" target="_blank" rel="noopener noreferrer">Daniel Jimenez</a></li>
                 </ul>
             </div>
             <div className={styles.contact}>
