@@ -41,11 +41,11 @@ const Detail = () => {
     const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
 
     const mostrarImagenEnGrande = (imagen) => {
-      setImagenSeleccionada(imagen);
+        setImagenSeleccionada(imagen);
     };
-  
+
     const cerrarImagenEnGrande = () => {
-      setImagenSeleccionada(null);
+        setImagenSeleccionada(null);
     };
     
     
@@ -110,7 +110,7 @@ const Detail = () => {
                 </div>
                 <div className={styles.detail}>
                     <img src={ubi} alt="Ciudad" className={styles.icono}/>
-                    <h6 className={styles.detailLabel}>Ciudad: {vivienda.ciudad}</h6>                    
+                    <h6 className={styles.detailLabel}>Provincia: {vivienda.ciudad}</h6>                    
                 </div>
                 <div className={styles.detail}>
                     <img src={casa} alt="Casa" className={styles.icono} />

@@ -9,13 +9,12 @@ import CheckoutSuccess from './componentes/Stripe/CheckoutSuccess.jsx';
 import AdminUsers from "../src/views/SuperAdmin/AdminUsers/AdminUsers.jsx"
 import AdminPosts from "../src/views/SuperAdmin/AdminPosts/AdminPosts.jsx"
 import Perfil from './views/perfil/Perfil.jsx';
+import AdminPostForID from './views/SuperAdmin/AdminPostForID/AdminPostForID.jsx';
 
 
 
 function App() {
-  
-  // const location = useLocation();
-  // const isLandingPage = location.pathname === "/"; 
+
 
   return (
       <div className="App">
@@ -31,6 +30,7 @@ function App() {
         <Route path={"/perfil"} element={ <Perfil /> } />
         <Route path={"/AdminUsers"} element={ <AdminUsers /> } />
         <Route path={"/AdminPosts"} element={ <AdminPosts /> } />
+        <Route path={"/publicaciones/:id"} element={ <AdminPostForID /> } />
       </Routes>
     </div>
 

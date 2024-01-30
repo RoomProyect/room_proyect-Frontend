@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux';
 import styles from './ContainerFormReview.module.css'
-import { postReviews } from '../../../redux/actions';
-import { updateUser } from '../../../views/SuperAdmin/AdminUsers/AdminUsers';
+import { postReviews, updateUser } from '../../../redux/actions';
+
 
 export const ContainerFormReview = ( { handleClose,userLoged } ) => {
 

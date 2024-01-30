@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import style from './Login.module.css'
 import NavBar from '../../componentes/navBar/NavBar'
 import { getUsers, setUser } from "../../redux/actions";
-import { signInWithPopup, getAuth, GoogleAuthProvider, signInWithEmailAndPassword  } from "firebase/auth"
+import { signInWithPopup, getAuth, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth"
 import { postUserData } from "../../redux/slice/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -20,46 +20,48 @@ import GoogleIcon from "../../assets/cloudinary/google.svg"
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm();
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const users = useSelector((state) => state.user.users);
-  const user  = useSelector((state) => state.user.data)
-  
+  const user = useSelector((state) => state.user.data)
+
   useEffect(() => {
-    console.log(users)
-    dispatch(getUsers())
+    let allUsers = true
+    dispatch(getUsers(allUsers))
   }, []);
 
-  const signin = (email, password) =>{
+  const signin = (email, password) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      // ...
-      dispatch(setUser(users.filter(el => el.email == user.email)))
-      navigate('/home')
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+        dispatch(setUser(users.filter(el => el.email == user.email)))
+        navigate('/home')
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
 
   }
 
-  if(user){
-    const userStorage = JSON.stringify( user );
-    localStorage.setItem( 'user',userStorage );
+  if (user) {
+    const userStorage = JSON.stringify(user);
+    localStorage.setItem('user', userStorage);
     navigate('/home');
-}
-  
+  }
+
   const onSubmit = (data) => {
     // dispatch(postActionLogin(data));
     signin(data.email, data.password)
-    console.log(data);
   };
+
+
+
 
   const images = [
     dptoUnoLogin,
@@ -78,10 +80,15 @@ const Login = () => {
     return () => clearInterval(interval);
   }, [currentIndex, images.length]);
 
+
+
+
+
+
   const auth = getAuth();
-  
-  const handleClick = () =>{
-    const providerGoogle = new GoogleAuthProvider(); 
+
+  const handleClick = () => {
+    const providerGoogle = new GoogleAuthProvider();
     signInWithPopup(auth, providerGoogle)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -90,16 +97,14 @@ const Login = () => {
 
         // The signed-in user info.
         const user = result.user;
-        console.log(user)
-        console.log(users, user)
         const user_ver = users.filter((el)=> el.email == user.email)
         console.log(user_ver)
         if(user_ver.length){
           dispatch(setUser(user_ver))
           navigate('/home')
-        }else{
+        } else {
           const response = dispatch(postUserData(user))
-          consol.log(response)
+          console.log(response.data);
           navigate('/home')
         }
         // IdP data available using getAdditionalUserInfo(result)
@@ -121,16 +126,16 @@ const Login = () => {
 
   return (
     <div className={style.navBar}>
-      <NavBar/>
-    <div className={style.divContainer}>
-      
-      <div className={style.imgLogin}>
-        <img
-          src={images[currentIndex]}
-          alt={`Imagen ${currentIndex + 1}`}
-          className={style.carouselImg}
-        />
-      </div>
+      <NavBar />
+      <div className={style.divContainer}>
+
+        <div className={style.imgLogin}>
+          <img
+            src={images[currentIndex]}
+            alt={`Imagen ${currentIndex + 1}`}
+            className={style.carouselImg}
+          />
+        </div>
 
 
       <div className={style.formContainer}>
@@ -152,12 +157,13 @@ const Login = () => {
           <button className={style.btnIniciarSesion} type="submit">Iniciar sesión</button>
         </form>
         <div className={style.linea}></div>
-        <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>      
+        <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
+        
+      </div>
+    </div>
           <div className={style.containerRegister}>
             <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
           </div> 
-      </div>
-    </div>
     </div>
   );
 };

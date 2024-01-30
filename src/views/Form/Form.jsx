@@ -7,20 +7,50 @@ import NavBar from "../../componentes/navBar/NavBar";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { may_cero } from "./validator";
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
-  const [img, setImg] = useState();
+  const [img, setImg] = useState({});
   const [section, setSection] = useState(1);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const provincias = useSelector((state) => state.counter.provincias);
+  const [provinciaSeleccionada, setProvinciaSeleccionada] = useState('');
+
+  const userStorage = localStorage.getItem( "user" );
+  const user = JSON.parse( userStorage );
+
+
+  const handleSelect = (event) => {
+    const provinciaElegida = event.target.value;
+    setProvinciaSeleccionada(provinciaElegida);
+  };
+
+
+  useEffect(()=>{
+    const userStorage = localStorage.getItem( "user" );
+    const user = JSON.parse( userStorage );
+
+    if(user[0].rol !== "superadmin" && user[0].rol !== "admin"){       
+        navigate('/home')
+        alert('tomatela no tenes rol: (solo SuperAdmin)')
+    }
+  })
+
 
   useEffect(() => {
     if(!provincias.length){
       dispatch(getProvincias())
     }
-  }, []);
+  });
   
   
+  useEffect(() => {
+    if(!provincias.length){
+      dispatch(getProvincias())
+    }
+  });
 
   const {
     register,
@@ -49,20 +79,24 @@ const Form = () => {
       setSection(2);
     } else {
       // Segunda sección del formulario
-      if (!img || img.length === 0) {
+      if ( !img || img.length === 0 ) {
         console.error("Debes seleccionar al menos un archivo para subir.");
-        // Puedes mostrar un mensaje al usuario o manejar de otra manera
         return;
       }
   
+      
       try {
-        console.log("Data antes de enviar:", data);
-  
+        if( img.length >= 10 && img.length <= 4 ) {
+          alert("Por eso te gorrean(facu)")
+        }
         const result = await uploadFiles(img);
         data.img = result;
-        console.log(result);
+        
+        data.userId = user[0]._id
+
         dispatch(postDeptoAsync(data));
         reset();
+        
       } catch (error) {
         console.error("Error al subir archivos:", error);
       }
@@ -75,10 +109,12 @@ const Form = () => {
     trigger(event.target.name)
   }
 
+
+
   return (
     <div>
       <div className={styles.navBar}>
-        <NavBar />
+      <NavBar />
       </div>
     <div className={styles.formContainer}>
 
@@ -94,8 +130,8 @@ const Form = () => {
                 type="text"
                 name="titulo"
                 id="titulo"
-                onChange={handleChange}
                 {...register("titulo")}
+                onChange={handleChange}
                 className={styles.formInput}
                 placeholder="Dpto a estrenar en Nueva Cordoba"
               />
@@ -113,12 +149,12 @@ const Form = () => {
                 name="descripcion"
                 id="descripcion"
                 className={styles.formInput}
-                onChange={handleChange}
                 {...register('descripcion', {
                   required: true,
                   minLength: 100,
                   maxLength: 350,
                 })}
+                onChange={handleChange}
                 placeholder="Departamento en Buenos Aires, dos Habitaciones"
               />
               {errors.descripcion?.type === 'required' && (
@@ -138,14 +174,21 @@ const Form = () => {
                 type="text"
                 name="mcTerreno"
                 id="mcTerreno"
-                onChange={handleChange}
                 {...register("mcTerreno", {
                   required: "El campo es requerido",
-                  validate: may_cero,
+                    validate: may_cero,
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Solo se permiten números",
+                    }
                 })}
+                onChange={handleChange}
                 className={styles.formInput}
                 placeholder="150m2"
               />
+              {errors.mcTerreno && (
+                <p className={styles.error}>{errors.mcTerreno.message}</p>
+              )}
               {errors.descripcion?.type === 'required' && (
                 <p className={styles.error}>Este campo es requerido</p>
               )}
@@ -162,14 +205,21 @@ const Form = () => {
                 type="text"
                 name="precio"
                 id="precio"
-                onChange={handleChange}
                 {...register("precio", {
                   required: "El campo es requerido",
                   validate: may_cero,
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: "Solo se permiten números",
+                  }
                 })}
+                onChange={handleChange}
                 className={styles.formInput}
                 placeholder="$15000"
               />
+              {errors.precio && (
+                <p className={styles.error}>{errors.precio.message}</p>
+              )}
               {errors.descripcion?.type === 'required' && (
                 <p className={styles.error}>Este campo es requerido</p>
               )}
@@ -203,8 +253,8 @@ const Form = () => {
                   type="text"
                   name="habitaciones"
                   id="habitaciones"
-                  onChange={handleChange}
                   {...register("habitaciones")}
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                 />
 
@@ -232,9 +282,9 @@ const Form = () => {
                   type="text"
                   name="cocheras"
                   id="cocheras"
-                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                   {...register('cochera') }
+                  onChange={handleChange}
                 />
 
                 <button
@@ -262,7 +312,6 @@ const Form = () => {
                   type="text"
                   name="baños"
                   id="baños"
-                  onChange={handleChange}
                   {...register("baños", {
                     required: "El campo es requerido",
                     validate: may_cero,
@@ -271,6 +320,7 @@ const Form = () => {
                       message: "Solo se permiten números",
                     },
                   })}
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                 />
 
@@ -299,7 +349,6 @@ const Form = () => {
                   type="text"
                   name="ambientes"
                   id="ambientes"
-                  onChange={handleChange}
                   {...register("ambientes", {
                     required: "El campo es requerido",
                     validate: may_cero,
@@ -308,6 +357,7 @@ const Form = () => {
                       message: "Solo se permiten números",
                     },
                   })}
+                  onChange={handleChange}
                   className={styles.formInputSeccionDos}
                 />
                 <button
@@ -322,16 +372,25 @@ const Form = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="ciudad" className={styles.formLabel}>
-                Ciudad
-              </label>
-              <input
-                type="text"
-                name="ciudad"
-                id="ciudad"
-                {...register("ciudad")}
-                className={styles.formInput}
-              />
+            <select
+              className={styles.formSelectSeccionDos}
+              name="provincia"
+              value={provinciaSeleccionada}
+              onChange={handleSelect}
+              {...register("ciudad")}
+            >
+              {provincias.length > 0 ? (
+                provincias.map((provincia, index) => (
+                  <option key={index} value={provincia}>
+                    {provincia}
+                  </option>
+                ))
+              ) : (
+                <option value="" disabled>
+                  Cargando provincias...
+                </option>
+              )}
+            </select>
             </div>
 
             <div className={styles.formGroup}>

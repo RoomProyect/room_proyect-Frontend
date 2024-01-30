@@ -22,9 +22,10 @@ export const postDeptoAsync = (data) => async (dispatch) => {
 };
 
 export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
-
   try {
     const response = await axios(`${ endpoint }?page=${ page }`);
+    console.log( response );
+    console.log( response );
 
     // Utiliza la acción directamente desde el slice
     dispatch( getDepto( response.data.docs ) );
@@ -37,6 +38,21 @@ export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
     console.log(error);
   }
 };
+
+
+
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    const { data } = await axios('/users/all');
+    console.log(data);
+    dispatch(getUsers_(data.docs));
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    });
+  }
+}
 
 export const nextPage = () => ({
   type: 'counter/nextPage',
@@ -93,7 +109,6 @@ export const putDeptoActions = (data)=> async (dispatch) =>{
   }
 }
 
-
 export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
   try {
     const response = await axios(`${ endpoint }/${ idDepto }`);
@@ -107,10 +122,10 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
   }
 }
 
-export const getUsers = () => async(dispatch) => {
+export const getUsers = (allUsers) => async(dispatch) => {
   try {
-    const {data} = await axios('/users')
-    dispatch(getUsers_(data))
+    const {data} = await axios(`/users?allUsers=${allUsers}`)
+    dispatch(getUsers_(data.docs))
   } catch (error) {
     dispatch({
       type: 'error',
@@ -118,6 +133,7 @@ export const getUsers = () => async(dispatch) => {
     });
   }
 }
+
 
 export const updateUser = (data) => async (dispatch) =>{
   try {
