@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { CardReview } from './componentReview';
 
 
-export const Reviews = ({ reviews }) => {
+export const Reviews = ({ reviews,changePage }) => {
 
   const [selectedArrow, setSelectedArrow] = useState(null); 
 
@@ -27,19 +27,21 @@ export const Reviews = ({ reviews }) => {
             }) }
           </div>
           <div className={styles.botones}>
-          <button
-            className={`${styles.navButton} ${selectedArrow === 'prev' && styles.selected}`}
-            onClick={() => handleNavigation('next')}
-          >
-            {'<'}
-          </button>
+            <button
+              name='back'
+              className={`${styles.navButton} ${selectedArrow === 'prev' && styles.selected}`}
+              onClick={ changePage }
+            >
+              {'<'}
+            </button>
 
-          <button
-            className={`${styles.navButton} ${selectedArrow === 'next' && styles.selected}`} 
-            onClick={() => handleNavigation('prev')}           
-          >
-            {'>'}
-          </button>
+            <button
+              name='next'
+              className={`${styles.navButton} ${selectedArrow === 'next' && styles.selected}`} 
+              onClick={ changePage }           
+            >
+              {'>'}
+            </button>
           </div>
         </div>
       </div>

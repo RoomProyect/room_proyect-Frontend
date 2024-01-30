@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
 import {getUsers_, setUser_} from './slice/userSlice'
-import { getComments } from './slice/commentSlice';
+import { getComments, nextPageComment, paginateComments, postComments, prevPageComment } from './slice/commentSlice';
 
 const endpoint = '/apartment';
 
@@ -18,7 +18,6 @@ export const postDeptoAsync = (data) => async (dispatch) => {
       type: 'error',
       payload: error.message,
     });
-    console.log(error);
   }
 };
 
@@ -59,11 +58,18 @@ export const prevPage = () => ({
   type: 'counter/prevPage',
 })
 
+export const nextPageCommentAction = ( dispatch ) => {
+  dispatch( nextPageComment() );
+}
+
+export const prevPageCommentaction = ( dispatch ) => {
+  dispatch( prevPageComment() );
+}
+
 export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
   try {
     const { data } = await axios( endpoint );
     dispatch(getDeptoFiltered([data.docs, filtro]))
-    console.log(data, filtro)
   } catch (error) {
     dispatch({
       type: 'error',
@@ -90,11 +96,7 @@ export const getProvincias = ()=> async(dispatch) => {
 export const putDeptoActions = (data)=> async (dispatch) =>{
   try {
     const response = await axios.put('https://room-project-backend.onrender.com/apartment', data);
-  console.log(putDepto);
-  console.log(data);
-  console.log(endpoint);
     dispatch( putDepto( response.data ) );
-    console.log(response.data);
   } catch (error) {
     dispatch({
       type: "error",
@@ -138,10 +140,28 @@ export const setUser = (data) => (dispatch) => {
 
 //Actions for reviews
 
-export const getReviews = () => async ( dispatch ) => {
+export const getReviews = ( page = 1 ) => async ( dispatch ) => {
   try {
-    const { data } = await axios( '/coment' );
-    dispatch( getComments( data ) );
+    // const { data } = await axios( '/coment' );
+    const { data } = await axios( `/coment?page=${ page }` );
+    console.log( data );
+
+    dispatch( getComments( data.docs ) );
+    dispatch( paginateComments( data ) );
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message
+    })
+  }
+}
+
+export const postReviews = ( dataReview ) => async( dispatch ) => {
+  try {
+    const { data } = await axios.post( '/coment',dataReview );
+    dispatch( postComments( data ) );
+    alert('Agregado correctamente!');
+    window.location.reload();
   } catch (error) {
     dispatch({
       type: 'error',

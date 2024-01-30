@@ -7,7 +7,7 @@ import { ContainerFormReview } from '../../componentes/reviews/componentReview';
 import { Reviews } from '../../componentes/reviews/Reviews';
 import { handleClose, handleLogout, handleNewReview } from './functions/functions';
 import { useDispatch, useSelector } from 'react-redux';
-import { getReviews } from '../../redux/actions';
+import { getReviews, nextPageCommentAction, prevPageCommentaction } from '../../redux/actions';
 
 
 const Landing = () => {
@@ -19,13 +19,23 @@ const Landing = () => {
     const userParse = JSON.parse( userStorage );
 
     const dispatch = useDispatch();
-    const comments = useSelector((state) => state.comment.reviews);
+    const comments = useSelector( (state) => state.comment.reviews );
+    const paginate = useSelector( (state) => state.comment.paginado );
+    console.log( paginate );
 
 
-    useEffect(() => {
-        dispatch( getReviews() );
-    }, [dispatch])
-    
+    useEffect(()=>{
+        dispatch( getReviews( paginate.pageActual ) );
+    }, [dispatch, paginate.pageActual]);
+
+    const handleChangePage = ( event ) => {
+        if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
+            dispatch( nextPageCommentAction );
+        }
+        if( event.target.name === 'back' && paginate.pageActual > 1 ){
+            dispatch( prevPageCommentaction );
+        }
+    }
 
     const handleInputChange = (e) => {
         const value = e.target.value;
@@ -105,13 +115,13 @@ const Landing = () => {
                                 </button>
                             </Link>
                             <div>
-                                <Reviews reviews={ comments }/>
+                                <Reviews reviews={ comments } changePage={ handleChangePage } />
                             </div>
                             {
-                                userStorage && !userStorage[0].Reviews && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
+                                userStorage && !userParse.review && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
                                 
                             }
-                            <ContainerFormReview handleClose={ handleClose }/>
+                            <ContainerFormReview handleClose={ handleClose } userLoged={ userParse } />
                     </div>
                 </div>
             </div>
