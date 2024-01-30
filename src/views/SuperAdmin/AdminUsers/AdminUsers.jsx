@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 //import {  getDeptoAsync, nextPage, prevPage } from '../../../redux/actions'; 
 
 
-const updateUser = async(obj)=>{
+export const updateUser = async(obj)=>{
     try {
         const {data} = await axios.put('https://room-project-backend.onrender.com/users', obj)
         window.location.reload()

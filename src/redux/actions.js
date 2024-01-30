@@ -134,7 +134,7 @@ export const getUsers = (allUsers) => async(dispatch) => {
   }
 }
 
-
+//Este action al parecer no esta funcionando puesto que no guarda la informacion en la base de datos.
 export const updateUser = (data) => async (dispatch) =>{
   try {
     const response = await axios.put('/users', data);
