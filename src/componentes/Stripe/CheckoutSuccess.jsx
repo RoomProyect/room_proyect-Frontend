@@ -1,14 +1,3 @@
-import React from 'react'
-
-const CheckoutSuccess = () => {
-    return (
-        <div>
-            <h1>Checkout Success</h1>
-        </div>
-    )
-}
-
-export default CheckoutSuimport React from 'react';
 import {Link} from 'react-router-dom';
 import style from "./CheckoutSuccess.module.css";
 import check from "../../tilde.png";
@@ -41,4 +30,4 @@ const CheckoutSuccess = () => {
     )
 }
 
-export default CheckoutSuc
+export default CheckoutSuccess

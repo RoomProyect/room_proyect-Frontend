@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { postActionLogin } from "../../redux/actions";
 import style from './Login.module.css'
 import NavBar from '../../componentes/navBar/NavBar'
-
-import { signInWithPopup, getAuth, GoogleAuthProvider } from "firebase/auth"
-
-import { Link } from "react-router-dom";
+import { getUsers, setUser } from "../../redux/actions";
+import { signInWithPopup, getAuth, GoogleAuthProvider, signInWithEmailAndPassword  } from "firebase/auth"
+import { postUserData } from "../../redux/slice/userSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 // Importa las imágenes
 import dptoUnoLogin from "../../assets/cloudinary/Login/dptoUnoLogin.jpg";
@@ -17,14 +17,48 @@ import dptoSeisLogin from "../../assets/cloudinary/Login/dptoSeisLogin.jpg";
 
 import GoogleIcon from "../../assets/cloudinary/google.svg"
 
+
 const Login = () => {
   const { register, handleSubmit, errors } = useForm();
-
+  
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+  const users = useSelector((state) => state.user.users);
+  const user  = useSelector((state) => state.user.data)
+  
+  useEffect(() => {
+    console.log(users)
+    dispatch(getUsers())
+  }, []);
 
+  const signin = (email, password) =>{
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+      dispatch(setUser(users.filter(el => el.email == user.email)))
+      navigate('/home')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+
+  }
+
+  if(user){
+    const userStorage = JSON.stringify( user );
+    localStorage.setItem( 'user',userStorage );
+    navigate('/home');
+}
+  
   const onSubmit = (data) => {
     // dispatch(postActionLogin(data));
-    // console.log(data);
+    signin(data.email, data.password)
+    console.log(data);
   };
 
   const images = [
@@ -35,7 +69,7 @@ const Login = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -57,6 +91,17 @@ const Login = () => {
         // The signed-in user info.
         const user = result.user;
         console.log(user)
+        console.log(users, user)
+        const user_ver = users.filter((el)=> el.email == user.email)
+        console.log(user_ver)
+        if(user_ver.length){
+          dispatch(setUser(user_ver))
+          navigate('/home')
+        }else{
+          const response = dispatch(postUserData(user))
+          consol.log(response)
+          navigate('/home')
+        }
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       }).catch((error) => {
@@ -75,7 +120,7 @@ const Login = () => {
 
 
   return (
-    <div>
+    <div className={style.navBar}>
       <NavBar/>
     <div className={style.divContainer}>
       
@@ -96,21 +141,20 @@ const Login = () => {
           <div className={style.inputContainer}>
             <div className={style.inputGroup}>
               <label className={style.emailLabel}>Email:</label>
-              <input className={style.emailInput} type="text" name="email" placeholder="Example@email.com" />
+              <input className={style.emailInput} type="text" name="email" placeholder="Example@email.com" {...register("email")}/>
             </div>
             <div className={style.inputGroup}>
               <label className={style.passwordLabel}>Contraseña:</label>
-              <input className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" />
+              <input className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" {...register("password")}/>
             </div>
             <div><h2 className={style.resClave}>Olvidaste tu contraseña?</h2></div>
           </div>
           <button className={style.btnIniciarSesion} type="submit">Iniciar sesión</button>
         </form>
         <div className={style.linea}></div>
-        <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
-        
+        <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>      
           <div className={style.containerRegister}>
-            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2><Link to='/register' className={style.registerSolo}>Regístrate</Link>
+            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
           </div> 
       </div>
     </div>
