@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux';
 import styles from './ContainerFormReview.module.css'
-import { postReviews, updateUser } from '../../../redux/actions';
+import { postReviews } from '../../../redux/actions';
+import { updateUser } from '../../../views/SuperAdmin/AdminUsers/AdminUsers';
 
 
 export const ContainerFormReview = ( { handleClose,userLoged } ) => {
@@ -20,7 +21,7 @@ export const ContainerFormReview = ( { handleClose,userLoged } ) => {
     }
     handleClose();
     updateUser({_id: idUser, review: true});
-    const updatedJsonString = JSON.stringify( userLoged[0] );
+    const updatedJsonString = JSON.stringify( userLoged );
     localStorage.setItem( 'user', updatedJsonString );
     dispatch( postReviews( newPost ) );
   }
