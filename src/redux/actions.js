@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
-import {getUsers_, setUser_, paginateUsers, prevPageUsers, nextPageUsers} from './slice/userSlice'
+import {getUsers_, setUser_, paginateUsers, prevPageUsers, nextPageUsers, getAllUsers_} from './slice/userSlice'
 import { getComments } from './slice/commentSlice';
 
 const endpoint = '/apartment';
@@ -43,9 +43,9 @@ export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
 
 export const getAllUsers = () => async (dispatch) => {
   try {
-    const { data } = await axios('/users/all');
+    const { data } = await axios(`/users?allUsers=${"true"}`);
     console.log(data);
-    dispatch(getUsers_(data.docs));
+    dispatch(getAllUsers_(data.docs));
   } catch (error) {
     dispatch({
       type: 'error',
@@ -119,13 +119,16 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
   }
 }
 
-export const getUsers = (page, limit, allUsers) => async(dispatch) => {
+export const getUsers = (page, allUsers) => async(dispatch) => {
   try {
+    console.log(page, allUsers)
     if(allUsers){
+      console.log("hola alluser")
       const {data} = await axios(`/users?allUsers=${allUsers}`)
       dispatch(getUsers_(data.docs))
     }
     if(page){
+      console.log("hola page")
       const {data} = await axios(`/users?page=${page}&limit=8`)
       dispatch(getUsers_(data.docs))
       dispatch(paginateUsers(data))

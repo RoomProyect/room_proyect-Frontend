@@ -105,13 +105,13 @@ const Landing = () => {
                                 </button>
                             </Link>
                             <div>
-                                <Reviews reviews={ comments }/>
+                                {/* <Reviews reviews={ comments }/> */}
                             </div>
-                            {
+                            {/* {
                                 userStorage && !userStorage[0].Reviews && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
                                 
                             }
-                            <ContainerFormReview handleClose={ handleClose }/>
+                            <ContainerFormReview handleClose={ handleClose }/> */}
                     </div>
                 </div>
             </div>

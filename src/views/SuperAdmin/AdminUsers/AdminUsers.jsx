@@ -3,7 +3,7 @@ import Navbar from '../../../componentes/navBar/NavBar';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers, prevPageUsersAction, nextPageUsersAction } from '../../../redux/actions';
+import { getUsers, prevPageUsersAction, nextPageUsersAction, getAllUsers } from '../../../redux/actions';
 import axios from 'axios';
 import { useState } from 'react';
 import Footer from "../../../componentes/footer/footer"
@@ -25,9 +25,12 @@ const AdminUsers = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const paginate = useSelector(state => state.user.paginado);
+    const allUsers = useSelector(state => state.user.allUsers)
+    
     useEffect(()=>{
         const page = 1
         dispatch(getUsers(page))
+        dispatch(getAllUsers())
         const userStorage = localStorage.getItem( "user" );
         const user = JSON.parse( userStorage );
         if(user[0].rol !== "superadmin"){
@@ -39,7 +42,6 @@ const AdminUsers = () => {
     
     useEffect(() => {
         dispatch(getUsers(paginate.pageActual))
-        
     }, [paginate.pageActual]);
 
     const handleChangePage = (event) => {
@@ -74,12 +76,13 @@ const AdminUsers = () => {
 
     const Users = useSelector((state) => state.user.users);
     const users = pass
-    ? Users.filter((u) => {
+    ? allUsers.filter((u) => {
         const nombreMatch = u.name.toLowerCase().includes(pass.toLowerCase());
         const correoMatch = u.email.toLowerCase().includes(pass.toLowerCase());
         return nombreMatch || correoMatch;
     })
     : Users;
+
     const handleFind = (event) => {
         const name = event.target.value
         setPass(name)
