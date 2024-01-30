@@ -16,12 +16,12 @@ export const Reviews = ({ reviews }) => {
       <div className={styles.contentReviews} id='reviews' >
         <div className={styles.carousel}>
           <div className={ styles.contentReviewsCarrousel }>
-            { reviews.map( review => {
+            { reviews?.map( review => {
               return(
                 <CardReview
-                  key={ review._id }
-                  name={ review.userName } 
-                  message={ review.text } 
+                  key={ review?._id }
+                  name={ review?.userName } 
+                  message={ review?.text } 
                 />
               )
             }) }

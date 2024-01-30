@@ -29,7 +29,7 @@ const Login = () => {
 
   useEffect(() => {
     let allUsers = true
-    dispatch(getUsers(allUsers))
+    dispatch(getUsers(0, allUsers))
   }, []);
 
   const signin = (email, password) => {
@@ -56,7 +56,7 @@ const Login = () => {
   }
 
   const onSubmit = (data) => {
-    // dispatch(postActionLogin(data));
+    dispatch(postActionLogin(data));
     signin(data.email, data.password)
   };
 
@@ -82,9 +82,6 @@ const Login = () => {
 
 
 
-
-
-
   const auth = getAuth();
 
   const handleClick = () => {
@@ -97,15 +94,16 @@ const Login = () => {
 
         // The signed-in user info.
         const user = result.user;
+        console.log(user)
+        console.log(users);
         const user_ver = users.filter((el)=> el.email == user.email)
+        
         console.log(user_ver)
+        
         if(user_ver.length){
           dispatch(setUser(user_ver))
-          
         } else {
-          
-          dispatch(postUserData({email: user.email, name: user.displayName}))          
-          
+          dispatch(postUserData({email: user.email, name: user.displayName}))                  
         }
         // IdP data available using getAdditionalUserInfo(result)
         // ...

@@ -22,11 +22,15 @@ export const userSlice = createSlice({
         data: null,
         status: 'idle',
         users:[],
+        allUsers:[],
         paginado: {},
     },
     reducers: {
       getUsers_: (state, action)=>{
         state.users = action.payload
+      },
+      getAllUsers_: (state, action)=>{
+        state.allUsers = action.payload
       },
       setUser_: (state, action)=>{
         state.data = action.payload
@@ -65,5 +69,5 @@ export const userSlice = createSlice({
     },
 
 })
-export const {getUsers_, setUser_, paginateUsers, nextPageUsers, prevPageUsers} = userSlice.actions
+export const {getUsers_, setUser_, paginateUsers, nextPageUsers, prevPageUsers, getAllUsers_} = userSlice.actions
 export default userSlice.reducer;
