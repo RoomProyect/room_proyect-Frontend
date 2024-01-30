@@ -52,14 +52,14 @@ const Register = () => {
     const onSubmit = (data) => {
         console.log(data);
         userPw(data.email, data.Contrasenia)
-        dispatch(postUserData(data))
-        .then((response)=>{
-            if(response.payload.error){
-                setExist(response.payload.error)
-                return
-            }
-            reset()
-        })
+        // dispatch(postUserData(data))
+        // .then((response)=>{
+        //     if(response.payload.error){
+        //         setExist(response.payload.error)
+        //         return
+        //     }
+        // })
+        reset()
     };
 
     const handleChange = (event) =>{
@@ -79,6 +79,7 @@ const Register = () => {
             .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.log(error);
             // ..
             });
     }
@@ -96,7 +97,12 @@ const Register = () => {
             const user = result.user;
             const data = {name: user.displayName, email: user.email}
             const response = dispatch(postUserData(data));
-    
+            response.then((response)=>{
+                if(response.payload.error){
+                    setExist(response.payload.error)
+                    return
+                }
+            })
             // IdP data available using getAdditionalUserInfo(result)
             // ...
             }).catch((error) => {
@@ -112,7 +118,7 @@ const Register = () => {
             // The AuthCredential type that was used.
 
             const credential = GoogleAuthProvider.credentialFromError(error);
-
+            console.log("el error es este: ",errorCode, errorMessage);
         });
     }
 
