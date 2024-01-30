@@ -13,7 +13,6 @@ const Cards = ({ deptos }) => {
             habitaciones={casa.habitaciones}
             titulo={casa.titulo}
             ambientes={casa.ambientes}
-            habitacion={casa.habitaciones}
             baños={casa.baños}
             cochera={casa.cochera}
             descripcion={casa.descripcion}

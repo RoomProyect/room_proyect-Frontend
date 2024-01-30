@@ -29,10 +29,12 @@ const Home = () => {
         }
     }
 
+    
+
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
-                <Navbar />
+                <Navbar /> 
             </div>
             <div className={styles.contentContainer}>
                 <div className={styles.imageContainer}></div>

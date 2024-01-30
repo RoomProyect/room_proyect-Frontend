@@ -14,7 +14,6 @@ const NavBar = () => {
     const dispatch = useDispatch();
     const userStorage = localStorage.getItem( "user" );
     const user = JSON.parse( userStorage );
-    
 
     useEffect(() => {
     }, [user]);
@@ -38,8 +37,10 @@ const NavBar = () => {
             </Link>
             <SearchBar/>           
             <div className={styles.navBarRigth}>
+
                 {user && (user.rol === "superadmin" || user.rol === "admin") && (
-                    <Link to="/form">
+                
+                <Link to="/form">
                         <button className={styles.searchButton}>+ Crear publicación</button>
                     </Link>
                 )}
@@ -58,6 +59,7 @@ const NavBar = () => {
                                 : (
                                     <>
                                         <Link to="/perfil" className={styles.menuItem}>Perfil</Link>
+                                        <Link to='/' className={ styles.menuItem }>Landing</Link>
                                         <Link to="/" onClick={ handleLogout } className={styles.menuItem} >Logout</Link>
                                         { user.rol == "superadmin" && (
                                             <>
@@ -65,7 +67,7 @@ const NavBar = () => {
                                                 <Link to="/AdminPosts" className={styles.menuItem}>AdminPosts</Link>
                                             </>
                                         )}
-                                        { user.rol == "superadmin" || user.rol == "admin" && (
+                                        { user[0].rol == "superadmin" || user.rol == "admin" && (
                                                         <Link to="/form" >
                                                             <button className={styles.searchButton}>
                                                                 + Crear publicación

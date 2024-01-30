@@ -69,83 +69,82 @@ const Detail = () => {
 
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
 
-  const mostrarImagenEnGrande = (imagen) => {
-    setImagenSeleccionada(imagen);
-  };
+    const mostrarImagenEnGrande = (imagen) => {
+        setImagenSeleccionada(imagen);
+    };
 
-  const cerrarImagenEnGrande = () => {
-    setImagenSeleccionada(null);
-  };
+    const cerrarImagenEnGrande = () => {
+        setImagenSeleccionada(null);
+    };
+    
+    
 
-  const position = [-34.6118, -58.4173];
-
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
-  };
-
-  return (
-    <>
-      {isLoading ? (
+    return (
         <>
-          <div className={styles.navBarWrapper}>
-            <NavBar />
-          </div>
-          <div className={styles.container}>
-            <div className={styles.goBack}>
-              <button onClick={() => navigate("/home")}>{"Back"}</button>
+        {isLoading ? (
+            <>
+            <div className={styles.navBarWrapper}>
+                <NavBar />
             </div>
-            <div className={styles.propertyDetails}>
-              <img src={vivienda.img} alt="house-image" className={styles.propertyImage} />
-              <div className={styles.propertyInfo}>
-                <h3 className={styles.propertyTitle}>{vivienda.titulo}</h3>
-                <div className={styles.priceInfo}>
-                  <span className={styles.priceValue}>Por: {vivienda.precio}$</span>
+            <div className={styles.container}>
+                <div className={styles.goBack}>
+                <button onClick={() => navigate("/home")}> {"Back"}</button>
                 </div>
-                <div className={styles.descripcion}>
-                  <span className={styles.descripcion}>{vivienda.descripcion}</span>
-                </div>
-                <div className={styles.tresImg}>
-                  <div>
-                    {vivienda.img.map((imagen, index) => (
-                      <img
-                        key={index}
-                        src={imagen}
-                        alt="house-image"
-                        className={styles.tresImgIndividual}
-                        onClick={() => mostrarImagenEnGrande(imagen)}
-                      />
-                    ))}
-                  </div>
-                  {imagenSeleccionada && (
-                    <div className={styles.overlay} onClick={cerrarImagenEnGrande}>
-                      <div className={styles.imagenEnGrandeContainer}>
-                        <img src={imagenSeleccionada} alt="house-image" className={styles.imagenEnGrande} />
-                      </div>
+                <div className={styles.propertyDetails}>
+                    <img src={vivienda.img} alt="house-image" className={styles.propertyImage} />
+                <div className={styles.propertyInfo}>
+                    <h3 className={styles.propertyTitle}>{vivienda.titulo}</h3>
+                    <div className={styles.priceInfo}>
+                        <span className={styles.priceValue}>Por: {vivienda.precio}$</span>
                     </div>
-                  )}
+                    <div className={styles.descripcion}>
+                        <span className={styles.descripcion}>{vivienda.descripcion}</span>
+                    </div>
+                    <div className={styles.tresImg}>
+                        <div>
+                            {vivienda.img.map((imagen, index) => (
+                                <img
+                                key={index}
+                                src={imagen}
+                                alt="house-image"
+                                className={styles.tresImgIndividual}
+                                onClick={() => mostrarImagenEnGrande(imagen)}
+                                />
+                            ))}
+                            
+                            {imagenSeleccionada && (
+                                <div className={styles.overlay} onClick={cerrarImagenEnGrande}>
+                                    <div className={styles.imagenEnGrandeContainer}>
+                                        <img src={imagenSeleccionada} alt="house-image" className={styles.imagenEnGrande} />
+                                    </div>
+                                </div>
+                            )}
+                    </div>
+                    </div>
+
                 </div>
-              </div>
-            </div>
-            <div className={styles.detailsContainer}>
-              <div className={styles.detail}>
-                <img src={cama} alt="Cama" className={`${styles.icono} ${styles.casa}`} />
-                <h6 className={styles.detailLabel}>Habitaciones: {vivienda.habitaciones}</h6>
-              </div>
-              <div className={styles.detail}>
-                <img src={ducha} alt="Ducha" className={styles.icono} />
-                <h6 className={styles.detailLabel}>Baños: {vivienda.baños}</h6>
-              </div>
-              <div className={styles.detail}>
-                <h6 className={styles.detailLabel}>Cochera: {vivienda.cochera}</h6>
-              </div>
-              <div className={styles.detail}>
-                <img src={ubi} alt="Ciudad" className={styles.icono} />
-                <h6 className={styles.detailLabel}>Ciudad: {vivienda.ciudad}</h6>
-              </div>
-              <div className={styles.detail}>
-                <img src={casa} alt="Casa" className={styles.icono} />
-                <h6 className={styles.detailLabel}>mcTerreno: {vivienda.mcTerreno}</h6>
-              </div>
+                </div>
+                <div className={styles.detailsContainer}>
+                <div className={styles.detail}>
+                    <img src={cama} alt="Cama" className={`${styles.icono} ${styles.casa}`} />
+                    <h6 className={styles.detailLabel}>Habitaciones: {vivienda.habitaciones}</h6>
+                    
+                </div>
+                <div className={styles.detail}>
+                    <img src={ducha} alt="Ducha" className={styles.icono} />
+                    <h6 className={styles.detailLabel}>Baños: {vivienda.baños}</h6>                   
+                </div>
+                <div className={styles.detail}>
+                    <h6 className={styles.detailLabel}>Cochera: {vivienda.cochera}</h6>
+                </div>
+                <div className={styles.detail}>
+                    <img src={ubi} alt="Ciudad" className={styles.icono}/>
+                    <h6 className={styles.detailLabel}>Provincia: {vivienda.ciudad}</h6>                    
+                </div>
+                <div className={styles.detail}>
+                    <img src={casa} alt="Casa" className={styles.icono} />
+                    <h6 className={styles.detailLabel}>mcTerreno: {vivienda.mcTerreno}</h6>
+                </div>
             </div>
             <div className={styles.buyButtonContainer}>
               <PayButton items={vivienda.img} />
@@ -179,5 +178,3 @@ const Detail = () => {
 };
 
 export default Detail;
-
-

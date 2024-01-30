@@ -1,23 +1,22 @@
-import styles from './AdminPosts.module.css';
-import Navbar from '../../../componentes/navBar/NavBar';
-import { useNavigate } from 'react-router-dom';
+import styles from './AdminPostsForID.module.css';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getDeptoAsync, nextPage, prevPage, putDeptoActions } from '../../../redux/actions';
 import { useEffect, useState } from "react";
-// import { set, useForm } from "react-hook-form";
-import { useDispatch, useSelector} from "react-redux";
+import Navbar from '../../../componentes/navBar/NavBar';
 import { Link } from 'react-router-dom';
+// import { set, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../../componentes/footer/footer"
 
 
-const AdminPost = () => {
+
+const AdminPostForID = () => {
 
     const [editingDeptoId, setEditingDeptoId] = useState(null);
     const [edit, setEdit] = useState(false)
     const [dataInput, setDatainput] = useState({})
     const paginate = useSelector(state => state.counter.paginado);
     const dispatch = useDispatch();
-    
-
     const navigate = useNavigate();
     
     useEffect(()=>{
@@ -30,8 +29,7 @@ const AdminPost = () => {
             navigate('/home')
             alert('tomatela no tenes rol: (solo SuperAdmin)')
         }
-
-    },[])
+    })
 
 
     useEffect(() => {
@@ -48,9 +46,14 @@ const AdminPost = () => {
     }
 
 
+    const { id } = useParams();
     const deptos = useSelector((state) => state.counter.deptos);
-    console.log(dataInput);
-    
+    const deptoForID = deptos.filter((depto) => {
+        return depto.userId == id;
+    });
+
+        console.log(deptoForID);
+
     const handleData = (e) => {
         const valor = e.target.value;
         const clave = e.target.name;
@@ -63,7 +66,6 @@ const AdminPost = () => {
 
 
     const handleClickDelete = (event)=>{
-        console.log("entrovich");
         if(event.target.value === 'true'){
             dispatch(putDeptoActions({_id: event.target.id, active: false}))
         }else{
@@ -73,18 +75,14 @@ const AdminPost = () => {
     }
 
     const handleEdit = (deptoId) => {
-        console.log(edit);
-        console.log(deptoId);
+
         setEdit(!edit);
         setEditingDeptoId(edit ? null : deptoId);
+    
         // Envía la solicitud de edición, asegurándote de pasar el deptoId correcto
         dispatch(putDeptoActions({ _id: deptoId, ...dataInput }));
     }
 
-
-
-
-    console.log(deptos);
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
@@ -95,7 +93,7 @@ const AdminPost = () => {
             </div>
             <div className={styles.contentTable}>
                 <div className={styles.tableHeader}>
-                    <h2>Tabla de Posteos</h2>
+                    <h2>Tabla de Posteos por Usuario</h2>
                 </div>
                 <table className={styles.userTable}>
                     <thead>
@@ -112,10 +110,10 @@ const AdminPost = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {deptos?.map((depto) => (
+                        {deptoForID?.map((depto) => (
                             <tr key={depto._id}>
                                 <td>
-                                    {editingDeptoId === depto._id ? (
+                                    {deptoForID === depto._id ? (
                                         <input
                                             type="text"
                                             name="titulo"
@@ -237,4 +235,4 @@ const AdminPost = () => {
     );
 };
 
-export default AdminPost;
+export default AdminPostForID;

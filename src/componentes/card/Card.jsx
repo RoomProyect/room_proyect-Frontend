@@ -48,18 +48,18 @@ const Card = ({ id, baños, img, mcTerreno, precio, titulo, habitaciones, ciudad
 };
 
 
-Card.propTypes = {
-    id: PropTypes.string.isRequired,
-    ambientes: PropTypes.string.isRequired,
-    baños: PropTypes.string.isRequired,
-    cochera: PropTypes.string.isRequired,
-    descripcion: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
-    mcTerreno: PropTypes.string.isRequired,
-    precio: PropTypes.string.isRequired,
-    titulo: PropTypes.string.isRequired,
-    ciudad: PropTypes.string.isRequired,
-    habitaciones: PropTypes.string.isRequired,
-};
+// Card.propTypes = {
+//     id: PropTypes.string.isRequired,
+//     ambientes: PropTypes.string.isRequired,
+//     baños: PropTypes.string.isRequired,
+//     cochera: PropTypes.string.isRequired,
+//     descripcion: PropTypes.string.isRequired,
+//     img: PropTypes.string.isRequired,
+//     mcTerreno: PropTypes.string.isRequired,
+//     precio: PropTypes.string.isRequired,
+//     titulo: PropTypes.string.isRequired,
+//     ciudad: PropTypes.string.isRequired,
+//     habitaciones: PropTypes.string.isRequired,
+// };
 
 export default Card;

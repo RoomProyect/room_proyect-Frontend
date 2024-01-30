@@ -18,8 +18,8 @@ export const counterSlice = createSlice({
     cart: [],  // Agregamos el estado del carrito
   },
   reducers: {
-    getProv: (state, action) => {
-      let provin = [];
+    getProv: (state, action) =>{
+      let provin = [] 
       action.payload.provincias.forEach(element => {
         provin.push(element.nombre);
       });
