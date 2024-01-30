@@ -3,7 +3,7 @@ import Navbar from '../../../componentes/navBar/NavBar';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers, prevPageUsersAction, nextPageUsersAction, getAllUsers } from '../../../redux/actions';
+import { getUsers, nextPage, prevPage, } from '../../../redux/actions';
 import axios from 'axios';
 import { useState } from 'react';
 import Footer from "../../../componentes/footer/footer"
@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 //import {  getDeptoAsync, nextPage, prevPage } from '../../../redux/actions'; 
 
 
-const updateUser = async(obj)=>{
+export const updateUser = async(obj)=>{
     try {
         const {data} = await axios.put('https://room-project-backend.onrender.com/users', obj)
         window.location.reload()
@@ -23,37 +23,41 @@ const updateUser = async(obj)=>{
 const AdminUsers = () => {
     const [rol, setRol] = useState("--");
     const dispatch = useDispatch();
+    const paginate = useSelector(state => state.counter.paginado);
+
     const navigate = useNavigate();
-    const paginate = useSelector(state => state.user.paginado);
-    const allUsers = useSelector(state => state.user.allUsers)
     
     useEffect(()=>{
-        const page = 1
-        dispatch(getUsers(page))
-        dispatch(getAllUsers())
         const userStorage = localStorage.getItem( "user" );
         const user = JSON.parse( userStorage );
+        console.log( user[0].rol );
+
         if(user[0].rol !== "superadmin"){
+            
             navigate('/home')
             alert('tomatela no tenes rol: (solo SuperAdmin)')
         }
 
-    },[])
+    })
     
     useEffect(() => {
-        dispatch(getUsers(paginate.pageActual))
-    }, [paginate.pageActual]);
+        if(users){
+            dispatch(getUsers(paginate.pageActual))
+        }
+    }, [[dispatch, paginate.pageActual]]);
 
     const handleChangePage = (event) => {
         if (event.target.name === 'next' && paginate.pageActual < paginate.totalPages) {
-            dispatch(nextPageUsersAction);
+            dispatch(nextPage());
         }
         if (event.target.name === 'back' && paginate.pageActual > 1) {
-            dispatch(prevPageUsersAction);
+            dispatch(prevPage());
         }
     }
 
 
+
+    
     const handleClickRol = (event)=>{
         if(rol == "--"){return ""}
         const newUser ={_id: event.target.id, rol:rol}
@@ -76,13 +80,12 @@ const AdminUsers = () => {
 
     const Users = useSelector((state) => state.user.users);
     const users = pass
-    ? allUsers.filter((u) => {
+    ? Users.filter((u) => {
         const nombreMatch = u.name.toLowerCase().includes(pass.toLowerCase());
         const correoMatch = u.email.toLowerCase().includes(pass.toLowerCase());
         return nombreMatch || correoMatch;
     })
     : Users;
-
     const handleFind = (event) => {
         const name = event.target.value
         setPass(name)
