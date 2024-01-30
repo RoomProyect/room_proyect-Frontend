@@ -3,12 +3,15 @@ import Navbar from '../../../componentes/navBar/NavBar';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers } from '../../../redux/actions';
+import { getUsers, nextPage, prevPage, } from '../../../redux/actions';
 import axios from 'axios';
 import { useState } from 'react';
 import Footer from "../../../componentes/footer/footer"
-// import {  getDeptoAsync, nextPage, prevPage } from '../../../redux/actions'; 
-const updateUser = async(obj)=>{
+import { useNavigate } from 'react-router-dom';
+//import {  getDeptoAsync, nextPage, prevPage } from '../../../redux/actions'; 
+
+
+export const updateUser = async(obj)=>{
     try {
         const {data} = await axios.put('https://room-project-backend.onrender.com/users', obj)
         window.location.reload()
@@ -20,11 +23,40 @@ const updateUser = async(obj)=>{
 const AdminUsers = () => {
     const [rol, setRol] = useState("--");
     const dispatch = useDispatch();
+    const paginate = useSelector(state => state.counter.paginado);
+
+    const navigate = useNavigate();
+    
+    useEffect(()=>{
+        const userStorage = localStorage.getItem( "user" );
+        const user = JSON.parse( userStorage );
+        // console.log( user[0].rol );
+
+        if(user[0].rol !== "superadmin"){
+            
+            navigate('/home')
+            alert('tomatela no tenes rol: (solo SuperAdmin)')
+        }
+
+    })
+    
     useEffect(() => {
         if(users){
-            dispatch(getUsers())
+            dispatch(getUsers(paginate.pageActual))
         }
-    }, []);
+    }, [[dispatch, paginate.pageActual]]);
+
+    const handleChangePage = (event) => {
+        if (event.target.name === 'next' && paginate.pageActual < paginate.totalPages) {
+            dispatch(nextPage());
+        }
+        if (event.target.name === 'back' && paginate.pageActual > 1) {
+            dispatch(prevPage());
+        }
+    }
+
+
+
     
     const handleClickRol = (event)=>{
         if(rol == "--"){return ""}
@@ -33,14 +65,12 @@ const AdminUsers = () => {
         
     }
     
-    const handleClickBan = (event)=>{
-        
+    const handleClickBan = (event)=>{    
         if(event.target.value === 'true'){
             updateUser({_id: event.target.id, active: false})
         }else{
             updateUser({_id: event.target.id, active: true})
-        }
-        
+        }       
     }
     
     const handleChange = (event) =>{
@@ -54,18 +84,20 @@ const AdminUsers = () => {
         const nombreMatch = u.name.toLowerCase().includes(pass.toLowerCase());
         const correoMatch = u.email.toLowerCase().includes(pass.toLowerCase());
         return nombreMatch || correoMatch;
-      })
+    })
     : Users;
     const handleFind = (event) => {
         const name = event.target.value
         setPass(name)
-        
     }
+
+
+
     
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
-              {/* <Navbar /> */}
+                <Navbar />
             </div>
             <div className={styles.contetTitle}>
                 <h1 className={styles.title}>Admin DashBoard</h1>
@@ -74,11 +106,11 @@ const AdminUsers = () => {
                     <div className={styles.tableHeader}>
                         <h2>Tabla de Usuarios</h2>
                         <input
-          className={styles.inputSearch}
-          onChange={handleFind}
-          type="search"
-          placeholder="Busca por el nombre o dni/pasaporte.."
-        />
+                        className={styles.searchBar}
+                        onChange={handleFind}
+                        type="search"
+                        placeholder="Busca por el nombre o dni/pasaporte.."
+                        />
                     </div>
                     <table className={styles.userTable}>
                         <thead>
@@ -106,15 +138,24 @@ const AdminUsers = () => {
 
                                             <button className={styles.blueButton} id={user._id} onClick={handleClickRol}>Dar Rol</button>
                                             <button className={styles.redButton} id={user._id} value = {user.active} onClick={handleClickBan}>Banear/Desbanear</button>
-                                           <Link to={`/publicaciones/${user._id}` }>
-                                            <button className={styles.viewButton } >Ver Publicación</button>
-                                           </Link>
+                                            <Link to={`/publicaciones/${user._id}` }>
+                                                <button className={styles.viewButton } >Ver Publicaciónes</button>
+                                            </Link>
                                         </td>
                                     </tr>
                             })}
 
                         </tbody>
                     </table>
+            </div>
+            <div className={styles.contentPaginate}>
+                <button name="back" onClick={handleChangePage} className={styles.paginateButton}>
+                    Back
+                </button>
+                <span>{paginate.pageActual}/{paginate.totalPages}</span>
+                <button name="next" onClick={handleChangePage} className={styles.paginateButton}>
+                    Next
+                </button>
             </div>
             <div>
                 <Footer/>

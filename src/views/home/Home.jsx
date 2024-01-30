@@ -25,25 +25,12 @@ const Home = () => {
             dispatch(prevPage());
         }
     }
-    const Deptos = useSelector((state) => state.counter.deptos);
-    const [pass, setPass] = useState("");
-console.log(Deptos);
-    const deptos = pass
-        ? Deptos.filter((u) => {
-            const provinciaMatch = u?.provincias?.toLowerCase().includes(pass.toLowerCase());
-            const tituloMatch = u?.titulo?.toLowerCase().includes(pass.toLowerCase());
-            return provinciaMatch || tituloMatch;
-        })
-        : Deptos;
-    const handleFind = (event) => {
-        const name = event.target.value
-        setPass(name)
+    
 
-    }
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
-                {/* <Navbar /> */}
+                <Navbar /> 
             </div>
             <div className={styles.contentContainer}>
                 <div className={styles.imageContainer}></div>
@@ -60,15 +47,10 @@ console.log(Deptos);
             <div className={styles.contentFilters}>
                 <Filters />
               <span>Buscar</span>
-                <input
-                    className={styles.inputSearch}
-                    onChange={handleFind}
-                    type="search"
-                    placeholder="Busca por provicia o titulo.."
-                />
+          
             </div>
             <div className={styles.contentCards}>
-                <Cards deptos={deptos} />
+                {/* <Cards deptos={deptos} /> */}
             </div>
             <div className={styles.contentPaginate}>
                 <button name="back" onClick={handleChangePage} className={styles.paginateButton}>

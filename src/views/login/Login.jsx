@@ -28,8 +28,8 @@ const Login = () => {
   const user = useSelector((state) => state.user.data)
 
   useEffect(() => {
-    console.log(users)
-    dispatch(getUsers())
+    let allUsers = true
+    dispatch(getUsers(allUsers))
   }, []);
 
   const signin = (email, password) => {
@@ -39,7 +39,13 @@ const Login = () => {
         // Signed in 
         const user = userCredential.user;
         // ...
-        dispatch(setUser(users.filter(el => el.email == user.email)))
+        console.log(user);
+        const usuario = users.filter(el => el.email == user.email)
+        console.log( usuario);
+        if (usuario[0].active == false) {
+          alert('El usuario no puede ingresar') 
+
+         }else
         navigate('/home')
       })
       .catch((error) => {
@@ -58,8 +64,10 @@ const Login = () => {
   const onSubmit = (data) => {
     // dispatch(postActionLogin(data));
     signin(data.email, data.password)
-    console.log(data);
   };
+
+
+
 
   const images = [
     dptoUnoLogin,
@@ -69,7 +77,7 @@ const Login = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -77,6 +85,11 @@ const Login = () => {
 
     return () => clearInterval(interval);
   }, [currentIndex, images.length]);
+
+
+
+
+
 
   const auth = getAuth();
 
@@ -90,16 +103,18 @@ const Login = () => {
 
         // The signed-in user info.
         const user = result.user;
-        console.log(user)
-        console.log(users, user)
-        const user_ver = users.filter((el) => el.email == user.email)
-        console.log(user_ver)
-        if (user_ver.length) {
+        console.log('aca esta el userrrrrr '+user);
+        const user_ver = users.filter((el)=> el.email == user.email)
+        if (user_ver[0].active == false) {
+         alert('El usuario no puede ingresar') 
+        }else
+        if(user_ver.length){
           dispatch(setUser(user_ver))
           navigate('/home')
         } else {
+
           const response = dispatch(postUserData(user))
-          consol.log(response)
+          console.log(response.data);
           navigate('/home')
         }
         // IdP data available using getAdditionalUserInfo(result)
@@ -133,32 +148,32 @@ const Login = () => {
         </div>
 
 
-        <div className={style.formContainer}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={style.title}>
-              <h1>Iniciar Sesión</h1>
+      <div className={style.formContainer}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={style.title}>
+            <h1>Iniciar Sesión</h1>
+          </div>
+          <div className={style.inputContainer}>
+            <div className={style.inputGroup}>
+              <label className={style.emailLabel}>Email:</label>
+              <input className={style.emailInput} type="text" name="email" placeholder="Example@email.com" {...register("email")}/>
             </div>
-            <div className={style.inputContainer}>
-              <div className={style.inputGroup}>
-                <label className={style.emailLabel}>Email:</label>
-                <input className={style.emailInput} type="text" name="email" placeholder="Example@email.com" {...register("email")} />
-              </div>
-              <div className={style.inputGroup}>
-                <label className={style.passwordLabel}>Contraseña:</label>
-                <input className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" {...register("password")} />
-              </div>
-              <div><h2 className={style.resClave}>Olvidaste tu contraseña?</h2></div>
+            <div className={style.inputGroup}>
+              <label className={style.passwordLabel}>Contraseña:</label>
+              <input className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" {...register("password")}/>
             </div>
-            <button className={style.btnIniciarSesion} type="submit">Iniciar sesión</button>
-          </form>
-          <div className={style.linea}></div>
-          <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
-
-        </div>
+            <div><h2 className={style.resClave}>Olvidaste tu contraseña?</h2></div>
+          </div>
+          <button className={style.btnIniciarSesion} type="submit">Iniciar sesión</button>
+        </form>
+        <div className={style.linea}></div>
+        <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
+        
       </div>
-      <div className={style.containerRegister}>
-        <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
-      </div>
+    </div>
+          <div className={style.containerRegister}>
+            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
+          </div> 
     </div>
   );
 };

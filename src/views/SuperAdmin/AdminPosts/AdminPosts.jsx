@@ -1,13 +1,12 @@
 import styles from './AdminPosts.module.css';
-import Filters from '../../../componentes/filters/filters';
+import Navbar from '../../../componentes/navBar/NavBar';
+import { useNavigate } from 'react-router-dom';
 import { getDeptoAsync, nextPage, prevPage, putDeptoActions } from '../../../redux/actions';
 import { useEffect, useState } from "react";
-import { set, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-
-
-
-
+// import { set, useForm } from "react-hook-form";
+import { useDispatch, useSelector} from "react-redux";
+import { Link } from 'react-router-dom';
+import Footer from "../../../componentes/footer/footer"
 
 
 const AdminPost = () => {
@@ -18,6 +17,23 @@ const AdminPost = () => {
     const paginate = useSelector(state => state.counter.paginado);
     const dispatch = useDispatch();
     
+
+    const navigate = useNavigate();
+    
+    useEffect(()=>{
+        const userStorage = localStorage.getItem( "user" );
+        const user = JSON.parse( userStorage );
+        console.log( user[0].rol );
+
+        if(user[0].rol !== "superadmin"){
+            
+            navigate('/home')
+            alert('tomatela no tenes rol: (solo SuperAdmin)')
+        }
+
+    },[])
+
+
     useEffect(() => {
         dispatch(getDeptoAsync(paginate.pageActual))
     }, [dispatch, paginate.pageActual,])
@@ -34,6 +50,7 @@ const AdminPost = () => {
 
     const deptos = useSelector((state) => state.counter.deptos);
     console.log(dataInput);
+    
     const handleData = (e) => {
         const valor = e.target.value;
         const clave = e.target.name;
@@ -60,7 +77,6 @@ const AdminPost = () => {
         console.log(deptoId);
         setEdit(!edit);
         setEditingDeptoId(edit ? null : deptoId);
-    
         // Envía la solicitud de edición, asegurándote de pasar el deptoId correcto
         dispatch(putDeptoActions({ _id: deptoId, ...dataInput }));
     }
@@ -72,7 +88,7 @@ const AdminPost = () => {
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
-              
+                <Navbar/>
             </div>
             <div className={styles.contetTitle}>
                 <h1 className={styles.title}>Admin DashBoard</h1>
@@ -191,7 +207,9 @@ const AdminPost = () => {
                                         </button>
                                     ) : (
                                         <>
+                                        <Link to={`/detail/${depto._id}`}>
                                             <button className={styles.blueButton}>Ver Publicacion</button>
+                                        </Link>
                                             <button className={styles.redButton} id={depto._id} value={depto.active} onClick={handleClickDelete}>Borrado Logico</button>
                                             <button className={styles.viewButton} onClick={() => handleEdit(depto._id)}>
                                                 Editar
@@ -212,6 +230,9 @@ const AdminPost = () => {
                 <button name="next" onClick={handleChangePage} className={styles.paginateButton}>
                     Next
                 </button>
+            </div>
+            <div>
+                <Footer/>
             </div>
         </div>
     );

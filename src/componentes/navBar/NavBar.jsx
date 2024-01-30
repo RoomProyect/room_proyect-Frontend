@@ -14,7 +14,6 @@ const NavBar = () => {
     const dispatch = useDispatch();
     const userStorage = localStorage.getItem( "user" );
     const user = JSON.parse( userStorage );
-    console.log(user)
 
     useEffect(() => {
     }, [user]);
@@ -60,6 +59,7 @@ const NavBar = () => {
                                 : (
                                     <>
                                         <Link to="/perfil" className={styles.menuItem}>Perfil</Link>
+                                        <Link to='/' className={ styles.menuItem }>Landing</Link>
                                         <Link to="/" onClick={ handleLogout } className={styles.menuItem} >Logout</Link>
                                         { user[0].rol == "superadmin" && (
                                             <>

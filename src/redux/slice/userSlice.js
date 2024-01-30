@@ -3,7 +3,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const postUserData = createAsyncThunk('user/postUserData', async (userData, thunkAPI) => {
-    console.log(userData)
     try {
         const response = await axios.post('https://room-project-backend.onrender.com/users', {...userData, rol: "user"})
         console.log(response.data)
@@ -14,6 +13,7 @@ export const postUserData = createAsyncThunk('user/postUserData', async (userDat
         return thunkAPI.rejectWithValue({ error: 'Hubo un error al realizar la solicitud' });
     }
 })
+
 
 export const userSlice = createSlice({
     name: 'user',
@@ -48,4 +48,3 @@ export const userSlice = createSlice({
 })
 export const {getUsers_, setUser_} = userSlice.actions
 export default userSlice.reducer;
-

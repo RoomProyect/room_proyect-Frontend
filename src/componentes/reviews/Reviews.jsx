@@ -1,8 +1,9 @@
 import styles from './Reviews.module.css';
 import { useState } from 'react';
-import { CardReview } from './componentReview/CardReview';
+import { CardReview } from './componentReview';
 
-export const Reviews = () => {
+
+export const Reviews = ({ reviews,changePage }) => {
 
   const [selectedArrow, setSelectedArrow] = useState(null); 
 
@@ -12,24 +13,35 @@ export const Reviews = () => {
 
   return (
     <>
-      <div className={styles.contentReviews}>
+      <div className={styles.contentReviews} id='reviews' >
         <div className={styles.carousel}>
-
-          <CardReview />
+          <div className={ styles.contentReviewsCarrousel }>
+            { reviews.map( review => {
+              return(
+                <CardReview
+                  key={ review._id }
+                  name={ review.userName } 
+                  message={ review.text } 
+                />
+              )
+            }) }
+          </div>
           <div className={styles.botones}>
-          <button
-            className={`${styles.navButton} ${selectedArrow === 'prev' && styles.selected}`}
-            onClick={() => handleNavigation('next')}
-          >
-            {'<'}
-          </button>
+            <button
+              name='back'
+              className={`${styles.navButton} ${selectedArrow === 'prev' && styles.selected}`}
+              onClick={ changePage }
+            >
+              {'<'}
+            </button>
 
-          <button
-            className={`${styles.navButton} ${selectedArrow === 'next' && styles.selected}`} 
-            onClick={() => handleNavigation('prev')}           
-          >
-            {'>'}
-          </button>
+            <button
+              name='next'
+              className={`${styles.navButton} ${selectedArrow === 'next' && styles.selected}`} 
+              onClick={ changePage }           
+            >
+              {'>'}
+            </button>
           </div>
         </div>
       </div>

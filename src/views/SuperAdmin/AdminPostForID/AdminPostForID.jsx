@@ -1,12 +1,12 @@
 import styles from './AdminPostsForID.module.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getDeptoAsync, nextPage, prevPage, putDeptoActions } from '../../../redux/actions';
 import { useEffect, useState } from "react";
-import { set, useForm } from "react-hook-form";
+import Navbar from '../../../componentes/navBar/NavBar';
+import { Link } from 'react-router-dom';
+// import { set, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-
-
-
+import Footer from "../../../componentes/footer/footer"
 
 
 
@@ -17,7 +17,21 @@ const AdminPostForID = () => {
     const [dataInput, setDatainput] = useState({})
     const paginate = useSelector(state => state.counter.paginado);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     
+    useEffect(()=>{
+        const userStorage = localStorage.getItem( "user" );
+        const user = JSON.parse( userStorage );
+        console.log( user[0].rol );
+
+        if(user[0].rol !== "superadmin"){
+            
+            navigate('/home')
+            alert('tomatela no tenes rol: (solo SuperAdmin)')
+        }
+    })
+
+
     useEffect(() => {
         dispatch(getDeptoAsync(paginate.pageActual))
     }, [dispatch, paginate.pageActual,])
@@ -30,13 +44,16 @@ const AdminPostForID = () => {
             dispatch(prevPage());
         }
     }
+
+
     const { id } = useParams();
-console.log(id);
     const deptos = useSelector((state) => state.counter.deptos);
     const deptoForID = deptos.filter((depto) => {
         return depto.userId == id;
-      });
-      console.log(deptoForID);
+    });
+
+        console.log(deptoForID);
+
     const handleData = (e) => {
         const valor = e.target.value;
         const clave = e.target.name;
@@ -49,7 +66,6 @@ console.log(id);
 
 
     const handleClickDelete = (event)=>{
-        console.log("entrovich");
         if(event.target.value === 'true'){
             dispatch(putDeptoActions({_id: event.target.id, active: false}))
         }else{
@@ -59,8 +75,7 @@ console.log(id);
     }
 
     const handleEdit = (deptoId) => {
-        console.log(edit);
-        console.log(deptoId);
+
         setEdit(!edit);
         setEditingDeptoId(edit ? null : deptoId);
     
@@ -68,14 +83,10 @@ console.log(id);
         dispatch(putDeptoActions({ _id: deptoId, ...dataInput }));
     }
 
-
-
-
-    console.log(deptos);
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
-              
+                <Navbar/>
             </div>
             <div className={styles.contetTitle}>
                 <h1 className={styles.title}>Admin DashBoard</h1>
@@ -99,7 +110,7 @@ console.log(id);
                         </tr>
                     </thead>
                     <tbody>
-                        {deptos?.map((depto) => (
+                        {deptoForID?.map((depto) => (
                             <tr key={depto._id}>
                                 <td>
                                     {deptoForID === depto._id ? (
@@ -193,7 +204,9 @@ console.log(id);
                                         </button>
                                     ) : (
                                         <>
+                                        <Link to={`/detail/${depto._id}`}>
                                             <button className={styles.blueButton}>Ver Publicacion</button>
+                                        </Link>
                                             <button className={styles.redButton} id={depto._id} value={depto.active} onClick={handleClickDelete}>Borrado Logico</button>
                                             <button className={styles.viewButton} onClick={() => handleEdit(depto._id)}>
                                                 Editar
@@ -214,6 +227,9 @@ console.log(id);
                 <button name="next" onClick={handleChangePage} className={styles.paginateButton}>
                     Next
                 </button>
+            </div>
+            <div>
+                <Footer/>
             </div>
         </div>
     );
