@@ -33,7 +33,7 @@ const SearchBar = (props) => {
             sourceId: 'your-source-id', 
             getItems: async ({ query }) => {
                 if (!!query) {
-                    return fetch(`http://localhost:3001/apartment?provincias=${query}`)
+                    return fetch(`https://room-project-backend.onrender.com/apartment?provincias=${query}`)
                     .then(res => res.json())
                     .then(data => data.docs)
             }
@@ -57,13 +57,13 @@ const SearchBar = (props) => {
     const uniqueItems = useMemo(() => {
         const provinciasSet = new Set();
         return autocompleteState.collections?.[0]?.items?.filter((item) => {
-          if (!provinciasSet.has(item.provincias)) {
-            provinciasSet.add(item.provincias);
-            return true;
-          }
-          return false;
-        }) || [];
-      }, [autocompleteState.collections]);
+            if (!provinciasSet.has(item.provincias)) {
+                provinciasSet.add(item.provincias);
+                return true;
+            }
+                return false;
+            }) || [];
+        }, [autocompleteState.collections]);
 
     return (
         <form ref={formRef} 
