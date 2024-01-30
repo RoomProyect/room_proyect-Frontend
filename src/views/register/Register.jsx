@@ -26,6 +26,7 @@ const Register = () => {
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [exist , setExist ] = useState({})
 
     useEffect(() => {
     const interval = setInterval(() => {
@@ -52,7 +53,13 @@ const Register = () => {
         console.log(data);
         userPw(data.email, data.Contrasenia)
         dispatch(postUserData(data))
-        reset()
+        .then((response)=>{
+            if(response.payload.error){
+                setExist(response.payload.error)
+                return
+            }
+            reset()
+        })
     };
 
     const handleChange = (event) =>{
@@ -190,7 +197,7 @@ const Register = () => {
                         type="text" {...register('Contrasenia_2')} 
                         id="Contrasenia" />
                     </div>
-
+                    {exist.error && <div style={{ color: 'red', display: 'flex', justifyContent: 'center' }} >{exist.error}</div>}
                     <div className={style.linea}></div>
 
                     <input className={style.submit} type="submit" />
