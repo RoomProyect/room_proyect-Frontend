@@ -23,8 +23,7 @@ const Home = () => {
             dispatch(getDeptoAsync( paginate.pageActual ))
         }
     }, [dispatch, paginate.pageActual])
-
-    
+  
     const handleChangePage = ( event ) => {
         if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
             dispatch( nextPage() );

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById, filter } from './slice/counterSlice';
-import {getUsers_, setUser_, paginateUsers, prevPageUsers, nextPageUsers, getAllUsers_} from './slice/userSlice'
+import {getUsers_, setUser_, paginateUsers, prevPageUsers, nextPageUsers, getAllUsers_} from './slice/userSlice';
 import { getComments, nextPageComment, paginateComments, postComments, prevPageComment } from './slice/commentSlice';
 import Swal from 'sweetalert2'
 
@@ -29,7 +29,6 @@ export const postDeptoAsync = (data) => async (dispatch) => {
 export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
   try {
     const response = await axios(`${ endpoint }?page=${ page }`);
-
     // Utiliza la acción directamente desde el slice
     dispatch( getDepto( response.data.docs ) );
     dispatch( paginate( response.data ) );
@@ -98,7 +97,6 @@ export const paginateFilter = ( filtro ) => async ( dispatch ) => {
 export const resetFilter = (filtro) => (dispatch) => {
   dispatch(filter(filtro))
 }
-
 export const nextPageCommentAction = ( dispatch ) => {
   dispatch( nextPageComment() );
 }
