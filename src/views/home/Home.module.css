@@ -11,7 +11,6 @@
     margin-right: auto;
 }
 
-
 .imageContainer {
     width: 27.51594rem;
     height: 23.07075rem;
@@ -20,14 +19,23 @@
     background: url("../../assets/cloudinary/depto.jpg") lightgray 50% / cover no-repeat;
 }
 
+.imageContainerDown{
+    background: url("../../assets/cloudinary/homeFotoDown.png");
+    background-size: cover;
+    background-position: center;
+    height: 100px;
+    flex-direction: row;
+    margin-top: 4rem;
+}
+
 .textContainer {
     width: 35rem;
 }
 
 .title {
-    color: var(--black, #333);
+    color: var(--black, #000000);
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.30669rem;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -36,7 +44,7 @@
 .subtitle {
     color: var(--black, #333);
     font-family: 'Open Sans', sans-serif;
-    font-size: 0.735rem;
+    font-size: 0.9rem;
     font-style: normal;
     font-weight: 400;
     line-height: 1.30669rem;

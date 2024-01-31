@@ -43,6 +43,7 @@ const Home = () => {
                             ideal en Argentina. Con años de experiencia en el sector inmobiliario, te brindamos
                             completas opciones a los precios más bajos. ¡No esperes más para encontrar tu nuevo hogar!
                         </p>
+                        <div className={styles.imageContainerDown}></div>
                 </div>
             </div>
             <div className={ styles.contentFilters }>

@@ -2,11 +2,11 @@ import styles from "./AdminPosts.module.css";
 import Navbar from "../../../componentes/navBar/NavBar";
 import { useNavigate } from "react-router-dom";
 import {
-  getDeptoAsync,
-  nextPage,
-  prevPage,
-  putDeptoActions,
-  getProvincias,
+    getDeptoAsync,
+    nextPage,
+    prevPage,
+    putDeptoActions,
+    getProvincias,
 } from "../../../redux/actions";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ import Footer from "../../../componentes/footer/footer";
 import Filters from "../../../componentes/filters/filters";
 
 const AdminPost = () => {
+
     const [editingDeptoId, setEditingDeptoId] = useState(null);
     const [edit, setEdit] = useState(false);
     const [dataInput, setDataInput] = useState({});
@@ -73,14 +74,12 @@ const AdminPost = () => {
 
     const handleClickDelete = async (event) => {
         const updatedActiveState = event.target.value === "true" ? false : true;
-
         await dispatch(
         putDeptoActions({
             _id: event.target.id,
             active: updatedActiveState,
         })
         );
-
         await dispatch(getDeptoAsync(paginate.pageActual));
     };
 
