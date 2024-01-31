@@ -100,7 +100,7 @@ const AdminUsers = () => {
         return nombreMatch || correoMatch;
     })
     : Users;
-    
+
     const handleFind = (event) => {
         const name = event.target.value
         setPass(name)
