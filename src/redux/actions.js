@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById, filter } from './slice/counterSlice';
 import {getUsers_, setUser_, paginateUsers, prevPageUsers, nextPageUsers, getAllUsers_} from './slice/userSlice'
-import { getComments } from './slice/commentSlice';
+import { getComments, nextPageComment, paginateComments, postComments, prevPageComment } from './slice/commentSlice';
+import Swal from 'sweetalert2'
 
 const endpoint = '/apartment';
 
@@ -12,19 +13,23 @@ export const postDeptoAsync = (data) => async (dispatch) => {
 
     // Utiliza la acción directamente desde el slice
     dispatch(postDepto(response.data));
-    alert('Agregado correctamente!');
+    Swal.fire({
+      icon: 'success',
+      title: `Agregado`,
+      text: 'El departamento se publico correctamente',
+    });
   } catch (error) {
     dispatch({
       type: 'error',
       payload: error.message,
     });
-    console.log(error);
   }
 };
 
 export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
   try {
     const response = await axios(`${ endpoint }?page=${ page }`);
+
     // Utiliza la acción directamente desde el slice
     dispatch( getDepto( response.data.docs ) );
     dispatch( paginate( response.data ) );
@@ -37,13 +42,29 @@ export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
   }
 };
 
-
-
 export const getAllUsers = () => async (dispatch) => {
   try {
-    const { data } = await axios(`/users?allUsers=${"true"}`);
-    console.log(data);
-    dispatch(getAllUsers_(data.docs));
+    const { data } = await axios(`/users?allUsers=${"true"}`)
+    dispatch(getAllUsers_(data.docs))
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message,
+    })
+  }
+}
+
+export const getUsers = (page, allUsers) => async(dispatch) => {
+  try {
+    if(allUsers){
+      const {data} = await axios(`/users?allUsers=${allUsers}`)
+      dispatch(getUsers_(data.docs))
+    }
+    if(page){
+      const {data} = await axios(`/users?page=${page}&limit=8`)
+      dispatch(getUsers_(data.docs))
+      dispatch(paginateUsers(data))
+    }
   } catch (error) {
     dispatch({
       type: 'error',
@@ -76,6 +97,14 @@ export const paginateFilter = ( filtro ) => async ( dispatch ) => {
 
 export const resetFilter = (filtro) => (dispatch) => {
   dispatch(filter(filtro))
+}
+
+export const nextPageCommentAction = ( dispatch ) => {
+  dispatch( nextPageComment() );
+}
+
+export const prevPageCommentaction = ( dispatch ) => {
+  dispatch( prevPageComment() );
 }
 
 export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
@@ -132,25 +161,6 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
   }
 }
 
-export const getUsers = (page, allUsers) => async(dispatch) => {
-  try {
-    if(allUsers){
-      const {data} = await axios(`/users?allUsers=${allUsers}`)
-      dispatch(getUsers_(data.docs))
-    }
-    if(page){
-      const {data} = await axios(`/users?page=${page}&limit=8`)
-      dispatch(getUsers_(data.docs))
-      dispatch(paginateUsers(data))
-    }
-  } catch (error) {
-    dispatch({
-      type: 'error',
-      payload: error.message,
-    });
-  }
-}
-
 export const nextPageUsersAction = (dispatch) => {
   dispatch(nextPageUsers())
 }
@@ -179,10 +189,30 @@ export const setUser = (data) => (dispatch) => {
 
 //Actions for reviews
 
-export const getReviews = () => async ( dispatch ) => {
+export const getReviews = ( page = 1 ) => async ( dispatch ) => {
   try {
-    const { data } = await axios( '/coment' );
-    dispatch( getComments( data ) );
+    const { data } = await axios( `/coment?page=${ page }` );
+
+    dispatch( getComments( data.docs ) );
+    dispatch( paginateComments( data ) );
+  } catch (error) {
+    dispatch({
+      type: 'error',
+      payload: error.message
+    })
+  }
+}
+
+export const postReviews = ( dataReview ) => async( dispatch ) => {
+  try {
+    const { data } = await axios.post( '/coment',dataReview );
+    dispatch( postComments( data ) );
+    Swal.fire({
+      icon: 'success',
+      title: `Agregado`,
+      text: 'El departamento se publico correctamente',
+    });
+    window.location.reload();
   } catch (error) {
     dispatch({
       type: 'error',

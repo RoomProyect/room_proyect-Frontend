@@ -27,7 +27,7 @@ export const counterSlice = createSlice({
     getProv: (state, action) =>{
       let provin = [] 
       action.payload.provincias.forEach(element => {
-        provin.push(element.nombre)
+        provin.push(element)
       });
       state.provincias = provin
     },

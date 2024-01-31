@@ -3,7 +3,7 @@ import Navbar from '../../../componentes/navBar/NavBar';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers, prevPageUsersAction, nextPageUsersAction, getAllUsers } from '../../../redux/actions';
+import { getUsers, prevPageUsersAction, nextPageUsersAction, getAllUsers} from '../../../redux/actions';
 import axios from 'axios';
 import { useState } from 'react';
 import Footer from "../../../componentes/footer/footer"
@@ -30,7 +30,7 @@ const AdminUsers = () => {
     useEffect(()=>{
         const page = 1
         dispatch(getUsers(page))
-        //dispatch(getAllUsers())
+        dispatch(getAllUsers())
         const userStorage = localStorage.getItem( "user" );
         const user = JSON.parse( userStorage );
         if(user[0].rol !== "superadmin"){
