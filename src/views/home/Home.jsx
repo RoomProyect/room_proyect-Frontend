@@ -5,7 +5,7 @@ import Cards from "../../componentes/cards/Cards"
 import Footer from '../../componentes/footer/footer';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
+import { getDeptoAsync, nextPage, prevPage, getActionFiltered, paginateFilter } from '../../redux/actions'; 
 
 
 
@@ -15,10 +15,18 @@ const Home = () => {
     const dispatch = useDispatch();
     const deptos = useSelector( (state) => state.counter.deptos );
     const paginate = useSelector ( state => state.counter.paginado );
-
+    const filter = useSelector( (state) => state.counter.filter );
+    const deptosFiltered = useSelector(state => state.counter.deptosFiltered)
+    
     useEffect(()=>{
-        dispatch(getDeptoAsync( paginate.pageActual ))
+        console.log(filter)
+        if(filter.sortByP == "1" || filter.sortByP == "-1" || filter.precio_max || filter.precio_min){
+            dispatch(getActionFiltered({...filter, page: paginate.pageActual}))
+        }else{
+            dispatch(getDeptoAsync( paginate.pageActual ))
+        }
     }, [dispatch, paginate.pageActual])
+
 
     const handleChangePage = ( event ) => {
         if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
@@ -28,7 +36,6 @@ const Home = () => {
             dispatch( prevPage() );
         }
     }
-
     
 
     return (

@@ -30,7 +30,7 @@ const AdminUsers = () => {
     useEffect(()=>{
         const page = 1
         dispatch(getUsers(page))
-        dispatch(getAllUsers())
+        //dispatch(getAllUsers())
         const userStorage = localStorage.getItem( "user" );
         const user = JSON.parse( userStorage );
         if(user[0].rol !== "superadmin"){
