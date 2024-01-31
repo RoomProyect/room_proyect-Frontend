@@ -49,7 +49,7 @@ const Home = () => {
             {/* <span>Buscar</span> */}
             </div>
             <div className={styles.contentCards}>
-                {/* <Cards deptos={deptos} /> */}
+                <Cards deptos={deptos} />
             </div>
             <div className={styles.contentPaginate}>
                 <button name="back" onClick={handleChangePage} className={styles.paginateButton}>
