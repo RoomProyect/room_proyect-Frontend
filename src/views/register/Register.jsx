@@ -55,7 +55,7 @@ const Register = () => {
     const users = useSelector((state)=> state.user.allUsers)
     
     const onSubmit = (data) => {
-        console.log(data);
+
         userPw(data.email, data.Contrasenia)
         dispatch(postUserData(data))
         .then((response)=>{
@@ -74,7 +74,7 @@ const Register = () => {
 
     const userPw = (email, password) =>{
         const auth = getAuth();
-        console.log(email, password)
+
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
             // Signed in 

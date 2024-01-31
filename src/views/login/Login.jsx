@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-// import { postActionLogin } from "../../redux/actions";
+//import { postActionLogin } from "../../redux/actions";
 import style from './Login.module.css'
 import NavBar from '../../componentes/navBar/NavBar'
 import { getUsers, setUser } from "../../redux/actions";
@@ -16,7 +16,7 @@ import dptoCincoLogin from "../../assets/cloudinary/Login/dptoCincoLogin.jpg";
 import dptoSeisLogin from "../../assets/cloudinary/Login/dptoSeisLogin.jpg";
 
 import GoogleIcon from "../../assets/cloudinary/google.svg"
-
+import Swal from 'sweetalert2'
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -39,11 +39,22 @@ const Login = () => {
         // Signed in 
         const user = userCredential.user;
         // ...
-
-        dispatch(setUser([users.find(el => el.email.toLowerCase() === user.email.toLowerCase())]))
-        .then(()=>{
-          navigate('/home')
-        })
+        const usuario = users.find(el => el.email.toLowerCase() === user.email.toLowerCase());
+        if (usuario.active === false) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Usuario no puede ingresar',
+            text: 'El usuario no tiene permisos para ingresar.',
+          });
+        } else {
+          dispatch(setUser([usuario]))
+          Swal.fire({
+            icon: 'success',
+            title: `¡Bienvenido, ${usuario.name}!`,
+            text: 'Inicio de sesión exitoso.',
+          });
+          navigate('/home');
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -67,12 +78,9 @@ const Login = () => {
   }
 
   const onSubmit = (data) => {
-    // dispatch(postActionLogin(data));
+    //dispatch(postActionLogin(data));
     signin(data.email, data.password)
   };
-
-
-
 
   const images = [
     dptoUnoLogin,
@@ -107,11 +115,24 @@ const Login = () => {
         // The signed-in user info.
         const user = result.user;
         const user_ver = users.filter((el)=> el.email == user.email)
-        
+        if (user_ver[0].active == false) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Usuario no puede ingresar',
+            text: 'El usuario no tiene permisos para ingresar.',
+          });
+        }else
         if(user_ver.length){
           dispatch(setUser(user_ver))
+          Swal.fire({
+            icon: 'success',
+            title: `¡Bienvenido, ${user_ver[0].name}!`,
+            text: 'Inicio de sesión exitoso.',
+          });
+          navigate('/home')
         } else {
-          dispatch(postUserData({email: user.email, name: user.displayName}))                  
+          dispatch(postUserData({email: user.email, name: user.displayName}))               
+          navigate('/home')   
         }
         // IdP data available using getAdditionalUserInfo(result)
         // ...
@@ -165,12 +186,12 @@ const Login = () => {
         </form>
         <div className={style.linea}></div>
         <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
-        
+        <div className={style.containerRegister}>
+            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
+        </div> 
       </div>
     </div>
-          <div className={style.containerRegister}>
-            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
-          </div> 
+
     </div>
   );
 };

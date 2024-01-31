@@ -3,7 +3,7 @@ import Navbar from '../../../componentes/navBar/NavBar';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers, nextPage, prevPage, } from '../../../redux/actions';
+import { getUsers, prevPageUsersAction, nextPageUsersAction, getAllUsers} from '../../../redux/actions';
 import axios from 'axios';
 import { useState } from 'react';
 import Footer from "../../../componentes/footer/footer"
@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom';
 export const updateUser = async(obj)=>{
     try {
         const {data} = await axios.put('https://room-project-backend.onrender.com/users', obj)
-        window.location.reload()
     } catch (error) {
         console.log(error.message)
     }
@@ -23,9 +22,11 @@ export const updateUser = async(obj)=>{
 const AdminUsers = () => {
     const [rol, setRol] = useState("--");
     const dispatch = useDispatch();
-    const paginate = useSelector(state => state.counter.paginado);
 
     const navigate = useNavigate();
+    const paginate = useSelector(state => state.user.paginado);
+    const allUsers = useSelector(state => state.user.allUsers)
+    const [debounceTimeout, setDebounceTimeout] = useState(null);
     
     useEffect(()=>{
         const userStorage = localStorage.getItem( "user" );
@@ -47,29 +48,45 @@ const AdminUsers = () => {
     }, [[dispatch, paginate.pageActual]]);
 
     const handleChangePage = (event) => {
+        if (debounceTimeout) {
+            // Si hay un timeout activo, cancelarlo
+            clearTimeout(debounceTimeout);
+        }
         if (event.target.name === 'next' && paginate.pageActual < paginate.totalPages) {
-            dispatch(nextPage());
+            const timeout = setTimeout(() => {
+                dispatch(nextPageUsersAction);
+            }, 300);
+
+            setDebounceTimeout(timeout);
         }
         if (event.target.name === 'back' && paginate.pageActual > 1) {
-            dispatch(prevPage());
+            const timeout = setTimeout(() => {
+                dispatch(prevPageUsersAction);
+            }, 300);
+
+            setDebounceTimeout(timeout);
         }
     }
 
 
-
-    
-    const handleClickRol = (event)=>{
+    const handleClickRol = async (event)=>{
         if(rol == "--"){return ""}
         const newUser ={_id: event.target.id, rol:rol}
-        updateUser(newUser)
-        
+        await updateUser(newUser)
+        dispatch(getUsers(paginate.pageActual))
+        users = Users
+        console.log(users);
     }
     
-    const handleClickBan = (event)=>{    
+    const handleClickBan = async(event)=>{    
         if(event.target.value === 'true'){
-            updateUser({_id: event.target.id, active: false})
+            await updateUser({_id: event.target.id, active: false})
+            dispatch(getUsers(paginate.pageActual))
+            users = Users
         }else{
-            updateUser({_id: event.target.id, active: true})
+            await updateUser({_id: event.target.id, active: true})
+            dispatch(getUsers(paginate.pageActual))
+            users = Users
         }       
     }
     
@@ -78,9 +95,9 @@ const AdminUsers = () => {
     }
     const [pass, setPass] = useState("");
 
-    const Users = useSelector((state) => state.user.users);
-    const users = pass
-    ? Users.filter((u) => {
+    let Users = useSelector((state) => state.user.users);
+    let users = pass
+    ? allUsers.filter((u) => {
         const nombreMatch = u.name.toLowerCase().includes(pass.toLowerCase());
         const correoMatch = u.email.toLowerCase().includes(pass.toLowerCase());
         return nombreMatch || correoMatch;
