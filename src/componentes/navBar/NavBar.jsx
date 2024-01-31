@@ -30,7 +30,7 @@ const NavBar = () => {
     const {pathname} = useLocation();
 
 
-    // Ahora, `location.pathname` contiene la ruta actual
+
 
   
     return (

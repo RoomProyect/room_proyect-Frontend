@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import './perfil.css'; 
+import NavBar from '../../componentes/navBar/NavBar';
+import { Link } from 'react-router-dom';
 
 const Perfil = () => {
 
@@ -30,6 +32,9 @@ const Perfil = () => {
 
   return (
     <div className="container">
+     <Link to={'/home'} >
+    Back
+     </Link>
       <div className="card card--front">
         <div className="logo">
 
