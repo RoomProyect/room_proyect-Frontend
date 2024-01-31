@@ -28,7 +28,7 @@ const NavBar = () => {
         localStorage.removeItem( 'user' );
     }
     const {pathname} = useLocation();
-    console.log(pathname);
+
 
     // Ahora, `location.pathname` contiene la ruta actual
 

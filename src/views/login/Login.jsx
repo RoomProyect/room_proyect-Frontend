@@ -32,47 +32,56 @@ const Login = () => {
     dispatch(getUsers(0, allUsers))
   }, []);
 
-  
-  const signin = async (email, password) => {
-    try {
-      const auth = getAuth();
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-  
-      // Signed in
-      const user = userCredential.user;
-      console.log(user);
-  
-      const usuario = users.find(el => el.email === user.email);
-  
-      if (!usuario) {
-        console.log("Usuario no encontrado");
-        return; // Puedes manejar esto según tus necesidades
-      }
-  
-      console.log(usuario);
-  
-      if (usuario.active === false) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Usuario no puede ingresar',
-          text: 'El usuario no tiene permisos para ingresar.',
-        });
-      } else {
-        Swal.fire({
-          icon: 'success',
-          title: `¡Bienvenido, ${usuario.name}!`,
-          text: 'Inicio de sesión exitoso.',
-        });
-        navigate('/home');
-      }
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error(`Error al iniciar sesión: ${errorCode} - ${errorMessage}`);
-      // Puedes manejar el error según tus necesidades
-    }
-  };
-  
+  const signin = (email, password) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+        const usuario = users.find(el => el.email.toLowerCase() === user.email.toLowerCase());
+        if (usuario.active === false) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Usuario no puede ingresar',
+            text: 'El usuario no tiene permisos para ingresar.',
+          });
+        } else {
+          dispatch(setUser([usuario]))
+          Swal.fire({
+            icon: 'success',
+            title: `¡Bienvenido, ${usuario.name}!`,
+            text: 'Inicio de sesión exitoso.',
+          });
+          navigate('/home');
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = errorCode.split('-');
+        const exist = users.find(el => el.email.toLowerCase() === email.toLowerCase())
+        if(errorMessage[1] === 'email'){
+          Swal.fire({
+            icon: 'warning',
+            title: `¡El email es incorrecto!`,
+          });
+          setErrorLogin('email')
+        } else if(!exist){
+          Swal.fire({
+            icon: 'warning',
+            title: `¡El email no esta resgitrado!`,
+          });
+          setErrorLogin('email')
+        } else if(errorMessage[1] === 'credential'){
+          Swal.fire({
+            icon: 'warning',
+            title: `¡La contraseña es incorrecta!`,
+          });
+          setErrorLogin('contraseña')
+        } 
+      });
+
+  }
 
   if (user) {
     const userStorage = JSON.stringify(user);
@@ -100,6 +109,7 @@ const Login = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [errorLogin , setErrorLogin] = useState("")
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -182,11 +192,11 @@ const Login = () => {
           <div className={style.inputContainer}>
             <div className={style.inputGroup}>
               <label className={style.emailLabel}>Email:</label>
-              <input className={style.emailInput} type="text" name="email" placeholder="Example@email.com" {...register("email")}/>
+              <input style={(errorLogin === 'email' && { borderColor: "red" }) || null} className={style.emailInput} type="text" name="email" placeholder="Example@email.com" {...register("email")}/>
             </div>
             <div className={style.inputGroup}>
               <label className={style.passwordLabel}>Contraseña:</label>
-              <input className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" {...register("password")}/>
+              <input style={(errorLogin === 'contraseña' && { borderColor: "red" }) || null} className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" {...register("password")}/>
             </div>
             <div><h2 className={style.resClave}>Olvidaste tu contraseña?</h2></div>
           </div>
