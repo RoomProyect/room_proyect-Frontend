@@ -32,37 +32,47 @@ const Login = () => {
     dispatch(getUsers(0, allUsers))
   }, []);
 
-  const signin = (email, password) => {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-        console.log(user);
-        const usuario = users.filter(el => el.email == user.email)
-        console.log( usuario);
-        if (usuario[0].active == false) {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Usuario no puede ingresar',
-            text: 'El usuario no tiene permisos para ingresar.',
-          });
-
-         }else if (usuario) {
-          Swal.fire({
-            icon: 'success',
-            title: `¡Bienvenido, ${usuario[0].name}!`,
-            text: 'Inicio de sesión exitoso.',
-          });
-           navigate('/home')
-         }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+  
+  const signin = async (email, password) => {
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  
+      // Signed in
+      const user = userCredential.user;
+      console.log(user);
+  
+      const usuario = users.find(el => el.email === user.email);
+  
+      if (!usuario) {
+        console.log("Usuario no encontrado");
+        return; // Puedes manejar esto según tus necesidades
+      }
+  
+      console.log(usuario);
+  
+      if (usuario.active === false) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Usuario no puede ingresar',
+          text: 'El usuario no tiene permisos para ingresar.',
+        });
+      } else {
+        Swal.fire({
+          icon: 'success',
+          title: `¡Bienvenido, ${usuario.name}!`,
+          text: 'Inicio de sesión exitoso.',
+        });
+        navigate('/home');
+      }
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(`Error al iniciar sesión: ${errorCode} - ${errorMessage}`);
+      // Puedes manejar el error según tus necesidades
+    }
   };
+  
 
   if (user) {
     const userStorage = JSON.stringify(user);
@@ -74,9 +84,6 @@ const Login = () => {
     //dispatch(postActionLogin(data));
     signin(data.email, data.password)
   };
-
-
-
 
   const images = [
     dptoUnoLogin,
