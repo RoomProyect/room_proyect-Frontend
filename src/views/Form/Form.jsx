@@ -5,7 +5,7 @@ import { postDeptoAsync, getProvincias } from "../../redux/actions";
 import styles from "./form.module.css";
 import NavBar from "../../componentes/navBar/NavBar";
 import { useState, useEffect } from "react";
-// import PropTypes from "prop-types";
+//  import PropTypes from "prop-types";
 import { may_cero } from "./validator";
 import { useNavigate } from 'react-router-dom';
 
@@ -47,10 +47,11 @@ const Form = () => {
   
   
   useEffect(() => {
-    if(!provincias.length){
-      dispatch(getProvincias())
+    if (!provincias.length) {
+      dispatch(getProvincias());
     }
-  });
+  }, []); // Agregamos un array vacío como dependencia
+Z  
 
   const {
     register,
@@ -420,18 +421,18 @@ const Form = () => {
   );
 };
 
-//  Form.propTypes = {
-//        id: PropTypes.string.isRequired,
-//       ambientes: PropTypes.string.isRequired,
-//      baños: PropTypes.string.isRequired,
-//      cochera: PropTypes.string.isRequired,
-//      descripcion: PropTypes.string.isRequired,
-//      img: PropTypes.string.isRequired,
-//      mcTerreno: PropTypes.string.isRequired,
-//      precio: PropTypes.string.isRequired,
-//      titulo: PropTypes.string.isRequired,
+//     Form.propTypes = {
+//          id: PropTypes.string.isRequired,
+//         ambientes: PropTypes.string.isRequired,
+//       baños: PropTypes.string.isRequired,
+//        cochera: PropTypes.string.isRequired,
+//       descripcion: PropTypes.string.isRequired,
+//       img: PropTypes.string.isRequired,
+//        mcTerreno: PropTypes.string.isRequired,
+//        precio: PropTypes.string.isRequired,
+//       titulo: PropTypes.string.isRequired,
 //      ciudad: PropTypes.string.isRequired,
-//      habitaciones: PropTypes.string.isRequired,
-//  };
+//        habitaciones: PropTypes.string.isRequired,
+//   };
 
 export default Form;
