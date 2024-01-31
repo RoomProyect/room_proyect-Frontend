@@ -1,19 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import NavBar from '../../componentes/navBar/NavBar.jsx';
 import styles from './Detail.module.css';
 import PayButton from '../../componentes/Stripe/PayButton.jsx';
-
-// import ImgUno from '../../assets/cloudinary/fotosDetailPrueba/depto1.jpg'
-// import ImgDos from '../../assets/cloudinary/fotosDetailPrueba/depto2.jpg'
-// import ImgTres from '../../assets/cloudinary/fotosDetailPrueba/depto3.jpg'
-
 import cama from "../../assets/cloudinary/card/cama.svg";
 import casa from "../../assets/cloudinary/card/casa.png";
 import ducha from "../../assets/cloudinary/card/ducha.svg";
 import ubi from "../../assets/cloudinary/card/ubi.svg";
-import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getDeptoByIdAsync } from '../../redux/actions.js';
+
 
 const Detail = () => {
     const { id } = useParams();
@@ -22,6 +20,7 @@ const Detail = () => {
     const [isLoading, setIsLoading] = useState(false);
     const vivienda = useSelector((state)=> state.counter.deptoById);
 
+
     useEffect(()=>{
         setIsLoading(false)
         dispatch(getDeptoByIdAsync( id )).then(()=>{
@@ -29,12 +28,21 @@ const Detail = () => {
         })
     },[])
 
+
+    useEffect(() => {
+        if (vivienda && vivienda.latitud && vivienda.longitud) {
+            const map = L.map('map').setView([vivienda.latitud, vivienda.longitud], 13);
+        
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+        }
+    }, [vivienda]);
+
+
     function redirectToWhatsApp(phoneNumber) {
-
         const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
-    
         const whatsappLink = `https://wa.me/${formattedPhoneNumber}`;
-
         window.open(whatsappLink, '_blank');
     }
 
@@ -92,7 +100,7 @@ const Detail = () => {
                             )}
                     </div>
                     </div>
-
+                    <div id="map" style={{ height: '400px' }}></div>
                 </div>
                 </div>
                 <div className={styles.detailsContainer}>
