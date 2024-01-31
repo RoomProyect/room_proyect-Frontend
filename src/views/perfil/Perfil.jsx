@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import './perfil.css'; 
 import { useNavigate } from 'react-router';
+import './perfil.css'; 
 
 const Perfil = () => {
 

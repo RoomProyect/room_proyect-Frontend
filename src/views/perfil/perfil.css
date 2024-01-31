@@ -7,6 +7,19 @@
     margin-top: 15rem;
   }
 
+  .btnBack{
+    position: absolute;
+    top: -150px;
+    left: -300px;
+    background-color: #4f886b;
+    color: white;
+    width: 75px;
+    height: 40px;
+    border-radius: 10px;
+    border: transparent;
+    cursor: pointer;
+  }
+  
   .card {
     cursor: default;
     position: absolute;
@@ -23,6 +36,7 @@
     transform: translateX(-50%);
     background-size: cover;
     background-position: center;
+    cursor: pointer;
   }
 
   .card:after {
