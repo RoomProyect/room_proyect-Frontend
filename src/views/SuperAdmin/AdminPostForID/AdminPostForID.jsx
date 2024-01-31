@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom';
 // import { set, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../../componentes/footer/footer"
-
-
+import Swal from 'sweetalert2'
 
 const AdminPostForID = () => {
 
@@ -45,13 +44,19 @@ const AdminPostForID = () => {
         }
     }
 
-
     const { id } = useParams();
     const deptos = useSelector((state) => state.counter.deptos);
     const deptoForID = deptos.filter((depto) => {
         return depto.userId == id;
     });
-
+    if (deptoForID.length == 0) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Usuario sin publicaciones',
+            text: 'El usuario no ha agregado ninguna publicación.',
+          })
+          navigate('/AdminUsers')
+    }
 
     const handleData = (e) => {
         const valor = e.target.value;
@@ -62,7 +67,6 @@ const AdminPostForID = () => {
             [clave]: valor
         }));
     }
-
 
     const handleClickDelete = (event)=>{
         if(event.target.value === 'true'){
