@@ -19,7 +19,14 @@ const Filters = () => {
     const handleInputChange = (event, setter) => {
         const value = event.target.value;
         setter(value);
+        if(event.target.name == "max" && precioMin){
+            dispatch( getActionFiltered( [value, event.target.name, precioMin, "min"] ) );
+        }
+        if(event.target.name == "min" && precioMax){
+            dispatch( getActionFiltered( [value, event.target.name, precioMax, "max"] ) );    
+        }
         dispatch( getActionFiltered( [value, event.target.name] ) );
+
     };
 
     const handleSelecOrd = (event) =>{dispatch(getActionFiltered([event.target.value, event.target.name]))}

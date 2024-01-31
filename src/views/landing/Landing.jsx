@@ -107,6 +107,7 @@ const Landing = () => {
                 <div className={styles.contentContainer}>
                     <div className={styles.searchBar}>
                         <div className={styles.searchHeader}>
+                            <Link to={'/home'}>
                             <input
                                 id="searchInput"
                                 type="text"
@@ -116,7 +117,8 @@ const Landing = () => {
                                 onChange={handleInputChange}
                                 onFocus={handleInputFocus}
                                 onBlur={handleInputBlur}
-                            />
+                                />
+                                </Link>
                             <div className={styles.circle}>
                                 <img src={SearchIcon} alt="CasaIcono" />
                             </div>
@@ -133,7 +135,8 @@ const Landing = () => {
                                 <Reviews reviews={ comments } changePage={ handleChangePage } />
                             </div>
                             {
-                                userStorage && !userParse.review && <button id='addReview' onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
+                                // userStorage && !userParse[0].review && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
+                                userStorage && !userParse[0].review && <button id='addReview' onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
                                 
                             }
                             <ContainerFormReview handleClose={ handleClose } userLoged={ userParse } />

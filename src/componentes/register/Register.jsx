@@ -23,7 +23,6 @@ const Register = () => {
   const user  = useSelector((state) => state.user.data)
   
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(postUserData(data))
     reset()
   };
@@ -47,8 +46,6 @@ const Register = () => {
         const data = {name: user.displayName, email: user.email}
         dispatch(postUserData(data))
         localStorage.setItem('usuario', JSON.stringify(user));
-        
-        console.log(user)
 
         // IdP data available using getAdditionalUserInfo(result)
         // ...
