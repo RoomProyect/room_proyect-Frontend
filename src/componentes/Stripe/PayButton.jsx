@@ -41,8 +41,6 @@ const PayButton = ({items}) => {
 
     return (
         <>
-            {/* {console.log(items)} */}
-            {/* {console.log(response)} */}
             <button className={styles.buyButton} onClick={() => handlerCheckout()} > Comprar </button>
         </>
     )

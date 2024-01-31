@@ -8,6 +8,7 @@ import { updateUser } from '../../../views/SuperAdmin/AdminUsers/AdminUsers';
 export const ContainerFormReview = ( { handleClose,userLoged } ) => {
 
   const { register,handleSubmit,formState: { errors } } = useForm();
+  const btnReview = document.getElementById( 'addReview' );
 
 
   const dispatch =  useDispatch();
@@ -23,6 +24,7 @@ export const ContainerFormReview = ( { handleClose,userLoged } ) => {
     updateUser({_id: idUser, review: true});
     const updatedJsonString = JSON.stringify( userLoged );
     localStorage.setItem( 'user', updatedJsonString );
+    btnReview.style.display = 'none';
     dispatch( postReviews( newPost ) );
   }
 
