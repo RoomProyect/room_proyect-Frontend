@@ -9,7 +9,6 @@
     border-radius: 15px;
     margin-left: 4rem;
     float: left;
-
 }
 
 .contetTitle{
@@ -26,6 +25,11 @@
     font-weight: 600; /* Esto establece el grosor de la fuente a semibold */
     line-height: normal;
     margin-bottom: -3rem;
+}
+
+.filters{
+    margin-left: 30rem;
+    margin-bottom: 1rem;
 }
 
 .contentTable{
