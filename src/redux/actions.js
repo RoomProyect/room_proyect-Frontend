@@ -3,6 +3,7 @@ import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, get
 import {getUsers_, setUser_, paginateUsers, prevPageUsers, nextPageUsers, getAllUsers_} from './slice/userSlice'
 import { getComments, nextPageComment, paginateComments, postComments, prevPageComment } from './slice/commentSlice';
 import Swal from 'sweetalert2'
+
 const endpoint = '/apartment';
 
 export const postDeptoAsync = (data) => async (dispatch) => {
@@ -178,7 +179,6 @@ export const setUser = (data) => (dispatch) => {
 
 export const getReviews = ( page = 1 ) => async ( dispatch ) => {
   try {
-    // const { data } = await axios( '/coment' );
     const { data } = await axios( `/coment?page=${ page }` );
 
     dispatch( getComments( data.docs ) );
@@ -198,7 +198,7 @@ export const postReviews = ( dataReview ) => async( dispatch ) => {
     Swal.fire({
       icon: 'success',
       title: `Agregado`,
-      text: 'El departamento comentario se publico correctamente',
+      text: 'El departamento se publico correctamente',
     });
     window.location.reload();
   } catch (error) {

@@ -14,6 +14,7 @@ const Landing = () => {
     const [inputValue, setInputValue] = useState('');
     const [isSearchFocused, setIsSearchFocused] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [debounceTimeout, setDebounceTimeout] = useState(null);
 
     const userStorage = localStorage.getItem( "user" );
     const userParse = JSON.parse( userStorage );
@@ -25,14 +26,29 @@ const Landing = () => {
 
     useEffect(()=>{
         dispatch( getReviews( paginate.pageActual ) );
-    }, [dispatch, paginate.pageActual]);
+    }, [ paginate.pageActual ]);
 
     const handleChangePage = ( event ) => {
+        if (debounceTimeout) {
+            // Si hay un timeout activo, cancelarlo
+            clearTimeout(debounceTimeout);
+        }
+
         if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
-            dispatch( nextPageCommentAction );
+            // dispatch( nextPageCommentAction );
+            const timeout = setTimeout(() => {
+                dispatch(nextPageCommentAction);
+            }, 300);
+
+            setDebounceTimeout(timeout);
         }
         if( event.target.name === 'back' && paginate.pageActual > 1 ){
-            dispatch( prevPageCommentaction );
+            // dispatch( prevPageCommentaction );
+            const timeout = setTimeout(() => {
+                dispatch(prevPageCommentaction);
+            }, 300);
+
+            setDebounceTimeout(timeout);
         }
     }
 
@@ -119,7 +135,8 @@ const Landing = () => {
                                 <Reviews reviews={ comments } changePage={ handleChangePage } />
                             </div>
                             {
-                                userStorage && !userParse[0].review && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
+                                // userStorage && !userParse[0].review && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
+                                userStorage && !userParse[0].review && <button id='addReview' onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
                                 
                             }
                             <ContainerFormReview handleClose={ handleClose } userLoged={ userParse } />
