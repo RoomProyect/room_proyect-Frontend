@@ -39,8 +39,11 @@ const Login = () => {
         // Signed in 
         const user = userCredential.user;
         // ...
-        dispatch(setUser(users.filter(el => el.email == user.email)))
-        navigate('/home')
+
+        dispatch(setUser([users.find(el => el.email.toLowerCase() === user.email.toLowerCase())]))
+        .then(()=>{
+          navigate('/home')
+        })
       })
       .catch((error) => {
         const errorCode = error.code;
