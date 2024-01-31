@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-// import {useEffect} from 'react'
 import { postUserData } from '../../redux/slice/userSlice';
 import style from './Register.module.css';
 import NavBar from '../../componentes/navBar/NavBar'
@@ -17,6 +16,8 @@ import dptoSeisLogin from "../../assets/cloudinary/Login/dptoSeisLogin.jpg";
 import GoogleIcon from "../../assets/cloudinary/google.svg"
 import { getAllUsers, setUser } from '../../redux/actions';
 
+import Swal from 'sweetalert2'
+
 const Register = () => {
 
     const images = [
@@ -27,7 +28,7 @@ const Register = () => {
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [exist , setExist ] = useState({})
+    const [exist , setExist ] = useState(false)
 
     useEffect(() => {
     const interval = setInterval(() => {
@@ -55,16 +56,21 @@ const Register = () => {
     const users = useSelector((state)=> state.user.allUsers)
     
     const onSubmit = (data) => {
-
-        userPw(data.email, data.Contrasenia)
-        dispatch(postUserData(data))
-        .then((response)=>{
-            if(response.payload.error){
-                setExist(response.payload.error)
-                return
-            }
+        if(data.email && data.Contrasenia){
+            userPw(data.email, data.Contrasenia)
+            dispatch(postUserData(data))
+            .then((response)=>{
+                if(response.payload.error){
+                    setExist(true)
+                    Swal.fire({
+                        icon: 'warning',
+                        title: response.payload.error.error,
+                    })
+                    return
+                }
+            })
             reset()
-        })
+        }
     };
 
     const handleChange = (event) =>{
@@ -174,6 +180,7 @@ const Register = () => {
                     <div className={style.inputGroup}>
                         <label htmlFor="email" className={style.emailLabel}>Email:</label>
                         <input 
+                        style={(exist && {borderColor: 'red'}) || null}
                         placeholder="Example@email.com" 
                         className={style.emailInput} 
                         type="text" {...register('email')} 
@@ -206,12 +213,11 @@ const Register = () => {
                         type="text" {...register('Contrasenia_2')} 
                         id="Contrasenia" />
                     </div>
-                    {exist.error && <div style={{ color: 'red', display: 'flex', justifyContent: 'center' }} >{exist.error}</div>}
                     <div className={style.linea}></div>
 
                     <input className={style.submit} type="submit" />
 
-                    <button className={style.btnIniciarGoogle} onClick={handleClickGoogle} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
+                    <button className={style.btnIniciarGoogle} onClick={handleClickGoogle} type="button"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
 
                     <div className={style.containerRegister}>
                         <h2 className={style.sinCuenta}>¿Ya tienes cuenta?</h2><Link to='/login' className={style.registerSolo}> Inicia sesión</Link>
