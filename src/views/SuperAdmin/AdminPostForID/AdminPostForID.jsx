@@ -22,7 +22,7 @@ const AdminPostForID = () => {
     useEffect(()=>{
         const userStorage = localStorage.getItem( "user" );
         const user = JSON.parse( userStorage );
-        console.log( user[0].rol );
+
 
         if(user[0].rol !== "superadmin"){
             
@@ -52,7 +52,6 @@ const AdminPostForID = () => {
         return depto.userId == id;
     });
 
-        console.log(deptoForID);
 
     const handleData = (e) => {
         const valor = e.target.value;
