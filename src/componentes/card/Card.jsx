@@ -19,7 +19,6 @@ const Card = ({ id, baños, img, mcTerreno, precio, titulo, habitaciones, provin
         precio: '',
     });
 
-
     useEffect(() => {
         setLocalData({
         titulo,

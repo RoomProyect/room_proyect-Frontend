@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-// import { postActionLogin } from "../../redux/actions";
+//import { postActionLogin } from "../../redux/actions";
 import style from './Login.module.css'
 import NavBar from '../../componentes/navBar/NavBar'
 import { getUsers, setUser } from "../../redux/actions";
@@ -29,7 +29,7 @@ const Login = () => {
 
   useEffect(() => {
     let allUsers = true
-    dispatch(getUsers(allUsers))
+    dispatch(getUsers(0, allUsers))
   }, []);
 
   const signin = (email, password) => {
@@ -62,8 +62,7 @@ const Login = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
-
-  }
+  };
 
   if (user) {
     const userStorage = JSON.stringify(user);
@@ -72,7 +71,7 @@ const Login = () => {
   }
 
   const onSubmit = (data) => {
-    // dispatch(postActionLogin(data));
+    //dispatch(postActionLogin(data));
     signin(data.email, data.password)
   };
 
@@ -98,9 +97,6 @@ const Login = () => {
 
 
 
-
-
-
   const auth = getAuth();
 
   const handleClick = () => {
@@ -113,7 +109,6 @@ const Login = () => {
 
         // The signed-in user info.
         const user = result.user;
-        console.log('aca esta el userrrrrr '+user);
         const user_ver = users.filter((el)=> el.email == user.email)
         if (user_ver[0].active == false) {
           Swal.fire({
@@ -131,9 +126,8 @@ const Login = () => {
           });
           navigate('/home')
         } else {
-
-          const response = dispatch(postUserData(user))
-          navigate('/home')
+          dispatch(postUserData({email: user.email, name: user.displayName}))               
+          navigate('/home')   
         }
         // IdP data available using getAdditionalUserInfo(result)
         // ...

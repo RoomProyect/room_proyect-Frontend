@@ -5,26 +5,27 @@ import Cards from "../../componentes/cards/Cards"
 import Footer from '../../componentes/footer/footer';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDeptoAsync, nextPage, prevPage } from '../../redux/actions';
-import { useState } from 'react';
+import { getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
 
 const Home = () => {
 
     const dispatch = useDispatch();
-    const paginate = useSelector(state => state.counter.paginado);
+    const deptos = useSelector( (state) => state.counter.deptos );
+    const paginate = useSelector ( state => state.counter.paginado );
 
-    useEffect(() => {
-        dispatch(getDeptoAsync(paginate.pageActual))
+    useEffect(()=>{
+        dispatch(getDeptoAsync( paginate.pageActual ))
     }, [dispatch, paginate.pageActual])
 
-    const handleChangePage = (event) => {
-        if (event.target.name === 'next' && paginate.pageActual < paginate.totalPages) {
-            dispatch(nextPage());
+    const handleChangePage = ( event ) => {
+        if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
+            dispatch( nextPage() );
         }
-        if (event.target.name === 'back' && paginate.pageActual > 1) {
-            dispatch(prevPage());
+        if( event.target.name === 'back' && paginate.pageActual > 1 ){
+            dispatch( prevPage() );
         }
     }
+
     
 
     return (
@@ -36,20 +37,19 @@ const Home = () => {
                 <div className={styles.imageContainer}></div>
                 <div className={styles.textContainer}>
                     <h1 className={styles.title}>Encuentra Tu Hogar Ideal con Nosotros</h1>
-                    <p className={styles.subtitle}>
-                        Descubre una amplia selección de departamentos en las mejores ubicaciones.
-                        Ofrecemos los mejores precios y la confianza que necesitas para encontrar tu hogar
-                        ideal en Argentina. Con años de experiencia en el sector inmobiliario, te brindamos
-                        completas opciones a los precios más bajos. ¡No esperes más para encontrar tu nuevo hogar!
-                    </p>
+                        <p className={styles.subtitle}>
+                            Descubre una amplia selección de departamentos en las mejores ubicaciones.
+                            Ofrecemos los mejores precios y la confianza que necesitas para encontrar tu hogar
+                            ideal en Argentina. Con años de experiencia en el sector inmobiliario, te brindamos
+                            completas opciones a los precios más bajos. ¡No esperes más para encontrar tu nuevo hogar!
+                        </p>
                 </div>
             </div>
-            <div className={styles.contentFilters}>
-                <Filters />
-            {/* <span>Buscar</span> */}
+            <div className={ styles.contentFilters }>
+                <Filters/>
             </div>
-            <div className={styles.contentCards}>
-                <Cards deptos={deptos} />
+            <div className={ styles.contentCards }>
+                <Cards deptos={ deptos }/>
             </div>
             <div className={styles.contentPaginate}>
                 <button name="back" onClick={handleChangePage} className={styles.paginateButton}>
@@ -61,7 +61,7 @@ const Home = () => {
                 </button>
             </div>
             <div>
-                <Footer />
+                <Footer/>
             </div>
         </div>
     );
