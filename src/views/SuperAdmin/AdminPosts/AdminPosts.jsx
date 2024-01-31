@@ -91,6 +91,7 @@ const AdminPost = () => {
                 <div className={styles.tableHeader}>
                     <h2>Tabla de Posteos</h2>
                 </div>
+                <Filters />
                 <table className={styles.userTable}>
                     <thead>
                         <tr className={styles.tableHeaderRow}>

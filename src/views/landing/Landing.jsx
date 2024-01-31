@@ -91,6 +91,7 @@ const Landing = () => {
                 <div className={styles.contentContainer}>
                     <div className={styles.searchBar}>
                         <div className={styles.searchHeader}>
+                            <Link to={'/home'}>
                             <input
                                 id="searchInput"
                                 type="text"
@@ -100,7 +101,8 @@ const Landing = () => {
                                 onChange={handleInputChange}
                                 onFocus={handleInputFocus}
                                 onBlur={handleInputBlur}
-                            />
+                                />
+                                </Link>
                             <div className={styles.circle}>
                                 <img src={SearchIcon} alt="CasaIcono" />
                             </div>

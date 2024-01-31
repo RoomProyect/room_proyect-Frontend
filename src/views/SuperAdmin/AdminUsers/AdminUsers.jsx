@@ -30,7 +30,7 @@ const AdminUsers = () => {
     useEffect(()=>{
         const userStorage = localStorage.getItem( "user" );
         const user = JSON.parse( userStorage );
-        console.log( user[0].rol );
+        // console.log( user[0].rol );
 
         if(user[0].rol !== "superadmin"){
             

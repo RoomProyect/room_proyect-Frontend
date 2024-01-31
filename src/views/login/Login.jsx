@@ -16,7 +16,7 @@ import dptoCincoLogin from "../../assets/cloudinary/Login/dptoCincoLogin.jpg";
 import dptoSeisLogin from "../../assets/cloudinary/Login/dptoSeisLogin.jpg";
 
 import GoogleIcon from "../../assets/cloudinary/google.svg"
-
+import Swal from 'sweetalert2'
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -39,8 +39,24 @@ const Login = () => {
         // Signed in 
         const user = userCredential.user;
         // ...
-        dispatch(setUser(users.filter(el => el.email == user.email)))
-        navigate('/home')
+        console.log(user);
+        const usuario = users.filter(el => el.email == user.email)
+        console.log( usuario);
+        if (usuario[0].active == false) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Usuario no puede ingresar',
+            text: 'El usuario no tiene permisos para ingresar.',
+          });
+
+         }else if (usuario) {
+          Swal.fire({
+            icon: 'success',
+            title: `¡Bienvenido, ${usuario[0].name}!`,
+            text: 'Inicio de sesión exitoso.',
+          });
+           navigate('/home')
+         }
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -97,12 +113,25 @@ const Login = () => {
 
         // The signed-in user info.
         const user = result.user;
+        console.log('aca esta el userrrrrr '+user);
         const user_ver = users.filter((el)=> el.email == user.email)
-
+        if (user_ver[0].active == false) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Usuario no puede ingresar',
+            text: 'El usuario no tiene permisos para ingresar.',
+          });
+        }else
         if(user_ver.length){
           dispatch(setUser(user_ver))
+          Swal.fire({
+            icon: 'success',
+            title: `¡Bienvenido, ${user_ver[0].name}!`,
+            text: 'Inicio de sesión exitoso.',
+          });
           navigate('/home')
         } else {
+
           const response = dispatch(postUserData(user))
           navigate('/home')
         }
@@ -157,12 +186,12 @@ const Login = () => {
         </form>
         <div className={style.linea}></div>
         <button className={style.btnIniciarGoogle} onClick={handleClick} type="submit"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
-        
+        <div className={style.containerRegister}>
+            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
+        </div> 
       </div>
     </div>
-          <div className={style.containerRegister}>
-            <h2 className={style.sinCuenta}>¿Todavía no tienes cuenta? </h2> <Link to='/register' className={style.registerSolo}> Regístrate </Link>
-          </div> 
+
     </div>
   );
 };

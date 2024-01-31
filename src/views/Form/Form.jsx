@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { may_cero } from "./validator";
 import { useNavigate } from 'react-router-dom';
 import Card from "../../componentes/card/Card";
+import Swal from 'sweetalert2'
+
 
 const Form = () => {
   const [img, setImg] = useState({});
@@ -28,7 +30,11 @@ const Form = () => {
 
     if(user[0].rol !== "superadmin" && user[0].rol !== "admin"){       
         navigate('/home')
-        alert('tomatela no tenes rol: (solo SuperAdmin)')
+        Swal.fire({
+          icon: 'warning',
+          title: 'Usuario no puede ingresar',
+          text: 'El usuario no tiene permisos para ingresar.',
+        });
     }
     }, []);
 
@@ -85,8 +91,12 @@ const Form = () => {
       setSection(2);
     } else {
       // Segunda sección del formulario
-      if (!img || img.length === 0) {
-        console.error("Debes seleccionar al menos un archivo para subir.");
+      if ( !img || img.length === 0 ) {
+        Swal.fire({
+          icon: 'success',
+          title: `¡Faltan datos!`,
+          text: 'Tiene que agregar al menos 1.',
+        });
         return;
       }
   
@@ -128,6 +138,11 @@ const Form = () => {
       }, 7000);
 
       } catch (error) {
+        Swal.fire({
+          icon: 'warning',
+          title: `¡Faltan datos!`,
+          text: 'Tiene que agregar al menos una imagen.',
+        });
         console.error("Error al subir archivos:", error);
       }
     }
