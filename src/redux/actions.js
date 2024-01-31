@@ -24,7 +24,7 @@ export const postDeptoAsync = (data) => async (dispatch) => {
 export const getDeptoAsync = ( page = 1 ) => async (dispatch) => {
   try {
     const response = await axios(`${ endpoint }?page=${ page }`);
-    console.log( response );
+    console.log("REDUX", response );
     console.log( response );
 
     // Utiliza la acción directamente desde el slice

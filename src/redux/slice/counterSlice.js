@@ -28,11 +28,12 @@ export const counterSlice = createSlice({
     postDepto: (state, action) => {
       state.depto = action.payload;
     },
-
+// ESTEEE SIRVE
     getDepto: (state, action) => {
       state.deptos = action.payload;
       state.deptosBackup = action.payload;
     },
+// ESTEEEE ^
     putDepto: (state, action) => {
       state.putDeptos = action.payload;
     },
@@ -59,7 +60,7 @@ export const counterSlice = createSlice({
     },
     getDeptoFiltered: ( state, action ) => {
       let array = action.payload[0]
-      console.log(action.payload)
+      console.log("PUTAA",action.payload)
       if(action.payload[1][0] == "reset"){
         state.deptos = state.deptosBackup
       }
