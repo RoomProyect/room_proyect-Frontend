@@ -5,7 +5,7 @@ import { getActionFiltered, paginateFilter, resetFilter } from '../../redux/acti
 import { useEffect } from 'react';
 
 const Filters = () => {
-
+    const filterG = useSelector( (state) => state.counter.filter );
     const [ciudad, setCiudad] = useState('');
     const [cochera, setCochera] = useState('');
     const [precioMin, setPrecioMin] = useState('');
@@ -23,6 +23,7 @@ const Filters = () => {
     const dispatch = useDispatch();
 
     const deptos = useSelector((state) => state.counter.deptos);
+    
     
     useEffect(() => {
         // La lógica que depende del estado actualizado debe ir aquí
@@ -125,7 +126,7 @@ const Filters = () => {
                     <input
                         name="min"
                         type="number"
-                        value={precioMin}
+                        value={filterG.precio_min}
                         className={styles.input}
                         onChange={(e) => handleInputChange(e, setPrecioMin)}
                     />
@@ -136,7 +137,7 @@ const Filters = () => {
                     <input
                         name="max"
                         type="number"
-                        value={precioMax}
+                        value={filterG.precio_max}
                         className={styles.input}
                         onChange={(e) => handleInputChange(e, setPrecioMax)}
                     />

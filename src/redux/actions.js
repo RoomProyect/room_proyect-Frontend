@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById, filter } from './slice/counterSlice';
-import {getUsers_, setUser_, paginateUsers, prevPageUsers, nextPageUsers, getAllUsers_} from './slice/userSlice'
+import {getUsers_, setUser_, paginateUsers, prevPageUsers, nextPageUsers, getAllUsers_} from './slice/userSlice';
 import { getComments, nextPageComment, paginateComments, postComments, prevPageComment } from './slice/commentSlice';
 import Swal from 'sweetalert2'
 
@@ -81,7 +81,6 @@ export const prevPage = () => ({
 })
 
 
-
 export const paginateFilter = ( filtro ) => async ( dispatch ) => {
   try {
     const { data } = await axios( `/apartment?precio[${filtro.min}]=${filtro.precio_min}&precio[${filtro.max}]=${filtro.precio_max}&sortByP=${filtro.sortByP}&cochera=${filtro.cochera}` )
@@ -97,7 +96,7 @@ export const paginateFilter = ( filtro ) => async ( dispatch ) => {
 
 export const resetFilter = (filtro) => (dispatch) => {
   dispatch(filter(filtro))
-
+}
 export const nextPageCommentAction = ( dispatch ) => {
   dispatch( nextPageComment() );
 }
