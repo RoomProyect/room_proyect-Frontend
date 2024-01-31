@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import NavBar from '../../componentes/navBar/NavBar.jsx';
 import styles from './Detail.module.css';
@@ -12,6 +11,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDeptoByIdAsync } from '../../redux/actions.js';
 
+// import { MapContainer, TileLayer } from 'react-leaflet'
+
+import 'leaflet/dist/leaflet.css';
+
 
 const Detail = () => {
     const { id } = useParams();
@@ -20,6 +23,7 @@ const Detail = () => {
     const [isLoading, setIsLoading] = useState(false);
     const vivienda = useSelector((state)=> state.counter.deptoById);
 
+    
 
     useEffect(()=>{
         setIsLoading(false)
@@ -27,18 +31,6 @@ const Detail = () => {
             setIsLoading(true)
         })
     },[])
-
-
-    useEffect(() => {
-        if (vivienda && vivienda.latitud && vivienda.longitud) {
-            const map = L.map('map').setView([vivienda.latitud, vivienda.longitud], 13);
-        
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-        }
-    }, [vivienda]);
-
 
     function redirectToWhatsApp(phoneNumber) {
         const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
@@ -55,8 +47,6 @@ const Detail = () => {
     const cerrarImagenEnGrande = () => {
         setImagenSeleccionada(null);
     };
-    
-    
 
     return (
         <>
@@ -73,9 +63,6 @@ const Detail = () => {
                     <img src={vivienda.img} alt="house-image" className={styles.propertyImage} />
                 <div className={styles.propertyInfo}>
                     <h3 className={styles.propertyTitle}>{vivienda.titulo}</h3>
-                    <div className={styles.priceInfo}>
-                        <span className={styles.priceValue}>Por: {vivienda.precio}$</span>
-                    </div>
                     <div className={styles.descripcion}>
                         <span className={styles.descripcion}>{vivienda.descripcion}</span>
                     </div>
@@ -99,9 +86,12 @@ const Detail = () => {
                                 </div>
                             )}
                     </div>
-                    </div>
-                    <div id="map" style={{ height: '400px' }}></div>
+                    </div>                   
                 </div>
+
+                </div>
+                <div className={` ${styles.priceInfo}`}>
+                        <span className={styles.priceValue}>Por:{vivienda.precio}$</span>
                 </div>
                 <div className={styles.detailsContainer}>
                 <div className={styles.detail}>
@@ -131,14 +121,21 @@ const Detail = () => {
                     <button className={styles.buyButton} onClick={() => redirectToWhatsApp('+123456789')}>
                         Consultar
                     </button>
+
                 </div>
+                {/* <div className={styles.mapContainer}>                    
+                    <MapContainer className='leaflet-container' center={[vivienda.latitud, vivienda.longitud]} zoom={15} >
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                    </MapContainer>
+                </div> */}
             </div>
             </>
         ) : (
             <>
-            <div className={styles.navBarWrapper}>
-                <NavBar />
-            </div>
+
             <div className={styles.container}>
                 <div className={styles.goBack}>
                 <button onClick={() => navigate("/home")}> {"Back"}</button>
@@ -147,6 +144,7 @@ const Detail = () => {
                 </div>
                 </div>
             </div>
+
             </>
         )}
         </>

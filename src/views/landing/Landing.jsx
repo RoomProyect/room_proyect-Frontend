@@ -21,7 +21,6 @@ const Landing = () => {
     const dispatch = useDispatch();
     const comments = useSelector( (state) => state.comment.reviews );
     const paginate = useSelector( (state) => state.comment.paginado );
-    console.log( paginate );
 
 
     useEffect(()=>{

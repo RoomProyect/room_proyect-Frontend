@@ -98,13 +98,12 @@ const Login = () => {
         // The signed-in user info.
         const user = result.user;
         const user_ver = users.filter((el)=> el.email == user.email)
-        console.log(user_ver)
+
         if(user_ver.length){
           dispatch(setUser(user_ver))
           navigate('/home')
         } else {
           const response = dispatch(postUserData(user))
-          console.log(response.data);
           navigate('/home')
         }
         // IdP data available using getAdditionalUserInfo(result)

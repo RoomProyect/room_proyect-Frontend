@@ -23,7 +23,7 @@ const AdminPost = () => {
     useEffect(()=>{
         const userStorage = localStorage.getItem( "user" );
         const user = JSON.parse( userStorage );
-        console.log( user[0].rol );
+
 
         if(user[0].rol !== "superadmin"){
             
@@ -49,7 +49,7 @@ const AdminPost = () => {
 
 
     const deptos = useSelector((state) => state.counter.deptos);
-    console.log(dataInput);
+
     
     const handleData = (e) => {
         const valor = e.target.value;
@@ -63,7 +63,7 @@ const AdminPost = () => {
 
 
     const handleClickDelete = (event)=>{
-        console.log("entrovich");
+
         if(event.target.value === 'true'){
             dispatch(putDeptoActions({_id: event.target.id, active: false}))
         }else{
@@ -73,18 +73,12 @@ const AdminPost = () => {
     }
 
     const handleEdit = (deptoId) => {
-        console.log(edit);
-        console.log(deptoId);
         setEdit(!edit);
         setEditingDeptoId(edit ? null : deptoId);
         // Envía la solicitud de edición, asegurándote de pasar el deptoId correcto
         dispatch(putDeptoActions({ _id: deptoId, ...dataInput }));
     }
 
-
-
-
-    console.log(deptos);
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>

@@ -1,131 +1,124 @@
 .container {
     margin: 3rem;
-    height: 42vw;
-    flex-shrink: 0;
     border-radius: 0.83088rem;
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(0, 0, 0, 0.027);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .propertyImage {
-    width: 30.74275rem;
-    height: 25.46419rem;
-    flex-shrink: 0;
+    width: 100%;
+    height: auto;
     border-radius: 0.9775rem;
-    object-fit: cover; 
-    object-position: center; 
-    margin-left: 4rem;
-    margin-top: 2rem;
+    object-fit: cover;
     box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.356);
+}
+
+.mapContainer {
+    margin-top: 2rem;
+    width: 100%;
+    height: 250px;
 }
 
 .propertyDetails {
     display: flex;
-}
-
-.propertyTitleContainer {
-    display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
 }
 
 .propertyTitle {
-    width: 60rem;
-    height: 2.73706rem;
-    color: #000;
-    font-family: Inter;
-    font-size: 3rem;
-    font-style: normal;
+    width: 100%;
+    font-size: 2.5rem;
     font-weight: 800;
-    line-height: normal;
+    line-height: 1.2;
     margin-bottom: 1rem;
-    margin-top: 3rem;
-    font-family: 'Arial', sans-serif; 
-    font-weight: normal; 
+    text-align: center;
 }
 
-.priceValue{
-    font-size: 1.2rem;
+
+
+.priceValue {
+    font-size: 1.7rem;
     color: #375345;
+    
 }
 
-.descripcion{
+.descripcion {
     margin-top: 1rem;
-    width: 700px;
+    width: 100%;
     color: rgba(61, 61, 61, 0.719);
+    text-align: center;
 }
 
 .tresImg {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    margin: 4rem;
 }
 
-.tresImgIndividual{
+.tresImgIndividual {
     width: 240px;
     height: 150px;
     border-radius: 0.5rem;
-    margin-right: 3rem;
-    margin-top: 2rem;
+    margin-right: 1rem;
     box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.356);
-}
-
-.propertyInfo{
-    margin-left: 4rem;
-}
-
-.additionalDetailsContainer {
-    margin-left: 4.5rem;
-    margin-top: 1rem;
-    font-size: 1.4rem;
-    width: 400px;
-}
-
-/* Estilos para el contenedor del botón de retroceso */
-.goBack {
-    
-    font-size: 1.2rem;
-}
-
-/* Estilos para el botón de retroceso */
-.goBack button {
-    padding: 0.5rem 1rem;
-    background-color: #4F886B;
-    color: #fff;
-    border: none;
-    border-radius: 0.3rem;
     cursor: pointer;
-    font-size: 1rem;
-    margin-top: 2rem;
-    margin-left: 4rem;
 }
 
-/* Cambiar estilos al pasar el ratón sobre el botón */
-.goBack button:hover {
-    background-color: #366B51;
+.detailsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.detailLabel {
+    font-size: 1rem;
+    margin-left: 0.5rem;
 }
 
 .buyButtonContainer {
     display: flex;
-    left: 0;
-    margin-top: 1rem;
-    flex-direction: row;
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
 
+.buyButton,
+.goBack button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 0 1rem;
+}
+
+
+.goBack button {
+    background-color: #4f886b;
+    color: #fff;
+    border: none;
+    outline: none;
+    margin-top: 2rem;
 }
 
 .buyButton {
     width: 10.5625rem;
     height: 3.625rem;
-    flex-shrink: 0;
-    border-radius: 0.75rem;
-    background: #4F886B;
+    background: #4f886b;
     color: #fff;
-    cursor: pointer;
-    font-size: 1rem;
     border: none;
     outline: none;
-    margin-left: 4rem;
-    margin-top: 4rem;
-
 }
+
 
 .icono {
     width: 25px;
@@ -167,14 +160,13 @@
     margin-left: 4rem;
 }
 
-
 /* En tu archivo de estilos (tuEstilo.module.css) */
 .tresImgIndividual {
     /* Estilos para tus imágenes pequeñas */
     cursor: pointer;
-  }
-  
-  .overlay {
+}
+
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -184,16 +176,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .imagenEnGrandeContainer {
+}
+
+.imagenEnGrandeContainer {
     max-width: 80%;
     max-height: 80%;
-  }
-  
-  .imagenEnGrande {
+}
+
+.imagenEnGrande {
     width: 100%;
     height: 100%;
     object-fit: contain;
-  }
-  
+}
+
+.mapContainer {
+    position: relative;
+    width: 200px;
+    height: 200px; /* o la altura que desees */
+    margin-top: 2rem;
+}
+
+.leaflet-container {
+    position: relative;
+}

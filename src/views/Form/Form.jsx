@@ -63,7 +63,6 @@ const Form = () => {
       provincia: '',
       img: [],
   });
-  console.log(cardData)
   
   const {
     register,
@@ -119,7 +118,7 @@ const Form = () => {
         data.longitud = longitud;
         data.provincias = provinciaSeleccionada;
   
-        console.log("Datos a enviar:", data);
+ 
   
         dispatch(postDeptoAsync(data));
         reset();
@@ -147,7 +146,6 @@ const Form = () => {
 
   
   const handleFileChange = (e) => {
-    console.log("Archivos seleccionados:", e.target.files);
     setImg(e.target.files);
   };
   
