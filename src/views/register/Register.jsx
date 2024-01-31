@@ -15,6 +15,7 @@ import dptoCincoLogin from "../../assets/cloudinary/Login/dptoCincoLogin.jpg";
 import dptoSeisLogin from "../../assets/cloudinary/Login/dptoSeisLogin.jpg";
 
 import GoogleIcon from "../../assets/cloudinary/google.svg"
+import { getAllUsers, setUser } from '../../redux/actions';
 
 const Register = () => {
 
@@ -26,6 +27,7 @@ const Register = () => {
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [exist , setExist ] = useState({})
 
     useEffect(() => {
     const interval = setInterval(() => {
@@ -34,6 +36,9 @@ const Register = () => {
     return () => clearInterval(interval);
     }, [currentIndex, images.length]);
 
+    useEffect(()=>{
+        dispatch(getAllUsers());
+    },[])
 
     const dispatch = useDispatch();
     const {
@@ -47,12 +52,19 @@ const Register = () => {
     
     const navigate = useNavigate();
     const user  = useSelector((state) => state.user.data)
+    const users = useSelector((state)=> state.user.allUsers)
     
     const onSubmit = (data) => {
 
         userPw(data.email, data.Contrasenia)
         dispatch(postUserData(data))
-        reset()
+        .then((response)=>{
+            if(response.payload.error){
+                setExist(response.payload.error)
+                return
+            }
+            reset()
+        })
     };
 
     const handleChange = (event) =>{
@@ -80,32 +92,36 @@ const Register = () => {
         const auth = getAuth();
         const providerGoogle = new GoogleAuthProvider(); 
         signInWithPopup(auth, providerGoogle)
-            .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-    
-            // The signed-in user info.
-            const user = result.user;
-            const data = {name: user.displayName, email: user.email}
-            const response = dispatch(postUserData(data));
-    
-            // IdP data available using getAdditionalUserInfo(result)
-            // ...
-            }).catch((error) => {
-            // Handle Errors here.
-            window.alert(error.message)
-            
-            const errorCode = error.code;
-
-            const errorMessage = error.message;
-            // The email of the user's account used.
-
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-
-            const credential = GoogleAuthProvider.credentialFromError(error);
-
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+  
+          // The signed-in user info.
+          const user = result.user;
+          console.log(user)
+          console.log(users);
+          const user_ver = users.filter((el)=> el.email == user.email)
+          
+          console.log(user_ver)
+          
+          if(user_ver.length){
+            dispatch(setUser(user_ver))
+          } else {
+            dispatch(postUserData({email: user.email, name: user.displayName}))                  
+          }
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+        }).catch((error) => {
+          // Handle Errors here.
+          window.alert(error.message)
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
         });
     }
 
@@ -190,7 +206,7 @@ const Register = () => {
                         type="text" {...register('Contrasenia_2')} 
                         id="Contrasenia" />
                     </div>
-
+                    {exist.error && <div style={{ color: 'red', display: 'flex', justifyContent: 'center' }} >{exist.error}</div>}
                     <div className={style.linea}></div>
 
                     <input className={style.submit} type="submit" />
