@@ -123,14 +123,11 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
 
 export const getUsers = (page, allUsers) => async(dispatch) => {
   try {
-    console.log(page, allUsers)
     if(allUsers){
-      console.log("hola alluser")
       const {data} = await axios(`/users?allUsers=${allUsers}`)
       dispatch(getUsers_(data.docs))
     }
     if(page){
-      console.log("hola page")
       const {data} = await axios(`/users?page=${page}&limit=8`)
       dispatch(getUsers_(data.docs))
       dispatch(paginateUsers(data))
