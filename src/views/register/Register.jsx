@@ -7,7 +7,7 @@ import NavBar from '../../componentes/navBar/NavBar'
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup, getAuth, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth"
 import { Link } from "react-router-dom";
-
+import Swal from 'sweetalert2'
 import dptoUnoLogin from "../../assets/cloudinary/Login/dptoUnoLogin.jpg";
 import dptoTresLogin from "../../assets/cloudinary/Login/dptoTresLogin.jpg";
 import dptoCincoLogin from "../../assets/cloudinary/Login/dptoCincoLogin.jpg";
@@ -16,7 +16,7 @@ import dptoSeisLogin from "../../assets/cloudinary/Login/dptoSeisLogin.jpg";
 import GoogleIcon from "../../assets/cloudinary/google.svg"
 import { getAllUsers, setUser } from '../../redux/actions';
 
-import Swal from 'sweetalert2'
+
 
 const Register = () => {
 
@@ -56,22 +56,18 @@ const Register = () => {
     const users = useSelector((state)=> state.user.allUsers)
     
     const onSubmit = (data) => {
-        if(data.email && data.Contrasenia){
-            userPw(data.email, data.Contrasenia)
-            dispatch(postUserData(data))
-            .then((response)=>{
-                if(response.payload.error){
-                    setExist(true)
-                    Swal.fire({
-                        icon: 'warning',
-                        title: response.payload.error.error,
-                    })
-                    return
-                }
-            })
-            reset()
-        }
-    };
+if (!data.email || !data.Contrasenia || !data.name) {
+    Swal.fire({
+        icon: 'warning',
+        title: `Faltan datos`,
+        text: 'Complete todos los campos requeridos',
+      });
+}
+console.log(data);
+userPw(data.email, data.Contrasenia)
+dispatch(postUserData(data))
+reset()
+};
 
     const handleChange = (event) =>{
         setValue(event.target.name, event.target.value)
@@ -217,8 +213,8 @@ const Register = () => {
 
                     <input className={style.submit} type="submit" />
 
-                    <button className={style.btnIniciarGoogle} onClick={handleClickGoogle} type="button"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
 
+<button className={style.btnIniciarGoogle} onClick={handleClickGoogle} type="button"> <img src={GoogleIcon} className={style.googleImg} alt="" />Iniciar con Google</button>
                     <div className={style.containerRegister}>
                         <h2 className={style.sinCuenta}>¿Ya tienes cuenta?</h2><Link to='/login' className={style.registerSolo}> Inicia sesión</Link>
                     </div>               
