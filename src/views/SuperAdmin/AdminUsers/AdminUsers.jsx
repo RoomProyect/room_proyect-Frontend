@@ -22,30 +22,27 @@ export const updateUser = async(obj)=>{
 const AdminUsers = () => {
     const [rol, setRol] = useState("--");
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
     const paginate = useSelector(state => state.user.paginado);
     const allUsers = useSelector(state => state.user.allUsers)
     const [debounceTimeout, setDebounceTimeout] = useState(null);
     
     useEffect(()=>{
+        const page = 1
+        dispatch(getUsers(page))
+        dispatch(getAllUsers())
         const userStorage = localStorage.getItem( "user" );
         const user = JSON.parse( userStorage );
-        console.log( user[0].rol );
-
         if(user[0].rol !== "superadmin"){
-            
             navigate('/home')
             alert('tomatela no tenes rol: (solo SuperAdmin)')
         }
 
-    })
+    },[])
     
     useEffect(() => {
-        if(users){
-            dispatch(getUsers(paginate.pageActual))
-        }
-    }, [[dispatch, paginate.pageActual]]);
+        dispatch(getUsers(paginate.pageActual))
+    }, [paginate.pageActual]);
 
     const handleChangePage = (event) => {
         if (debounceTimeout) {
@@ -103,6 +100,7 @@ const AdminUsers = () => {
         return nombreMatch || correoMatch;
     })
     : Users;
+    
     const handleFind = (event) => {
         const name = event.target.value
         setPass(name)

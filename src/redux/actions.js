@@ -2,7 +2,6 @@ import axios from 'axios';
 import { putDepto, postDepto, getDepto, getDeptoFiltered, paginate, getProv, getDeptoById } from './slice/counterSlice';
 import {getUsers_, setUser_, paginateUsers, prevPageUsers, nextPageUsers, getAllUsers_} from './slice/userSlice'
 import { getComments, nextPageComment, paginateComments, postComments, prevPageComment } from './slice/commentSlice';
-
 import Swal from 'sweetalert2'
 const endpoint = '/apartment';
 
