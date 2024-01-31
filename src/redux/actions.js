@@ -64,9 +64,16 @@ export const prevPage = () => ({
 
 export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
   try {
-    const { data } = await axios( endpoint );
-    dispatch(getDeptoFiltered([data.docs, filtro]))
-    console.log(data, filtro)
+    console.log(filtro, "soy el pepe")
+    if(filtro[2]){
+      console.log(filtro,"entre al combi");
+      const { data } = await axios( `/apartment?precio[${filtro[1]}]=${filtro[0]}&precio[${filtro[3]}]=${filtro[2]}` )
+      dispatch(getDeptoFiltered(data.docs))
+    }else{
+      console.log(filtro,"entre al solo");
+      const { data } = await axios( `/apartment?precio[${filtro[1]}]=${filtro[0]}` );
+      dispatch(getDeptoFiltered(data.docs))
+    }
   } catch (error) {
     dispatch({
       type: 'error',
@@ -93,11 +100,7 @@ export const getProvincias = ()=> async(dispatch) => {
 export const putDeptoActions = (data)=> async (dispatch) =>{
   try {
     const response = await axios.put('https://room-project-backend.onrender.com/apartment', data);
-  console.log(putDepto);
-  console.log(data);
-  console.log(endpoint);
     dispatch( putDepto( response.data ) );
-    console.log(response.data);
   } catch (error) {
     dispatch({
       type: "error",
@@ -121,14 +124,11 @@ export const getDeptoByIdAsync = (idDepto)=> async (dispatch) =>{
 
 export const getUsers = (page, allUsers) => async(dispatch) => {
   try {
-    console.log(page, allUsers)
     if(allUsers){
-      console.log("hola alluser")
       const {data} = await axios(`/users?allUsers=${allUsers}`)
       dispatch(getUsers_(data.docs))
     }
     if(page){
-      console.log("hola page")
       const {data} = await axios(`/users?page=${page}&limit=8`)
       dispatch(getUsers_(data.docs))
       dispatch(paginateUsers(data))
