@@ -38,14 +38,15 @@
 }
 
 .button {
-    margin: 0.3rem;
+    margin: 1rem;
     display: flex;
     width: 5rem;
+    height: 20px;
     padding: 1rem;
     justify-content: space-between;
     align-items: center;
     border-radius: 0.625rem;
-    background: #4f886b;
+    background: #77bfa3;
     border: none;
     color: aliceblue;
     transition: background 0.3s ease; 

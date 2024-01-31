@@ -7,25 +7,50 @@ import { ContainerFormReview } from '../../componentes/reviews/componentReview';
 import { Reviews } from '../../componentes/reviews/Reviews';
 import { handleClose, handleLogout, handleNewReview } from './functions/functions';
 import { useDispatch, useSelector } from 'react-redux';
-import { getReviews } from '../../redux/actions';
+import { getReviews, nextPageCommentAction, prevPageCommentaction } from '../../redux/actions';
 
 
 const Landing = () => {
     const [inputValue, setInputValue] = useState('');
     const [isSearchFocused, setIsSearchFocused] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [debounceTimeout, setDebounceTimeout] = useState(null);
 
     const userStorage = localStorage.getItem( "user" );
     const userParse = JSON.parse( userStorage );
 
     const dispatch = useDispatch();
-    const comments = useSelector((state) => state.comment.reviews);
+    const comments = useSelector( (state) => state.comment.reviews );
+    const paginate = useSelector( (state) => state.comment.paginado );
 
 
-    useEffect(() => {
-        dispatch( getReviews() );
-    }, [dispatch])
-    
+    useEffect(()=>{
+        dispatch( getReviews( paginate.pageActual ) );
+    }, [ paginate.pageActual ]);
+
+    const handleChangePage = ( event ) => {
+        if (debounceTimeout) {
+            // Si hay un timeout activo, cancelarlo
+            clearTimeout(debounceTimeout);
+        }
+
+        if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
+            // dispatch( nextPageCommentAction );
+            const timeout = setTimeout(() => {
+                dispatch(nextPageCommentAction);
+            }, 300);
+
+            setDebounceTimeout(timeout);
+        }
+        if( event.target.name === 'back' && paginate.pageActual > 1 ){
+            // dispatch( prevPageCommentaction );
+            const timeout = setTimeout(() => {
+                dispatch(prevPageCommentaction);
+            }, 300);
+
+            setDebounceTimeout(timeout);
+        }
+    }
 
     const handleInputChange = (e) => {
         const value = e.target.value;
@@ -82,6 +107,7 @@ const Landing = () => {
                 <div className={styles.contentContainer}>
                     <div className={styles.searchBar}>
                         <div className={styles.searchHeader}>
+                            <Link to={'/home'}>
                             <input
                                 id="searchInput"
                                 type="text"
@@ -91,7 +117,8 @@ const Landing = () => {
                                 onChange={handleInputChange}
                                 onFocus={handleInputFocus}
                                 onBlur={handleInputBlur}
-                            />
+                                />
+                                </Link>
                             <div className={styles.circle}>
                                 <img src={SearchIcon} alt="CasaIcono" />
                             </div>
@@ -105,13 +132,14 @@ const Landing = () => {
                                 </button>
                             </Link>
                             <div>
-                                {/* <Reviews reviews={ comments }/> */}
+                                <Reviews reviews={ comments } changePage={ handleChangePage } />
                             </div>
-                            {/* {
-                                userStorage && !userStorage[0].Reviews && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
+                            {
+                                // userStorage && !userParse[0].review && <button onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
+                                userStorage && !userParse[0].review && <button id='addReview' onClick={ handleNewReview } className={ styles.addReview } >Add Review</button>
                                 
                             }
-                            <ContainerFormReview handleClose={ handleClose }/> */}
+                            <ContainerFormReview handleClose={ handleClose } userLoged={ userParse } />
                     </div>
                 </div>
             </div>
