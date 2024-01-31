@@ -8,7 +8,7 @@ import NavBar from '../../componentes/navBar/NavBar'
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup, getAuth, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth"
 import { Link } from "react-router-dom";
-
+import Swal from 'sweetalert2'
 import dptoUnoLogin from "../../assets/cloudinary/Login/dptoUnoLogin.jpg";
 import dptoTresLogin from "../../assets/cloudinary/Login/dptoTresLogin.jpg";
 import dptoCincoLogin from "../../assets/cloudinary/Login/dptoCincoLogin.jpg";
@@ -49,11 +49,18 @@ const Register = () => {
     const user  = useSelector((state) => state.user.data)
     
     const onSubmit = (data) => {
-
-        userPw(data.email, data.Contrasenia)
-        dispatch(postUserData(data))
-        reset()
-    };
+if (!data.email || !data.Contrasenia || !data.name) {
+    Swal.fire({
+        icon: 'warning',
+        title: `Faltan datos`,
+        text: 'Complete todos los campos requeridos',
+      });
+}
+console.log(data);
+userPw(data.email, data.Contrasenia)
+dispatch(postUserData(data))
+reset()
+};
 
     const handleChange = (event) =>{
         setValue(event.target.name, event.target.value)

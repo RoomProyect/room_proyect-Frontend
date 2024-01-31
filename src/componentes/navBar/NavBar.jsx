@@ -6,6 +6,7 @@ import UserIcon  from '../../assets/cloudinary/userIcon.svg';
 import SearchBar from '../SearchBar/SearchBar';
 import { setUser } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 
 const NavBar = () => {
@@ -26,7 +27,12 @@ const NavBar = () => {
         dispatch(setUser(null))
         localStorage.removeItem( 'user' );
     }
+    const {pathname} = useLocation();
+    console.log(pathname);
 
+    // Ahora, `location.pathname` contiene la ruta actual
+
+  
     return (
         <div className={styles.navBarContainer}>
             
@@ -35,7 +41,12 @@ const NavBar = () => {
                     <img src={CasaIcono} alt="CasaIcono" />
                 </div>
             </Link>
-            <SearchBar/>           
+      {
+        
+pathname === '/home'?
+          <SearchBar/>
+          : <div></div>           
+      }
             <div className={styles.navBarRigth}>
 
                 {user && (user[0].rol === "superadmin" || user[0].rol === "admin") && (
