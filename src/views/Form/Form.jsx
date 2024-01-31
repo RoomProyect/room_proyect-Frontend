@@ -118,7 +118,7 @@ const Form = () => {
           baños: data.baños,
           ambientes: data.ambientes,
           provincias: data.provincia,
-          img: result, // Actualiza img con el resultado de la carga
+          img: result, 
         }));
   
         const provinciaSeleccionada = selectedProvince ? selectedProvince.nombre : '';
@@ -127,8 +127,6 @@ const Form = () => {
         data.latitud = latitud;
         data.longitud = longitud;
         data.provincias = provinciaSeleccionada;
-  
- 
   
         dispatch(postDeptoAsync(data));
         reset();

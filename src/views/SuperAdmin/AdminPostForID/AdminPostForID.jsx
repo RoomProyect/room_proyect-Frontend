@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../../componentes/footer/footer"
 import Swal from 'sweetalert2'
 
-
 const AdminPostForID = () => {
 
     const [editingDeptoId, setEditingDeptoId] = useState(null);
@@ -45,7 +44,6 @@ const AdminPostForID = () => {
         }
     }
 
-
     const { id } = useParams();
     const deptos = useSelector((state) => state.counter.deptos);
     const deptoForID = deptos.filter((depto) => {
@@ -60,7 +58,6 @@ const AdminPostForID = () => {
           navigate('/AdminUsers')
     }
 
-
     const handleData = (e) => {
         const valor = e.target.value;
         const clave = e.target.name;
@@ -70,7 +67,6 @@ const AdminPostForID = () => {
             [clave]: valor
         }));
     }
-
 
     const handleClickDelete = (event)=>{
         if(event.target.value === 'true'){

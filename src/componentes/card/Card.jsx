@@ -73,9 +73,9 @@ Card.propTypes = {
     baños: PropTypes.string.isRequired,
     cochera: PropTypes.string.isRequired,
     descripcion: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
+    img: PropTypes.array.isRequired,
     mcTerreno: PropTypes.string.isRequired,
-    precio: PropTypes.string.isRequired,
+    precio: PropTypes.number.isRequired,
     titulo: PropTypes.string.isRequired,
     provincias: PropTypes.string.isRequired,
     habitaciones: PropTypes.string.isRequired

@@ -39,6 +39,7 @@ const SearchBar = (props) => {
             }
         }
     }],
+    // hola
         ...props,
     }), [props])
 
