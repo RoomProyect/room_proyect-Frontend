@@ -64,21 +64,18 @@ const Login = () => {
           Swal.fire({
             icon: 'warning',
             title: `¡El email es incorrecto!`,
-            text: '',
           });
           setErrorLogin('email')
         } else if(!exist){
           Swal.fire({
             icon: 'warning',
             title: `¡El email no esta resgitrado!`,
-            text: 'El email no esta resgitrado',
           });
           setErrorLogin('email')
         } else if(errorMessage[1] === 'credential'){
           Swal.fire({
             icon: 'warning',
             title: `¡La contraseña es incorrecta!`,
-            text: 'La contraseña es incorrecta',
           });
           setErrorLogin('contraseña')
         } 
