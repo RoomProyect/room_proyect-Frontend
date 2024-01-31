@@ -60,13 +60,25 @@ const Login = () => {
         const errorCode = error.code;
         const errorMessage = errorCode.split('-');
         const exist = users.find(el => el.email.toLowerCase() === email.toLowerCase())
-        if(!exist){
-          setErrorLogin('El email no esta resgitrado')
+        if(errorMessage[1] === 'email'){
+          Swal.fire({
+            icon: 'warning',
+            title: `¡El email es incorrecto!`,
+          });
+          setErrorLogin('email')
+        } else if(!exist){
+          Swal.fire({
+            icon: 'warning',
+            title: `¡El email no esta resgitrado!`,
+          });
+          setErrorLogin('email')
         } else if(errorMessage[1] === 'credential'){
-          setErrorLogin('La contraseña es incorrecta')
-        } else if(errorMessage[1] === 'email'){
-          setErrorLogin('El email es incorrecto')
-        }
+          Swal.fire({
+            icon: 'warning',
+            title: `¡La contraseña es incorrecta!`,
+          });
+          setErrorLogin('contraseña')
+        } 
       });
 
   }
@@ -173,13 +185,12 @@ const Login = () => {
           <div className={style.inputContainer}>
             <div className={style.inputGroup}>
               <label className={style.emailLabel}>Email:</label>
-              <input style={(errorLogin.split(' ')[1] === 'email' && { borderColor: "red" }) || null} className={style.emailInput} type="text" name="email" placeholder="Example@email.com" {...register("email")}/>
+              <input style={(errorLogin === 'email' && { borderColor: "red" }) || null} className={style.emailInput} type="text" name="email" placeholder="Example@email.com" {...register("email")}/>
             </div>
             <div className={style.inputGroup}>
               <label className={style.passwordLabel}>Contraseña:</label>
-              <input style={(errorLogin.split(' ')[1] === 'contraseña' && { borderColor: "red" }) || null} className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" {...register("password")}/>
+              <input style={(errorLogin === 'contraseña' && { borderColor: "red" }) || null} className={style.passwordInput} type="password" name="password" placeholder="Minimo 8 caracteres" {...register("password")}/>
             </div>
-            {errorLogin && <div style={{ color: 'red'}} >{errorLogin}</div> }
             <div><h2 className={style.resClave}>Olvidaste tu contraseña?</h2></div>
           </div>
           <button className={style.btnIniciarSesion} type="submit">Iniciar sesión</button>
