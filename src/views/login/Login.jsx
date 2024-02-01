@@ -128,7 +128,7 @@ const Login = () => {
         // The signed-in user info.
         const user = result.user;
         const user_ver = users.filter((el)=> el.email == user.email)
-        if (user_ver[0].active == false) {
+        if (user_ver[0] && user_ver[0].active== false) {
           Swal.fire({
             icon: 'warning',
             title: 'Usuario no puede ingresar',
@@ -142,10 +142,11 @@ const Login = () => {
             title: `¡Bienvenido, ${user_ver[0].name}!`,
             text: 'Inicio de sesión exitoso.',
           });
-          navigate('/home')
+
         } else {
+          
           dispatch(postUserData({email: user.email, name: user.displayName}))               
-          navigate('/home')   
+           
         }
         // IdP data available using getAdditionalUserInfo(result)
         // ...
