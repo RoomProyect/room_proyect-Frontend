@@ -17,8 +17,8 @@ const Filters = () => {
         precio_min: "",
         sortByP: "",
         page: "1",
-        cochera: ""
-        // provincias: ""
+        cochera: "",
+        provincias: ""
     });
 
     const dispatch = useDispatch();
