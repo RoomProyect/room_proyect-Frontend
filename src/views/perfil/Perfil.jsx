@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import './perfil.css'; 
 
 const Perfil = () => {
 
   const userStorage = localStorage.getItem( "user" );
   const user = JSON.parse( userStorage );
-  console.log(user)
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -28,8 +30,13 @@ const Perfil = () => {
     };
   }, []);
 
+  const handleGoToHome = () => {
+    navigate('/home');
+  }
+
   return (
     <div className="container">
+      <button className='btnBack' onClick={ handleGoToHome } >Home</button>
       <div className="card card--front">
         <div className="logo">
 

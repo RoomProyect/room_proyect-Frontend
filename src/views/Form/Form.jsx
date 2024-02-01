@@ -5,28 +5,24 @@ import { postDeptoAsync, getProvincias } from "../../redux/actions";
 import styles from "./form.module.css";
 import NavBar from "../../componentes/navBar/NavBar";
 import { useState, useEffect } from "react";
-//  import PropTypes from "prop-types";
 import { may_cero } from "./validator";
 import { useNavigate } from 'react-router-dom';
+import Card from "../../componentes/card/Card";
+import Swal from 'sweetalert2'
+
 
 const Form = () => {
   const [img, setImg] = useState({});
   const [section, setSection] = useState(1);
+
+  const [latitud, setLatitud] = useState('');
+  const [longitud, setLongitud] = useState('');
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const provincias = useSelector((state) => state.counter.provincias);
-  const [provinciaSeleccionada, setProvinciaSeleccionada] = useState('');
-
   const userStorage = localStorage.getItem( "user" );
   const user = JSON.parse( userStorage );
-
-
-  const handleSelect = (event) => {
-    const provinciaElegida = event.target.value;
-    setProvinciaSeleccionada(provinciaElegida);
-  };
-
 
   useEffect(()=>{
     const userStorage = localStorage.getItem( "user" );
@@ -34,25 +30,46 @@ const Form = () => {
 
     if(user[0].rol !== "superadmin" && user[0].rol !== "admin"){       
         navigate('/home')
-        alert('tomatela no tenes rol: (solo SuperAdmin)')
+        Swal.fire({
+          icon: 'warning',
+          title: 'Usuario no puede ingresar',
+          text: 'El usuario no tiene permisos para ingresar.',
+        });
     }
-  })
+    }, []);
+
+    useEffect(() => {
+      dispatch(getProvincias());
+    }, []);
 
 
-  useEffect(() => {
-    if(!provincias.length){
-      dispatch(getProvincias())
-    }
+    const provincias = useSelector((state) => state.counter.provincias);
+
+    const [selectedProvince, setSelectedProvince] = useState(null);
+
+    const handleProvinceChange = (event) => {
+      const selectedProvinceName = event.target.value;
+      const province = provincias.find((p) => p.nombre === selectedProvinceName);
+      
+      setSelectedProvince(province);
+    
+      setLatitud(province.centroide.lat);
+      setLongitud(province.centroide.lon);
+    };
+  
+  const [cardData, setCardData] = useState({
+      titulo: '',
+      descripcion: '',
+      mcTerreno: '',
+      precio: '',
+      habitaciones: '',
+      cocheras: '',
+      baños: '',
+      ambientes: '',
+      provincia: '',
+      img: [],
   });
   
-  
-  useEffect(() => {
-    if (!provincias.length) {
-      dispatch(getProvincias());
-    }
-  }, []); // Agregamos un array vacío como dependencia
-   
-
   const {
     register,
     handleSubmit,
@@ -62,6 +79,72 @@ const Form = () => {
     getValues,
     formState: { errors },
   } = useForm();
+
+  const onSubmit = async (data) => {
+    setCardData((prevData) => ({
+      ...prevData,
+      img: img.length > 0 ? img : prevData.img,
+    }));
+  
+    if (section === 1) {
+      // Primera sección del formulario
+      setSection(2);
+    } else {
+      // Segunda sección del formulario
+      if ( !img || img.length === 0 ) {
+        Swal.fire({
+          icon: 'success',
+          title: `¡Faltan datos!`,
+          text: 'Tiene que agregar al menos 1.',
+        });
+        return;
+      }
+  
+      try {
+        if (img.length >= 10 && img.length <= 4) {
+          alert("entre 4 y 10");
+        }
+        
+        const result = await uploadFiles(img);
+  
+        setCardData((prevData) => ({
+          ...prevData,
+          titulo: data.titulo,
+          descripcion: data.descripcion,
+          mcTerreno: data.mcTerreno,
+          precio: data.precio,
+          habitaciones: data.habitaciones,
+          cocheras: data.cocheras,
+          baños: data.baños,
+          ambientes: data.ambientes,
+          provincias: data.provincia,
+          img: result, 
+        }));
+  
+        const provinciaSeleccionada = selectedProvince ? selectedProvince.nombre : '';
+        data.img = result;
+        data.userId = user[0]._id;
+        data.latitud = latitud;
+        data.longitud = longitud;
+        data.provincias = provinciaSeleccionada;
+  
+        dispatch(postDeptoAsync(data));
+        reset();
+
+      setTimeout(() => {
+        navigate('/home');
+      }, 7000);
+
+      } catch (error) {
+        Swal.fire({
+          icon: 'warning',
+          title: `¡Faltan datos!`,
+          text: 'Tiene que agregar al menos una imagen.',
+        });
+        console.error("Error al subir archivos:", error);
+      }
+    }
+  };
   
   const handleIncrement = (field) => {
     const value = parseInt(getValues(field), 10) || 0;
@@ -73,53 +156,33 @@ const Form = () => {
     setValue(field, Math.max(value - 1, 0));
   };
 
-  
-  const onSubmit = async (data) => {
-    if (section === 1) {
-      // Primera sección del formulario
-      setSection(2);
-    } else {
-      // Segunda sección del formulario
-      if ( !img || img.length === 0 ) {
-        console.error("Debes seleccionar al menos un archivo para subir.");
-        return;
-      }
-  
-      
-      try {
-        if( img.length >= 10 && img.length <= 4 ) {
-          alert("Por eso te gorrean(facu)")
-        }
-        const result = await uploadFiles(img);
-        data.img = result;
-        
-        data.userId = user[0]._id
 
-        dispatch(postDeptoAsync(data));
-        reset();
-        
-      } catch (error) {
-        console.error("Error al subir archivos:", error);
-      }
-    }
+  
+  const handleFileChange = (e) => {
+    setImg(e.target.files);
   };
   
 
-  const handleChange = (event) =>{
-    setValue(event.target.name, event.target.value)
-    trigger(event.target.name)
-  }
-
-
-
+  const handleChange = (event) => {
+    setValue(event.target.name, event.target.value);
+    trigger(event.target.name);
+  
+    setCardData((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  };
+  
   return (
     <div>
       <div className={styles.navBar}>
       <NavBar />
       </div>
     <div className={styles.formContainer}>
-
       <h2 className={styles.formTitle}> Formulario </h2>
+      <div className={styles.cardForm}>
+        <Card {...cardData} />
+      </div>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         {section === 1 && (
           <>
@@ -304,7 +367,6 @@ const Form = () => {
                 <button
                   type="button"
                   className={styles.decrementButton}
-                  
                   onClick={() => handleDecrement("baños")}
                 >
                   -
@@ -373,27 +435,25 @@ const Form = () => {
             </div>
 
             <div className={styles.formGroup}>
-            <select
-              className={styles.formSelectSeccionDos}
-              name="provincia"
-              value={provinciaSeleccionada}
-              onChange={handleSelect}
-              {...register("ciudad")}
-            >
-              {provincias.length > 0 ? (
-                provincias.map((provincia, index) => (
-                  <option key={index} value={provincia}>
-                    {provincia}
+              <select
+                className={styles.formSelectSeccionDos}
+                name="provincia"
+                {...register('provincia')}
+                onChange={handleProvinceChange}
+              >
+                {provincias.length > 0 ? (
+                  provincias.map((provincia, index) => (
+                    <option key={index} value={provincia.nombre}>
+                      {provincia.nombre}
+                    </option>
+                  ))
+                ) : (
+                  <option value="" disabled>
+                    Cargando provincias...
                   </option>
-                ))
-              ) : (
-                <option value="" disabled>
-                  Cargando provincias...
-                </option>
-              )}
-            </select>
+                )}
+              </select>
             </div>
-
             <div className={styles.formGroup}>
               <label htmlFor="fileInput" className={styles.formLabel}>
                 Selecciona archivos
@@ -401,11 +461,27 @@ const Form = () => {
               <input
                 type="file"
                 id="fileInput"
-                onChange={(e) => setImg(e.target.files)}
+                onChange={handleFileChange}
                 className={styles.fileInput}
-                multiple // Habilita la selección de múltiples archivos
+                multiple 
               />
             </div>
+            <input
+              type="text"
+              name="latitud"
+              id="latitud"
+              {...register('latitud', { value: latitud })}
+              readOnly
+              style={{ display: 'none' }}
+            />
+            <input
+              type="text"
+              name="longitud"
+              id="longitud"
+              {...register('longitud', { value: longitud })}
+              readOnly
+              style={{ display: 'none' }}
+            />
             <button
                 type="button"
                 onClick={() => setSection(1)}
@@ -421,18 +497,5 @@ const Form = () => {
   );
 };
 
-//     Form.propTypes = {
-//          id: PropTypes.string.isRequired,
-//         ambientes: PropTypes.string.isRequired,
-//       baños: PropTypes.string.isRequired,
-//        cochera: PropTypes.string.isRequired,
-//       descripcion: PropTypes.string.isRequired,
-//       img: PropTypes.string.isRequired,
-//        mcTerreno: PropTypes.string.isRequired,
-//        precio: PropTypes.string.isRequired,
-//       titulo: PropTypes.string.isRequired,
-//      ciudad: PropTypes.string.isRequired,
-//        habitaciones: PropTypes.string.isRequired,
-//   };
 
 export default Form;

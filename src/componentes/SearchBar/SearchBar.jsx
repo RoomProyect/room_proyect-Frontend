@@ -39,6 +39,7 @@ const SearchBar = (props) => {
             }
         }
     }],
+    // hola
         ...props,
     }), [props])
 
@@ -70,7 +71,6 @@ const SearchBar = (props) => {
         // className='flex justify-center mb-20 w-2/6' 
         className={styles.searchBar}
         {...formProps}>
-                {console.log(autocomplete)}
             {/* {console.log(autocompleteState)} */}
             <div 
                 // className='flex relative p-1  bg-gradient-to-tr from-green-600 to-white-300  rounded-full w-full'
@@ -103,7 +103,6 @@ const SearchBar = (props) => {
                     </div>
                 )
             }
-            {console.log(autocompleteState.collections)}
             </div>
         </form>
     )

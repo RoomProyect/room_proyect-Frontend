@@ -7,9 +7,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
 
-
-
-
 const Home = () => {
 
     const dispatch = useDispatch();
@@ -19,7 +16,7 @@ const Home = () => {
     useEffect(()=>{
         dispatch(getDeptoAsync( paginate.pageActual ))
     }, [dispatch, paginate.pageActual])
-
+    
     const handleChangePage = ( event ) => {
         if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
             dispatch( nextPage() );
@@ -46,6 +43,7 @@ const Home = () => {
                             ideal en Argentina. Con años de experiencia en el sector inmobiliario, te brindamos
                             completas opciones a los precios más bajos. ¡No esperes más para encontrar tu nuevo hogar!
                         </p>
+                        <div className={styles.imageContainerDown}></div>
                 </div>
             </div>
             <div className={ styles.contentFilters }>

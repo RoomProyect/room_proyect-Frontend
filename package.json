@@ -13,6 +13,7 @@
     "@algolia/autocomplete-core": "^1.15.0",
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.5",
+    "esbuild": "^0.20.0",
     "firebase": "^10.7.1",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",
@@ -27,6 +28,7 @@
     "react-zoom-pan-pinch": "^3.3.0",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
+    "sweetalert2": "^11.10.4",
     "toolkit": "^1.5.4",
     "uuid": "^9.0.1"
   },
