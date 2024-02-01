@@ -2,18 +2,35 @@ import { createAutocomplete } from '@algolia/autocomplete-core';
 import { useState } from 'react';
 import { useMemo } from 'react';
 import { useRef } from 'react';
+import React, { useEffect } from 'react';
 import styles from '../navBar/NavBar.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProvincia } from '../../redux/slice/counterSlice';
+import  {getActionFiltered} from '../../redux/actions'
 
 import SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
 
 const AutocompleteItem = ({ id, provincias}) => {
-// este es el componente que renderiza cada opcion del autocomplete
-// al darle click a una opcion que tira el autocomplete deberia hacer un dispatch desde redux
-// la logica del dispatch para buscar por ciudad debe de estar dentro de este componente
+    const dispatch = useDispatch();
+    const updatedFilter = useSelector((state) => state.counter.filter);
+  
+    const handleItemClick = (provincia) => {
+      dispatch(setProvincia(provincia));
+    };
+  
+    useEffect(() => {
+      // Este efecto se ejecutará cada vez que el estado se actualice
+      console.log("fppppp");
+      dispatch(getActionFiltered(updatedFilter));
+      console.log("f");
+    }, [updatedFilter])
+
     return <li 
-            // className='hover:bg-green-300 flex gap-4' 
             className={styles.containerListCity}
-            key={id}>{provincias}
+            key={id}
+            onClick={() => handleItemClick(provincias)}
+            >
+                {provincias}
         </li>
 }
 

@@ -9,13 +9,20 @@ export const counterSlice = createSlice({
     deptosFiltered: [],
     deptosBackup: [],
     provincias: [],
-    min: false,
-    max: false,
-    minPrice: 0,
-    maxPrice: Infinity,
+    minPrice: 0,  // Nuevo estado para almacenar el valor mínimo
+    maxPrice: Infinity,  // Nuevo estado para almacenar el valor máximo
     paginado: {},
     putDeptos: [],
-    cart: [],  // Agregamos el estado del carrito
+    filter: {
+      max: "max",
+      min: "min",
+      precio_max: "",
+      precio_min: "",
+      sortByP: "",
+      paginate: "1",
+      provincias: ""
+  },
+    
   },
   reducers: {
     getProv: (state, action) =>{
@@ -38,8 +45,7 @@ export const counterSlice = createSlice({
     getDeptoById: (state, action) => {
       state.deptoById = action.payload;
     },
-    paginate: (state, action) => {
-      state.totalPages = action.payload.totalPages;
+    paginate: ( state,action ) => {
       state.paginado = {
         totalPages: action.payload.totalPages,
         pageActual: action.payload.page,
@@ -47,7 +53,10 @@ export const counterSlice = createSlice({
         nextPage: action.payload.nextPage,
       };
     },
-    setCardsPerPage: (state) => {
+    filter: (state, action) => {
+      state.filter = action.payload
+    },
+    setCardsPerPage: (state,) => {
       state.paginado.cardsPerPage = 8;
     },
     nextPage: (state) => {
@@ -57,7 +66,8 @@ export const counterSlice = createSlice({
       state.paginado.pageActual -= 1;
     },
     getDeptoFiltered: ( state, action ) => {
-      state.deptos = action.payload
+      state.deptos = action.payload,
+      state.deptosFiltered = action.payload
       // let array = action.payload[0]
       // console.log(action.payload)
       // if(action.payload[1][0] == "reset"){
@@ -95,10 +105,9 @@ export const counterSlice = createSlice({
       //   }
       // }
     },
-    // Agregamos la acción ADD_TO_CART
-    addToCart: (state, action) => {
-      state.cart = [...state.cart, action.payload];
-    },
+    setProvincia: (state, action) => {
+      state.filter.provincias = action.payload;
+    }
   },
 });
 
@@ -113,7 +122,8 @@ export const {
   prevPage,
   getProv,
   getDeptoById,
-  addToCart,  // Agregamos la acción al export
+  filter,
+  setProvincia
 } = counterSlice.actions;
 
 export default counterSlice.reducer;
