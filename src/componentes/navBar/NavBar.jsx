@@ -32,21 +32,20 @@ const NavBar = () => {
 
 
 
-  
-    return (
+
+return (
         <div className={styles.navBarContainer}>
-            
             <Link to="/home" >
                 <div className={styles.logoContainer}>
                     <img src={CasaIcono} alt="CasaIcono" />
                 </div>
             </Link>
-      {
+            {
         
-pathname === '/home'?
-          <SearchBar/>
-          : <div></div>           
-      }
+            pathname === '/home'?
+                    <SearchBar/>
+                    : <div></div>           
+                }
             <div className={styles.navBarRigth}>
 
                 {user && (user[0].rol === "superadmin" || user[0].rol === "admin") && (

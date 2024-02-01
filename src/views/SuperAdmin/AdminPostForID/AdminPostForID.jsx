@@ -1,6 +1,6 @@
 import styles from './AdminPostsForID.module.css';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getDeptoAsync, nextPage, prevPage, putDeptoActions } from '../../../redux/actions';
+import { getDeptoAsync, nextPage, prevPage, putDeptoActions, getProvincias } from '../../../redux/actions';
 import { useEffect, useState } from "react";
 import Navbar from '../../../componentes/navBar/NavBar';
 import { Link } from 'react-router-dom';
@@ -13,15 +13,22 @@ const AdminPostForID = () => {
 
     const [editingDeptoId, setEditingDeptoId] = useState(null);
     const [edit, setEdit] = useState(false)
-    const [dataInput, setDatainput] = useState({})
+    const [dataInput, setDataInput] = useState({})
+
     const paginate = useSelector(state => state.counter.paginado);
+    const [selectedProvince, setSelectedProvince] = useState('');
+    const provincias = useSelector((state) => state.counter.provincias);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        dispatch(getProvincias());
+    }, []);
     
     useEffect(()=>{
         const userStorage = localStorage.getItem( "user" );
         const user = JSON.parse( userStorage );
-
 
         if(user[0].rol !== "superadmin"){
             
@@ -29,7 +36,6 @@ const AdminPostForID = () => {
             alert('tomatela no tenes rol: (solo SuperAdmin)')
         }
     })
-
 
     useEffect(() => {
         dispatch(getDeptoAsync(paginate.pageActual))
@@ -54,19 +60,24 @@ const AdminPostForID = () => {
             icon: 'info',
             title: 'Usuario sin publicaciones',
             text: 'El usuario no ha agregado ninguna publicación.',
-          })
-          navigate('/AdminUsers')
+        })
+        navigate('/AdminUsers')
     }
 
     const handleData = (e) => {
         const valor = e.target.value;
         const clave = e.target.name;
 
-        setDatainput((prevDataInput) => ({
+        setDataInput((prevDataInput) => ({
             ...prevDataInput,
             [clave]: valor
         }));
     }
+
+    const handleProvinceSelectChange = (event) => {
+        const selectedProvinceName = event.target.value;
+        setSelectedProvince(selectedProvinceName);
+    };
 
     const handleClickDelete = (event)=>{
         if(event.target.value === 'true'){
@@ -77,14 +88,28 @@ const AdminPostForID = () => {
         
     }
 
-    const handleEdit = (deptoId) => {
-
+    const handleEdit = async (deptoId) => {
         setEdit(!edit);
         setEditingDeptoId(edit ? null : deptoId);
-    
-        // Envía la solicitud de edición, asegurándote de pasar el deptoId correcto
-        dispatch(putDeptoActions({ _id: deptoId, ...dataInput }));
-    }
+        const depto = deptos.find((depto) => depto._id === deptoId);
+        setDataInput(depto);
+        console.log(depto);
+
+        if (edit) {
+            // Almacena solo el nombre de la provincia
+            await dispatch(
+                putDeptoActions({
+                    _id: deptoId,
+                    ...dataInput,
+                    provincias: selectedProvince,
+                })
+            );
+            
+            setDataInput({});
+            await dispatch(getDeptoAsync(paginate.pageActual));
+        }
+    };
+
 
     return (
         <div className={styles.homeContainer}>
@@ -130,7 +155,7 @@ const AdminPostForID = () => {
                                 <td>
                                     {editingDeptoId === depto._id ? (
                                         <input
-                                            type="text"
+                                            type="number"
                                             name="precio"
                                             value={dataInput.precio || depto.precio}
                                             onChange={handleData}
@@ -142,10 +167,13 @@ const AdminPostForID = () => {
                                 <td>
                                     {editingDeptoId === depto._id ? (
                                         <input
-                                            type="text"
+                                            type="number"
                                             name="habitaciones"
                                             value={dataInput.habitaciones || depto.habitaciones}
                                             onChange={handleData}
+                                            min="0"
+                                            max="10"
+                                            onKeyDown={(e) => e.preventDefault()}
                                         />
                                     ) : (
                                         depto?.habitaciones
@@ -154,10 +182,13 @@ const AdminPostForID = () => {
                                 <td>
                                     {editingDeptoId === depto._id ? (
                                         <input
-                                            type="text"
+                                            type="number"
                                             name="baños"
                                             value={dataInput.baños || depto.baños}
                                             onChange={handleData}
+                                            min="0"
+                                            max="10"
+                                            onKeyDown={(e) => e.preventDefault()}
                                         />
                                     ) : (
                                         depto?.baños
@@ -166,31 +197,55 @@ const AdminPostForID = () => {
                                 <td>
                                     {editingDeptoId === depto._id ? (
                                         <input
-                                            type="text"
+                                            type="number"
                                             name="cochera"
                                             value={dataInput.cochera || depto.cochera}
                                             onChange={handleData}
+                                            min="0"
+                                            max="10"
+                                            onKeyDown={(e) => e.preventDefault()}
                                         />
                                     ) : (
                                         depto?.cochera
                                     )}
                                 </td>
                                 <td>
-                                    {editingDeptoId === depto._id ? (
+                                {editingDeptoId === depto._id ? (
+                                    <div>
+                                        <select
+                                            type="text"
+                                            name="provincia"
+                                            value={selectedProvince}
+                                            onChange={handleProvinceSelectChange}
+                                        >
+                                            {provincias.length > 0 ? (
+                                                provincias.map((provincia, index) => (
+                                                    <option key={index} value={provincia.nombre}>
+                                                        {provincia.nombre}
+                                                    </option>
+                                                ))
+                                            ) : (
+                                                <option value="" disabled>
+                                                    Cargando provincias..
+                                                </option>
+                                            )}
+                                        </select>
                                         <input
                                             type="text"
-                                            name="ciudad"
-                                            value={dataInput.ciudad || depto.ciudad}
+                                            name="provincias"
+                                            value={dataInput.provincias}
                                             onChange={handleData}
+                                            style={{ display: "none" }}
                                         />
-                                    ) : (
-                                        depto?.ciudad
-                                    )}
-                                </td>
+                                    </div>
+                                ) : (
+                                    depto?.provincias
+                                )}
+                            </td>
                                 <td>
                                     {editingDeptoId === depto._id ? (
                                         <input
-                                            type="text"
+                                            type="number"
                                             name="mcTerreno"
                                             value={dataInput.mcTerreno || depto.mcTerreno}
                                             onChange={handleData}

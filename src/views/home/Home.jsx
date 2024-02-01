@@ -5,18 +5,25 @@ import Cards from "../../componentes/cards/Cards"
 import Footer from '../../componentes/footer/footer';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDeptoAsync, nextPage, prevPage } from '../../redux/actions'; 
+import { getDeptoAsync, nextPage, prevPage, getActionFiltered, paginateFilter } from '../../redux/actions'; 
 
 const Home = () => {
 
     const dispatch = useDispatch();
     const deptos = useSelector( (state) => state.counter.deptos );
     const paginate = useSelector ( state => state.counter.paginado );
-
-    useEffect(()=>{
-        dispatch(getDeptoAsync( paginate.pageActual ))
-    }, [dispatch, paginate.pageActual])
+    const filter = useSelector( (state) => state.counter.filter );
+    const deptosFiltered = useSelector(state => state.counter.deptosFiltered)
     
+    useEffect(()=>{
+        console.log(filter)
+        if(filter.sortByP == "1" || filter.sortByP == "-1" || filter.precio_max || filter.precio_min){
+            dispatch(getActionFiltered({...filter, page: paginate.pageActual}))
+        }else{
+            dispatch(getDeptoAsync( paginate.pageActual ))
+        }
+    }, [dispatch, paginate.pageActual])
+  
     const handleChangePage = ( event ) => {
         if( event.target.name === 'next' && paginate.pageActual < paginate.totalPages ){
             dispatch( nextPage() );
@@ -25,7 +32,6 @@ const Home = () => {
             dispatch( prevPage() );
         }
     }
-
     
 
     return (
@@ -43,6 +49,7 @@ const Home = () => {
                             ideal en Argentina. Con años de experiencia en el sector inmobiliario, te brindamos
                             completas opciones a los precios más bajos. ¡No esperes más para encontrar tu nuevo hogar!
                         </p>
+                        <div className={styles.imageContainerDown}></div>
                 </div>
             </div>
             <div className={ styles.contentFilters }>
