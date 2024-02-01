@@ -106,8 +106,6 @@ const AdminUsers = () => {
         setPass(name)
     }
 
-
-
     
     return (
         <div className={styles.homeContainer}>
@@ -152,7 +150,16 @@ const AdminUsers = () => {
                                             </select>
 
                                             <button className={styles.blueButton} id={user._id} onClick={handleClickRol}>Dar Rol</button>
-                                            <button className={styles.redButton} id={user._id} value = {user.active} onClick={handleClickBan}>Banear/Desbanear</button>
+                                            
+                                            <button
+                                                className={user.active ? styles.redButton : styles.blueButton}
+                                                id={user._id}
+                                                onClick={handleClickBan}
+                                                value={user.active}
+                                            >
+                                                {user.active ? 'Banear' : 'Desbanear'}
+                                            </button>
+
                                             <Link to={`/publicaciones/${user._id}` }>
                                                 <button className={styles.viewButton } >Ver Publicaciónes</button>
                                             </Link>

@@ -84,7 +84,6 @@
     margin-left: 1.5rem;
 }
 
-
 /*tabla*/
 .tableHeader {
     display: flex;
@@ -106,7 +105,7 @@
 .blueButton {
     background-color: #4F886B;
     color: white;
-    margin-right: 20px;
+    margin-left: 10px;
     border-radius: 6px;
     border: none;
     width: 100px;
@@ -117,6 +116,7 @@
 
 .redButton {
     background-color: #924242;
+    margin-left: 10px;
     color: white;
     border-radius: 6px;
     border: none;
