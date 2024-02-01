@@ -65,8 +65,8 @@
     left: 0;
     border-width: 1px;
     border-style: solid;
-    border-color: #d2d6dc; /* Color gris correspondiente a border-gray-100 en Tailwind */
-    background-color: #159660f8; /* Color azul correspondiente a bg-blue en Tailwind */
+    border-color: #ffffffd3; /* Color gris correspondiente a border-gray-100 en Tailwind */
+    background-color: #f0f0f0; /* Color azul correspondiente a bg-blue en Tailwind */
     overflow: hidden;
     border-radius: 0.75rem; /* Puedes ajustar el valor según tus necesidades */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Estilo de sombra correspondiente a shadow-lg en Tailwind */
