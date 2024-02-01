@@ -39,9 +39,15 @@ const Footer = () => {
             <div className={styles.socialMedia}>
                 <h2>Social Media</h2>
                 <ul className={styles.socialMediaList}>
-                    <li><img className={styles.imgSocialMedia} src={Facebook} alt="" /></li>
-                    <li><img className={styles.imgSocialMedia} src={Ig} alt="" /></li>
-                    <li><img className={styles.imgSocialMedia} src={Twitter} alt="" /></li>
+                    <a href="https://www.facebook.com/"  target="_blank" rel="noopener noreferrer">
+                        <li><img  className={styles.imgSocialMedia} src={Facebook}  alt=""/></li>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                        <li> <img className={styles.imgSocialMedia} src={Ig} alt="" /></li>
+                    </a>
+                    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+                    <li><img  className={styles.imgSocialMedia} src={Twitter} alt="" /></li>
+                    </a>
                 </ul>
             </div>
         </div>

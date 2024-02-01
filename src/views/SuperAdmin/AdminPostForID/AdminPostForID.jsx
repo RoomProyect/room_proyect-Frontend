@@ -79,15 +79,16 @@ const AdminPostForID = () => {
         setSelectedProvince(selectedProvinceName);
     };
 
-    const handleClickDelete = (event)=>{
-        if(event.target.value === 'true'){
-            dispatch(putDeptoActions({_id: event.target.id, active: false}))
-        }else{
-            dispatch(putDeptoActions({_id: event.target.id, active: true}))
-        }
-        
-    }
-
+    const handleClickDelete = async (event) => {
+        const updatedActiveState = event.target.value === "true" ? false : true;
+        await dispatch(
+        putDeptoActions({
+            _id: event.target.id,
+            active: updatedActiveState,
+        })
+        );
+        await dispatch(getDeptoAsync(paginate.pageActual));
+    };
     const handleEdit = async (deptoId) => {
         setEdit(!edit);
         setEditingDeptoId(edit ? null : deptoId);
@@ -242,12 +243,12 @@ const AdminPostForID = () => {
                                     depto?.provincias
                                 )}
                             </td>
-                                <td>
+                            <td>
                                     {editingDeptoId === depto._id ? (
                                         <input
                                             type="number"
                                             name="mcTerreno"
-                                            value={dataInput.mcTerreno || depto.mcTerreno}
+                                            value={dataInput.mcTerreno }
                                             onChange={handleData}
                                         />
                                     ) : (
@@ -265,7 +266,14 @@ const AdminPostForID = () => {
                                         <Link to={`/detail/${depto._id}`}>
                                             <button className={styles.blueButton}>Ver Publicacion</button>
                                         </Link>
-                                            <button className={styles.redButton} id={depto._id} value={depto.active} onClick={handleClickDelete}>Borrado Logico</button>
+                                            <button
+                                                className={depto.active ? styles.redButton : styles.blueButton}
+                                                id={depto._id}
+                                                onClick={handleClickDelete}
+                                                value={depto.active}
+                                            >
+                                                {depto.active ? 'Borrado Lógico' : 'Activar Nuevamente'}
+                                            </button>
                                             <button className={styles.viewButton} onClick={() => handleEdit(depto._id)}>
                                                 Editar
                                             </button>

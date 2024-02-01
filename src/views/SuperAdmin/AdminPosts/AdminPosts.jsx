@@ -268,12 +268,12 @@ const AdminPost = () => {
                                                 </button>
                                             </Link>
                                             <button
-                                                className={styles.redButton}
+                                                className={depto.active ? styles.redButton : styles.blueButton}
                                                 id={depto._id}
-                                                value={depto.active}
                                                 onClick={handleClickDelete}
+                                                value={depto.active}
                                             >
-                                                Borrado Logico
+                                                {depto.active ? 'Borrado Lógico' : 'Activar Nuevamente'}
                                             </button>
                                             <button
                                                 className={styles.viewButton}
