@@ -3,10 +3,10 @@ import styles from './NavBar.module.css';
 import { Link } from 'react-router-dom';
 import CasaIcono  from '../../assets/cloudinary/casaicono.svg';
 import UserIcon  from '../../assets/cloudinary/userIcon.svg';
-import SearchBar from '../SearchBar/SearchBar';
+// import SearchBar from '../SearchBar/SearchBar';
 import { setUser } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 
 const NavBar = () => {
@@ -27,9 +27,7 @@ const NavBar = () => {
         dispatch(setUser(null))
         localStorage.removeItem( 'user' );
     }
-    const {pathname} = useLocation();
-
-
+    // const {pathname} = useLocation();
 
 
 
@@ -40,12 +38,12 @@ return (
                     <img src={CasaIcono} alt="CasaIcono" />
                 </div>
             </Link>
-            {
+            {/* {
         
             pathname === '/home'?
                     <SearchBar/>
                     : <div></div>           
-                }
+                } */}
             <div className={styles.navBarRigth}>
 
                 {user && (user[0].rol === "superadmin" || user[0].rol === "admin") && (

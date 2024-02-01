@@ -29,7 +29,7 @@ const Filters = () => {
     useEffect(() => {
         // La lógica que depende del estado actualizado debe ir aquí
         dispatch(getActionFiltered(filter));
-      }, [filter]);
+    }, [filter]);
 
     const handleInputChange = (event, setter) => {
         const value = event.target.value;
@@ -43,10 +43,10 @@ const Filters = () => {
                 
                 if (event.target.name === "max") {
                     setFilter(prevFilter => ({ ...prevFilter, precio_max: value, max: "max" }));
-                  }
+                }
                 if (event.target.name === "min") {
                     setFilter(prevFilter => ({ ...prevFilter, precio_min: value, min: "min" }));
-                  }                
+                }                
             }
         }
         if(event.target.name == "cochera"){
@@ -60,10 +60,6 @@ const Filters = () => {
 
     const handleSearch = () => {
         let deptosFiltrados = [...deptos];
-
-        if (ciudad) {
-            deptosFiltrados = deptosFiltrados.filter(depto => depto.ciudad == ciudad)
-        }
         if (cochera === "s") {
             deptosFiltrados = deptosFiltrados.filter((depto) => depto.cochera == true);
         }
@@ -156,5 +152,7 @@ const Filters = () => {
         </div>
     );
 };
+
+
 
 export default Filters;

@@ -1,115 +1,137 @@
 import { createAutocomplete } from '@algolia/autocomplete-core';
-import { useState } from 'react';
-import { useMemo } from 'react';
-import { useRef } from 'react';
-import React, { useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import styles from '../navBar/NavBar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProvincia } from '../../redux/slice/counterSlice';
-import  {getActionFiltered} from '../../redux/actions'
+import { getActionFiltered } from '../../redux/actions';
 
-import SearchIcon  from '../../assets/cloudinary/iconSearch.svg';
+import SearchIcon from '../../assets/cloudinary/iconSearch.svg';
 
-const AutocompleteItem = ({ id, provincias}) => {
+const AutocompleteItem = ({ id, provincias }) => {
     const dispatch = useDispatch();
     const updatedFilter = useSelector((state) => state.counter.filter);
-  
-    const handleItemClick = (provincia) => {
-      dispatch(setProvincia(provincia));
-    };
-  
-    useEffect(() => {
-      // Este efecto se ejecutará cada vez que el estado se actualice
-      console.log("fppppp");
-      dispatch(getActionFiltered(updatedFilter));
-      console.log("f");
-    }, [updatedFilter])
 
-    return <li 
+    const handleItemClick = (provincia) => {
+        dispatch(setProvincia(provincia));
+    };
+
+    useEffect(() => {
+        dispatch(getActionFiltered(updatedFilter));
+    }, [updatedFilter]);
+
+    return (
+        <li
             className={styles.containerListCity}
             key={id}
             onClick={() => handleItemClick(provincias)}
-            >
-                {provincias}
+        >
+            {provincias}
         </li>
-}
+    );
+};
 
 const SearchBar = (props) => {
-
     const [autocompleteState, setAutocompleteState] = useState({
         collections: null,
-        isOpen: false
-    })
+        isOpen: false,
+    });
 
-    const autocomplete = useMemo(() => createAutocomplete({
-        placeholder: "Buscar",
-        onStateChange: ({ state }) => {
-            setAutocompleteState(state);
-        },
-        getSources: () => [{
-            sourceId: 'your-source-id', 
-            getItems: async ({ query }) => {
-                if (!!query) {
-                    return fetch(`https://room-project-backend.onrender.com/apartment?provincias=${query}`)
-                    .then(res => res.json())
-                    .then(data => data.docs)
-            }
+    const [query, setQuery] = useState('');
+
+    const dispatch = useDispatch();
+    const inputRef = useRef(null);
+    const panelRef = useRef(null);
+    const searchTimeoutRef = useRef(null);
+
+    const formRef = useRef(null);
+
+    const autocomplete = useMemo(
+        () =>
+            createAutocomplete({
+                placeholder: 'Buscar',
+                onStateChange: ({ state }) => {
+                    setAutocompleteState(state);
+                },
+                getSources: () => [
+                    {
+                        sourceId: 'your-source-id',
+                        getItems: async ({ query }) => {
+                            if (query) {
+                                const response = await fetch(
+                                    `https://room-project-backend.onrender.com/apartment?provincias=${query}`
+                                );
+                                const data = await response.json();
+                                return data.docs;
+                            }
+                            return [];
+                        },
+                    },
+                ],
+                ...props,
+            }),
+        [props]
+    );
+
+    const handleChange = (event) => {
+        const newQuery = event.target.value;
+        setQuery(newQuery);
+
+        // Limpiar el timeout anterior si existe
+        if (searchTimeoutRef.current) {
+            clearTimeout(searchTimeoutRef.current);
         }
-    }],
-    // hola
+
+        // Establecer un nuevo timeout
+        searchTimeoutRef.current = setTimeout(() => {
+            // Ejecuta la búsqueda después de 5 caracteres con un retraso de 3 segundos
+            if (newQuery.length >= 5) {
+                autocomplete.refresh();
+                autocomplete.setQuery(newQuery);
+            }
+        }, 3000);
+    };
+
+    const formProps = {
         ...props,
-    }), [props])
+        onChange: handleChange,
+        onSubmit: (event) => event.preventDefault(),
+        ref: formRef,
+    };
 
-    const formRef = useRef(null)
-    const inputRef = useRef(null)
-    const panelRef = useRef(null)
-
-    const formProps = autocomplete.getFormProps({
-        inputElement: inputRef.current
-    })
-
-    const inputProps = autocomplete.getInputProps({
-        inputElement: inputRef.current
-    })
+    const inputProps = {
+        ...autocomplete.getInputProps({
+            inputElement: inputRef.current,
+        }),
+        value: query,
+        ref: inputRef,
+    };
 
     const uniqueItems = useMemo(() => {
         const provinciasSet = new Set();
-        return autocompleteState.collections?.[0]?.items?.filter((item) => {
-            if (!provinciasSet.has(item.provincias)) {
-                provinciasSet.add(item.provincias);
-                return true;
-            }
+        return (
+            autocompleteState.collections?.[0]?.items?.filter((item) => {
+                if (!provinciasSet.has(item.provincias)) {
+                    provinciasSet.add(item.provincias);
+                    return true;
+                }
                 return false;
-            }) || [];
-        }, [autocompleteState.collections]);
+            }) || []
+        );
+    }, [autocompleteState.collections]);
 
     return (
-        <form ref={formRef} 
-        // className='flex justify-center mb-20 w-2/6' 
-        className={styles.searchBar}
-        {...formProps}>
-            {/* {console.log(autocompleteState)} */}
-            <div 
-                // className='flex relative p-1  bg-gradient-to-tr from-green-600 to-white-300  rounded-full w-full'
-                className={styles.searchHeader}
-                >
-                <input ref={inputRef} 
-                    // className='flex-1 p-2 pl-4 rounded-full w-full'
-                    className={styles.searchInput}
-                    {...inputProps}
-                />
-                        <div className={styles.circle}>
-                            <img src={SearchIcon} alt="CasaIcono" />
-                        </div>
-            
-            {/* {console.log("Is autocomplete open?", autocomplete.isOpen)} */}
-            {
-                autocompleteState.isOpen && (
-                    <div 
-                        // className='absolute mt-14 top-0 left-0 border border-gray-100 bg-blue overflow-hidden rounded-lg shadow-lg z-10' 
+        <form className={styles.searchBar} {...formProps}>
+            <div className={styles.searchHeader}>
+                <input className={styles.searchInput} {...inputProps} />
+                <div className={styles.circle}>
+                    <img src={SearchIcon} alt="CasaIcono" />
+                </div>
+                {autocompleteState.isOpen && (
+                    <div
                         className={styles.ContainerSearchValues}
-                        ref={panelRef} {...autocomplete.getPanelProps()}>
-                        {/* {console.log("Rendering autocomplete panel")} */}
+                        ref={panelRef}
+                        {...autocomplete.getPanelProps()}
+                    >
                         <section>
                             <ul {...autocomplete.getListProps()}>
                                 {uniqueItems.map((item) => (
@@ -118,13 +140,10 @@ const SearchBar = (props) => {
                             </ul>
                         </section>
                     </div>
-                )
-            }
+                )}
             </div>
         </form>
-    )
-}
+    );
+};
 
-export default SearchBar
-
-// https://room-project-backend.onrender.com/apartment?city=${query}
+export default SearchBar;

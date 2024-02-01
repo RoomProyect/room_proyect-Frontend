@@ -104,16 +104,11 @@ export const nextPageCommentAction = ( dispatch ) => {
 export const prevPageCommentaction = ( dispatch ) => {
   dispatch( prevPageComment() );
 }
-// AAAAAAAAAAAA
-// export const setFilter = (filter) => ({
-//   type: 'SET_FILTER',
-//   payload: filter,
-// });
-// AAAAAAAAAAA
+
 export const getActionFiltered = ( filtro ) => async ( dispatch ) => {
   try {
     dispatch(filter(filtro))
-    const { data } = await axios( `/apartment?precio[${filtro.min}]=${filtro.precio_min}&precio[${filtro.max}]=${filtro.precio_max}&sortByP=${filtro.sortByP}&page=${filtro.page}&cochera=${filtro.cochera}&provincias=${filtro.provincias}` )
+    const { data } = await axios( `/apartment?precio[${filtro.min}]=${filtro.precio_min}&precio[${filtro.max}]=${filtro.precio_max}&sortByP=${filtro.sortByP}&page=${filtro.page}&cochera=${filtro.cochera}` )
     dispatch(getDeptoFiltered(data.docs))
     dispatch( paginate( data ) )
   } catch (error) {
