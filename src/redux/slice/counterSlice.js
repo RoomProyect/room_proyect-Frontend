@@ -20,6 +20,7 @@ export const counterSlice = createSlice({
       precio_min: "",
       sortByP: "",
       paginate: "1",
+      provincias: ""
   },
     
   },
@@ -105,6 +106,9 @@ export const counterSlice = createSlice({
       //   }
       // }
     },
+    setProvincia: (state, action) => {
+      state.filter.provincias = action.payload;
+    }
   },
 });
 
@@ -119,6 +123,7 @@ export const {
   prevPage,
   getProv,
   getDeptoById,
-  filter
+  filter,
+  setProvincia
 } = counterSlice.actions;
 export default counterSlice.reducer;
