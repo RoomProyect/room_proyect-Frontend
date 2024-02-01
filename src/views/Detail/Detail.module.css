@@ -8,8 +8,8 @@
 }
 
 .propertyImage {
-    width: 100%;
-    height: auto;
+    width: 50%;
+    height: 70%;
     border-radius: 0.9775rem;
     object-fit: cover;
     box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.356);
@@ -65,6 +65,7 @@
     margin-right: 1rem;
     box-shadow: 0px 2.327px 2.327px 0px rgba(0, 0, 0, 0.356);
     cursor: pointer;
+    object-fit: cover;
 }
 
 .detailsContainer {
