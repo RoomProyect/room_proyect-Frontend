@@ -91,13 +91,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     //dispatch(postActionLogin(data));
-    if (!data.email || !data.password) {
-      Swal.fire({
-        icon: 'warning',
-        title: `Faltan datos`,
-        text: 'Ingrese el email y contraseña',
-      });  
-    }
+  
     signin(data.email, data.password)
   };
 

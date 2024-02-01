@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 const Filters = () => {
     const filterG = useSelector( (state) => state.counter.filter );
-    const [ciudad, setCiudad] = useState('');
+    
     const [cochera, setCochera] = useState('');
     const [precioMin, setPrecioMin] = useState('');
     const [precioMax, setPrecioMax] = useState('');
@@ -17,7 +17,8 @@ const Filters = () => {
         precio_min: "",
         sortByP: "",
         page: "1",
-        cochera: ""
+        cochera: "",
+        provincias: ""
     });
 
     const dispatch = useDispatch();
